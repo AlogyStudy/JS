@@ -4,7 +4,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 //数据库的链接地址
-var url = 'mongodb://localhsot:27017/student';
+var url = 'mongodb://localhost:27017/student';
 
 //建立连接
 MongoClient.connect(url,function( err,db ){
@@ -16,10 +16,24 @@ MongoClient.connect(url,function( err,db ){
 		return ;
 
 	}
-	
-	console.log('数据库成功连接');
 
-	db.close();
+	db.collection('class1').insertOne({'name': 'mm','age': 23},function ( err,result ) {
+
+		if ( err ) {
+
+			console.log('数据插入失败');
+
+			return false;
+
+		}
+
+		console.log('数据插入成功',result);
+
+		db.close();
+
+	});
+
+	console.log('数据库成功连接');
 
 });
 
