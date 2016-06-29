@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>成绩管理系统</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+	</head>
+	<body>
+		
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">学生成绩系统</a>
+		    </div>
+		
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li class="active"><a href="#">学生列表</a></li>
+		        <li class=""><a href="/add">增加学生</a></li>	
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>		
+	
+		<table class="table table-striped">
+			<tr>
+				<th>学号</th>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>性别</th>
+				<th>语文成绩</th>
+				<th>数学成绩</th>
+			</tr>
+		</table>
+		
+		<script type="text/template" id="moban">
+			
+			<tr>
+				<td><%=xuehao %></td>
+				<td><%=xingming %></td>
+				<td><%=nianling %></td>
+				<td><%=xingbie %></td>
+				<td><%=yuwen %></td>
+				<td><%=shuxue %></td>
+			</tr>
+			
+		</script>
+
+		<script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+		<script src="//cdn.bootcss.com/underscore.js/1.8.3/underscore.js"></script>
+		
+		<script type="text/javascript">
+			
+			
+			
+		</script>
+		
+	</body>
+</html>
