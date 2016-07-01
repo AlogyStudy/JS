@@ -21,6 +21,11 @@ app.get('/add',function (req,res,next) {
 	
 });
 
+
+app.get('/doadd', router.doadd);
+app.get('/all', router.showAll);
+
+
 app.listen('80');
 
 console.log('启动成功');

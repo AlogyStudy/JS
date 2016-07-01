@@ -25,16 +25,24 @@
 		</nav>		
 	
 		<div class="container">
-			
-			<p>学号：<input type="text" name="xuehao" /></p>
-			<p>姓名：<input type="text" name="xingming" /></p>
-			<p>性别：
-					<input type="radio" name="xingbie" value="男" />男
-					<input type="radio" name="xingbie" value="女" />女
-			</p>
-			<p>年龄：<input type="text" name="nianling" /></p>
-			<p>语文成绩：<input type="text" name="yuwen" /></p>
-			<p>数学成绩：<input type="text" name="shuxue" /></p>
+		
+			<form id="biaodan">
+				
+				<p>学号：<input type="text" name="xuehao" /></p>
+				<p>姓名：<input type="text" name="xingming" /></p>
+				<p>性别：
+						<input type="radio" name="xingbie" value="男" />男
+						<input type="radio" name="xingbie" value="女" checked="checked" />女
+				</p>
+				<p>年龄：<input type="text" name="nianling" /></p>
+				<p>语文成绩：<input type="text" name="yuwen" /></p>
+				<p>数学成绩：<input type="text" name="shuxue" /></p>
+				
+				<p>
+					<input type="button" name="tijiao" id="tijiao" value="提交" />
+				</p>
+				
+			</form>
 			
 		</div>
 		
@@ -56,7 +64,31 @@
 		
 		<script type="text/javascript">
 			
-			
+			$('#tijiao').click(function () {
+				
+				var str = $('form').serialize();
+				
+				$.get('/doadd?' + str, function ( data ) {
+					
+					if ( data.jieguo  == 1 ) {
+						
+						alert('插入成功');
+						
+						$('input').val('');
+						
+					} else if ( data.jieguo == -1 ) {
+						
+						alert('服务器错误');
+						
+					} else if ( data.jieguo == -2 ) {
+						
+						alert('学号冲突！');
+						
+					}
+					
+				} );
+				
+			});			
 			
 		</script>
 		
