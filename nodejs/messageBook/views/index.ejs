@@ -1,0 +1,123 @@
+<html>
+	<head>
+		<title>留言本</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+		<style type="text/css">
+			h1 {
+				line-height: 100px;
+			}
+			form {
+				overflow: hidden;
+				clear: both;
+			}
+			#AllLiuyan {
+				clear: both;
+			}
+			
+			.liuyankuai {
+				padding: 10px 0;
+				border-bottom: 1px solid pink;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="container">
+			
+			<h1>留言本</h1>
+			
+			<div class="row">
+			
+				<form class="form-horizontal col-lg-8">
+					
+				  <div class="form-group">
+				    <label for="xingming">姓名</label>
+				    <input type="text" class="form-control" id="xingming" name="xingming" placeholder="请输入姓名">
+				  </div>
+				  
+				  <div class="form-group">
+				    <label for="liuyan">留言</label>
+				    <textarea name="liuyan" id="liuyan" class="form-control" rows="" cols="3" placeholder="请输入留言"></textarea>
+				  </div>
+				  
+				  <button type="button" id="tijiao" class="btn btn-success">提交</button>
+				  
+				</form>
+				
+			</div>
+			
+			<div id="AllLiuyan">
+				
+			</div>
+			
+		</div>	
+		
+		
+		<script type="text/template" id="moban">
+			
+			<div class="list-group liuyankuai">
+				<h4 class="list-group-item-heading"><strong>xingming: </strong>{{xingming}}</h4>
+				<p class="list-group-item-text"><strong>neirong: </strong>{{liuyan}}</p>
+			</div>
+			
+		</script>
+		
+		<script src="/lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!--<script src="/lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>-->
+		
+		<script src="/lib/underscore.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			// ajax data
+			$.get('/du', function ( res ) {
+				
+				for ( var i=0; i<res.reslut.length; i++ ) {
+					
+					// get moban
+					var compiled = _.template($('#moban').html());
+					
+					// shuju bangding 
+					var html = compiled({liuyan: res.reslut[i].liuyan, xingming: res.reslut[i].xingming});
+					
+					// tianjia DOM
+					$('#AllLiuyan').append(html);
+					
+				}
+				
+			});
+			
+			
+			$('#tijiao').on('click', function () {
+				
+				// ajax 提交表单
+				$.post('/tijiao', {
+					
+					'xingming': $('#xingming').val(),
+					'liuyan': $('#liuyan').val()
+					
+				}, function ( reslut ) {
+					
+					if ( reslut == -1 ) {
+						
+						alert('shibai');
+						
+					}
+					
+					alert('ok');
+					
+				});
+				
+//				window.refresh(); // ie jianrong
+				
+				// tijiao hou  
+//				window.location = '/'; 
+				
+			});
+			
+		</script>
+		
+	</body>
+</html>
+
