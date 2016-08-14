@@ -30,7 +30,8 @@ app.post('/tijiao', function ( req,res,next ) {
 		db.insertOne('liuyanben', {
 			
 			'xingming': fields.xingming,
-			'liuyan': fields.liuyan
+			'liuyan': fields.liuyan,
+			'shijian': new Date()
 			
 		}, function ( err, reslut ) {
 			
@@ -53,7 +54,10 @@ app.post('/tijiao', function ( req,res,next ) {
 
 app.get('/du', function ( req, res, next ) {
 	
-	db.find('liuyanben', {}, function ( err, reslut ) {
+	var pageSize = 4;
+	var page = parseInt( req.query.page );
+	
+	db.find('liuyanben', {}, {"sort": {"shijian": -1}, 'pageamount': pageSize, 'page': page}, function ( err, reslut ) {
 		
 		if ( err ) {
 			
@@ -61,10 +65,19 @@ app.get('/du', function ( req, res, next ) {
 			
 		}
 		
-		res.json({"reslut": reslut});
+		// 获取总条数
+		db.getAllCount('liuyanben', function ( num ) {
+			
+			res.json({'pageNum': num ,"reslut": reslut});
+			
+		});
 		
 	});
+	
+	
 	
 });
 
 app.listen(80);
+
+console.log('启动成功');

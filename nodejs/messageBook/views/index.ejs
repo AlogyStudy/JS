@@ -16,7 +16,7 @@
 			
 			.liuyankuai {
 				padding: 10px 0;
-				border-bottom: 1px solid pink;
+				border-bottom: 1px solid #eee;
 			}
 		</style>
 	</head>
@@ -46,6 +46,29 @@
 				
 			</div>
 			
+			
+			<nav>
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    
+		    	<!--<li class="yemaanniu active"><a href="#">1</a></li>
+		    	<li class="yemaanniu"><a href="#">2</a></li>
+		    	<li class="yemaanniu"><a href="#">3</a></li>
+		    	<li class="yemaanniu"><a href="#">4</a></li>
+		    	<li class="yemaanniu"><a href="#">5</a></li>-->
+		    	
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+			
 			<div id="AllLiuyan">
 				
 			</div>
@@ -56,8 +79,9 @@
 		<script type="text/template" id="moban">
 			
 			<div class="list-group liuyankuai">
-				<h4 class="list-group-item-heading"><strong>xingming: </strong>{{xingming}}</h4>
-				<p class="list-group-item-text"><strong>neirong: </strong>{{liuyan}}</p>
+				<p class="list-group-item-heading"><strong>姓名: </strong>{{xingming}}</p>
+				<p class="list-group-item-text"><strong>内容: </strong>{{liuyan}}</p>
+				<p><strong>时间: </strong>{{shijian}}</p>
 			</div>
 			
 		</script>
@@ -70,32 +94,61 @@
 		
 		<script type="text/javascript">
 			
-			// ajax data
-			$.get('/du', function ( res ) {
+			// 分页
+			// 所有的页码按钮添加监听
+			$('.yemaanniu').on('click', function () {
 				
-				for ( var i=0; i<res.reslut.length; i++ ) {
-					
-					// get moban
-					var compiled = _.template($('#moban').html());
-					
-					// shuju bangding 
-					var html = compiled({liuyan: res.reslut[i].liuyan, xingming: res.reslut[i].xingming});
-					
-					// tianjia DOM
-					$('#AllLiuyan').append(html);
-					
-				}
+				var page = parseInt($(this).text());
+				
+				// 重新发起请求
+				getDate(page);
+				
+				$(this).addClass('active').siblings().removeClass('active');
 				
 			});
 			
+			// load 载入请求 0 页数据
+			getDate(1);
 			
+			// ajax data
+			function getDate ( page ) {
+				
+				// 真实page是从0 开始算起
+				
+				$.get('/du?page=' + (page - 1), function ( res ) {
+					
+					// get 模板
+					var compiled = _.template($('#moban').html());
+					
+					// 清空原来的节点
+					$('#AllLiuyan').html('');
+					
+					for ( var i=0; i<res.reslut.length; i++ ) {
+						
+						// 数据绑定
+						var html = compiled({liuyan: res.reslut[i].liuyan, xingming: res.reslut[i].xingming, shijian: res.reslut[i].shijian});
+						
+						// 添加  DOM
+						$('#AllLiuyan').append(html);
+						
+					}
+					
+				});
+				
+			}
+			
+			// 提交数据
 			$('#tijiao').on('click', function () {
+				
+				var xingming = $('#xingming').val();
+				
+				var liuyan = $('#liuyan').val();
 				
 				// ajax 提交表单
 				$.post('/tijiao', {
 					
-					'xingming': $('#xingming').val(),
-					'liuyan': $('#liuyan').val()
+					'xingming': xingming,
+					'liuyan': liuyan
 					
 				}, function ( reslut ) {
 					
@@ -104,6 +157,16 @@
 						alert('shibai');
 						
 					}
+					
+					// 提交成功
+					$('#chenggone').fadeIn();
+					
+					// 数据库存储数据，但是当前页面无法显示，是因为需要刷新，才能从ajax 从 路由 /du 中得到新的数据， 所以需要先用一个假盒子凑出来
+					var compiled = _.template($('#moban').html());
+					
+					var html = compiled({liuyan: liuyan, xingming: xingming, shijian: new Date()});
+					
+					$(html).insertBefore($('#AllLiuyan'));
 					
 					alert('ok');
 					

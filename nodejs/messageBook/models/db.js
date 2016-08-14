@@ -1,6 +1,3 @@
-/**
- * Created by Danny on 2015/9/25 9:31.
- */
 //这个模块里面封装了所有对数据库的常用操作
 
 var MongoClient = require('mongodb').MongoClient;
@@ -21,7 +18,7 @@ function _connectDB(callback) {
     });
 }
 
-//插入数据
+// 插入数据
 exports.insertOne = function (collectionName, json, callback) {
     _connectDB(function (err, db) {
         db.collection(collectionName).insertOne(json, function (err, result) {
@@ -31,7 +28,7 @@ exports.insertOne = function (collectionName, json, callback) {
     })
 };
 
-//查找数据，找到所有数据。args是个对象{"pageamount":10,"page":10}
+// 查找数据，找到所有数据。args是个对象{"pageamount":10,"page":10}
 exports.find = function (collectionName, json, C, D) {
     var result = [];    //结果数组
     if (arguments.length == 3) {
@@ -56,6 +53,7 @@ exports.find = function (collectionName, json, C, D) {
 
     //连接数据库，连接之后查找所有
     _connectDB(function (err, db) {
+    	
         var cursor = db.collection(collectionName).find(json).skip(skipnumber).limit(limit).sort(sort);
         cursor.each(function (err, doc) {
             if (err) {
@@ -74,7 +72,7 @@ exports.find = function (collectionName, json, C, D) {
     });
 }
 
-//删除
+// 删除
 exports.deleteMany = function (collectionName, json, callback) {
     _connectDB(function (err, db) {
         //删除
@@ -88,7 +86,7 @@ exports.deleteMany = function (collectionName, json, callback) {
     });
 }
 
-//修改
+// 修改
 exports.updateMany = function (collectionName, json1, json2, callback) {
     _connectDB(function (err, db) {
         db.collection(collectionName).updateMany(
@@ -101,6 +99,7 @@ exports.updateMany = function (collectionName, json1, json2, callback) {
     })
 }
 
+// 获取总条数
 exports.getAllCount = function (collectionName,callback) {
     _connectDB(function (err, db) {
         db.collection(collectionName).count({}).then(function(count) {

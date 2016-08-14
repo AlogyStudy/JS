@@ -2,6 +2,7 @@
 var http = require('http');
 var contorller = require('./controller/t.js');
 
+console.log( contorller );
 
 var server = http.createServer(function( req,res ){
 
