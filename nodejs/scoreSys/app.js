@@ -26,6 +26,10 @@ app.get('/doadd', router.doadd);
 app.get('/all', router.showAll);
 
 
-app.listen('80');
+app.listen('8088');
 
 console.log('启动成功');
+
+
+
+
