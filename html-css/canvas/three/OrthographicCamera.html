@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+    	background: black;
+    }
+  </style>
+
+
+</head>
+<body>
+
+  <!--<script src="three.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="//cdn.bootcss.com/three.js/r57/three.js"></script>
+	
+  <script type="text/javascript">
+
+    var scene = new THREE.Scene();
+
+    var camera = new THREE.OrthographicCamera(-2,2,1.5,-1.5,1,10);
+    
+    var renderer = new THREE.WebGLRenderer();
+    
+    renderer.setSize(window.innerWidth,window.innerHeight);
+
+    document.body.appendChild(renderer.domElement);
+    
+    
+    camera.position.set(4,-3,5);
+
+		//照相机沿z轴负方向观察的，因此观察不到正方体，只看到一片黑。可以通过lookAt函数指定它看着原点方向：
+		var vector3 = new THREE.Vector3(0,0,0);
+		
+		camera.lookAt( vector3 );
+
+    //位置，缩放，旋转
+    //THREE.Object3D
+//    scale,rotation,position
+    //mash.position.set(1.5,-0.5,0);
+
+    scene.add( camera );
+
+    var geomertry = new THREE.CubeGeometry(1,1,1);
+    var material = new THREE.MeshBasicMaterial({
+      color: 'cyan',
+      wireframe: true
+    });
+
+    var cube = new THREE.Mesh(geomertry,material);
+
+    scene.add( cube );
+    
+//		cube.position = new THREE.Vector3(2, -0.5, 0);
+		
+		renderer.render( scene,camera );
+
+  </script>
+
+
+
+</body>
+</html>

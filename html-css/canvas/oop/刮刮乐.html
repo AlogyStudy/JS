@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			
+			canvas {
+				background: url(../images/123.jpg);
+				background-size: cover;
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="500" height="400" style="border: 1px solid magenta;"></canvas>
+		
+		
+		<script type="text/javascript">
+			
+			var cvs = document.querySelector('#cvs');
+			
+			var cs = cvs.getContext('2d');
+				
+			cs.fillStyle = '#cfcfcf';
+			cs.fillRect(0,0,cvs.width,cvs.height);
+			
+			cvs.onmousedown = function(){
+				
+				cvs.onmousemove = function( ev ){
+					
+					cs.globalCompositeOperation = 'destination-out';
+					
+					cs.beginPath();
+						
+						cs.fillStyle = 'black';
+						cs.arc(ev.offsetX,ev.offsetY,20,0,Math.PI*2,false);
+						cs.fill();
+					
+					cs.closePath();
+					
+				}
+				
+			}
+			
+			document.onmouseup = function(){
+				
+				cvs.onmousemove = null;
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+  <canvas id="cvs" width="500" height="600" style="border: 1px solid #1e1e1e;"></canvas>
+
+  <script>
+
+
+    var cvs = document.querySelector('#cvs');
+
+    var cs = cvs.getContext('2d');
+
+    var x = 0;
+
+
+    setInterval(function(){
+
+      x ++;
+      cs.beginPath();
+
+      //擦除
+      cs.clearRect(0,0,cvs.width,cvs.height);
+			
+			//  方形不运动，也要重绘：
+      cs.fillStyle = 'cyan';
+      cs.fillRect(100,100,100,100);
+
+      cs.fillStyle = 'pink';
+      cs.arc(x,100,20,0,7,false);
+      cs.fill();
+
+      cs.closePath();
+
+    },30);
+
+
+
+
+  </script>
+
+</body>
+</html>

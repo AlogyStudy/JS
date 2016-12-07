@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      background: black;
+    }
+  </style>
+</head>
+<body>
+
+<script src="three.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="//cdn.bootcss.com/three.js/r50/three.js"></script>-->
+<script src="Stats.js"></script>
+
+<script type="text/javascript">
+
+  var stat = null;
+
+  function init(){
+
+    stat = new Stats();
+    stat.domElement.style.position = 'absolute';
+    stat.domElement.style.right = '0px';
+    stat.domElement.style.top = '0px';
+    document.body.appendChild(stat.domElement);
+
+    var scene = new THREE.Scene();
+
+    var camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,10);
+
+    var renderer = new THREE.WebGLRenderer();
+
+    renderer.setSize(window.innerWidth,window.innerHeight);
+
+    document.body.appendChild( renderer.domElement );
+
+    camera.position.set(0,0,5);
+
+    scene.add(camera);
+
+    var geometry = new THREE.CubeGeometry(1,2,3);
+
+    var material = new THREE.MeshBasicMaterial({
+      color: 'cyan',
+      wireframe: true
+    });
+
+
+    var cube = new THREE.Mesh( geometry,material );
+
+    scene.add(cube);
+
+    var timer = setInterval(draw,20);
+
+    function draw(){
+
+      stat.begin();
+
+      cube.rotation.y += 0.01;
+
+//    cube.rotation.y = (cube.rotation.y + 0.01) % (Math.PI * 2);
+
+      renderer.render( scene,camera );
+
+      stat.end();
+
+    }
+
+  }
+
+  init();
+
+
+  //requestAnimationFrame
+
+  /*var render = function(){
+
+    var timer = requestAnimationFrame(render);
+
+    cube.rotation.y += 0.001;
+
+    renderer.render( scene,camera );
+
+  };
+
+  function stopRequestAnimationFrame(){
+
+    if ( timer != null ) {
+
+      cancelAnimationFrame();
+      timer = null;
+
+    }
+
+  }
+
+  render();*/
+
+
+  function stopSetInterval(){
+
+    if( timer != null ){
+      clearInterval(timer);
+      timer = null;
+    }
+
+  }
+
+
+
+</script>
+
+
+</body>
+</html>

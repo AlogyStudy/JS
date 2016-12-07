@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>3d-轮播图</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				overflow: hidden;
+				background: black;
+			}
+			
+			.stage {
+				width: 1260px;
+				height: 440px;
+				border: 1px solid #000;
+				margin: 50px auto;
+				position: relative;
+				perspective: 500px;
+			}
+			
+			.stage ul {
+				list-style: none;
+			}
+			
+			.stage ul li {
+				position: absolute;
+				top: 50px;
+				left: 350px;
+				/*border: 1px solid #000;*/
+				transition: all .5s ease 0s;
+			}
+			
+			.stage ul li.center {
+				z-index: 999;
+				transform: none;
+			}
+			
+			.stage ul li.l1 {
+				z-index: 888;
+				transform: rotateY(30deg) translateX(-100px) translateZ(-200px);
+			}
+			
+			.stage ul li.l2 {
+				z-index: 777;
+				transform: rotateY(30deg) translateX(-200px) translateZ(-300px);
+			}
+			
+			.stage ul li.l3 {
+				z-index: 666;
+				transform: rotateY(30deg) translateX(-300px) translateZ(-400px);
+			}
+			
+			.stage ul li.l4 {
+				z-index: 555;
+				transform: rotateY(30deg) translateX(-400px) translateZ(-500px);
+			}
+			
+			.stage ul li.r1 {
+				z-index: 888;
+				transform: rotateY(-30deg) translateX(100px) translateZ(-200px);
+			}
+			
+			.stage ul li.r2 {
+				z-index: 777;
+				transform: rotateY(-30deg) translateX(200px) translateZ(-300px);
+			}
+			
+			.stage ul li.r3 {
+				z-index: 666;
+				transform: rotateY(-30deg) translateX(300px) translateZ(-400px);
+			}
+			
+			.stage ul li.r4 {
+				z-index: 555;
+				transform: rotateY(-30deg) translateX(400px) translateZ(-500px);
+			}
+			
+			.stage .bar {
+				position: absolute;
+				width: 1260px;
+				height: 30px;
+				background-color: #ccc;
+				bottom: 0;
+				left: 0;
+			}
+			
+			.stage .bar b {
+				position: absolute;
+				top: 0;
+				left: 504px;
+				width: 252px;
+				/*总宽度÷5*/
+				height: 30px;
+				background-color: gold;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<div class="stage">
+			<ul>
+				<li class="l2"><img src="images/img/0.jpg" alt="" /></li>
+				<li class="l1"><img src="images/img/1.jpg" alt="" /></li>
+				<li class="center"><img src="images/img/2.jpg" alt="" /></li>
+				<li class="r1"><img src="images/img/3.jpg" alt="" /></li>
+				<li class="r2"><img src="images/img/4.jpg" alt="" /></li>
+			</ul>
+		</div>
+		
+		<input type="button" name="" id="leftBtn" value="leftBtn" />
+		<input type="button" name="" id="rightBtn" value="rightBtn" />
+
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		
+			var classNameArr = ['l4','l3','l2','l1','center','r1','r2','r3','r4'];
+			var $lis = $('.stage ul li');
+			var idx = 2;  //信号量开始，表示取出的小数组的起始位置.
+			
+			var lock = true;
+			
+			//right
+			$('#rightBtn').click(function(){
+				if (!lock) return false;
+				idx++;
+				if ( idx>4 ) {
+					idx = 4;
+				}
+				var arr = classNameArr.slice(idx,idx+5);
+				$lis.each(function( i,val ){
+					$(this).attr('class',arr[i]);
+				});
+				lock = false;
+				setTimeout(function(){
+					lock = true;
+				},500);
+			});
+			
+			//left
+			$('#leftBtn').click(function(){
+				if (!lock) return false;
+				idx--;
+				if ( idx<0 ) {
+					idx = 0;
+					return false;
+				}
+				var arr = classNameArr.slice(idx,idx+5);
+				$lis.each(function( i,val ){
+					$(this).attr('class',arr[i]);
+				});
+				lock = false;
+				setTimeout(function(){
+					lock = true;
+				},500);
+			});
+		</script>
+	</body>
+
+</html>

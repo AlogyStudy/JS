@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="zepto.fullpage.css"/>
+		
+		<style type="text/css">
+			
+			.wp{
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+		    bottom: 0;
+		    overflow: hidden;            
+			}
+			.page{
+		    font-size: 72px;
+		    line-height: 320px;
+		    text-align: center;
+			}
+			.page1{
+		    background: red;
+			}
+			.page2{
+		    background: yellow;
+			}
+			.page3{
+		    background: maroon;
+			}
+			.page4{
+		    background: green;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		
+		<div class="wp">
+        <div class="wp-inner">
+            <div class="page page1">1</div>
+            <div class="page page2">2</div>
+            <div class="page page3">3</div>
+            <div class="page page4">4</div>
+        </div>
+    </div>
+		
+		<script src="js.fullpage.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+//		document.querySelector('.wp-inner').fullpage();
+
+				
+			document.querySelector('.wp-inner').fullpage({'dir': 'h'});
+			
+		</script>
+		
+	</body>
+</html>

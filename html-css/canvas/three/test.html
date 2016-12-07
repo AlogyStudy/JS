@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+<script src="Stats.js"></script>
+
+<script>
+
+    var stats = new Stats();
+
+    stats.setMode(1); // 0: fps, 1: ms
+
+    // Align top-left
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+
+    document.body.appendChild( stats.domElement );
+
+    setInterval(function(){
+
+      stats.begin();
+
+      for ( var i=0; i<100000; i++ ){
+        console.log(i);
+      }
+
+      stats.end();
+
+    },1000/60);
+
+</script>
+
+</body>
+</html>

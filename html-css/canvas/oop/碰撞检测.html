@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="500" height="400" style="border: 1px solid magenta;"></canvas>
+		
+		
+		<script type="text/javascript">
+			
+			var cvs = document.querySelector('#cvs');
+			
+			var cs = cvs.getContext('2d');
+			
+			function drawBigBall(){
+				
+				cs.beginPath();
+				
+					cs.fillStyle = 'hotpink';
+					cs.arc(400,100,50,0,Math.PI*2,false);
+					cs.fill();
+					
+				cs.closePath();
+				
+			}
+			
+			
+			
+			function drawSmallBall(){
+				
+				cs.beginPath();
+				
+					cs.fillStyle = 'tan';
+					cs.arc(x,100,10,0,Math.PI*2,false);
+					cs.fill();
+				
+				cs.closePath();
+				
+			}
+			
+			drawBigBall();
+			
+			
+			//小球的x值
+			var x = 100;
+			
+			var timer = setInterval(function(){
+				
+				//清屏
+				cs.clearRect(0,0,cvs.width,cvs.height);
+				
+				x ++;
+				
+				//建立猫腻
+				cs.globalCompositeOperation = 'source-over';
+				
+				drawBigBall();
+				
+				cs.globalCompositeOperation = 'destination-in';	
+
+				drawSmallBall();
+				
+				var c = cs.getImageData(x-10,100-10,20,20);
+				
+				for ( var i=0; i<c.data.length; ++i ) {
+					
+					if ( c.data[i] != 0 ) {
+						clearInterval(timer);
+					}
+					
+				}
+				
+				cs.globalCompositeOperation = 'source-over';
+				drawSmallBall();
+				drawBigBall();
+				
+			},-1);
+			
+			
+			
+			
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

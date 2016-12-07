@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<style type="text/css">
+			
+			#cvs {
+				border: 1px solid cyan;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="400" height="500"></canvas>
+		
+		<script type="text/javascript">
+			
+			var cvs = document.querySelector('#cvs');
+
+			var cs = cvs.getContext('2d');
+			
+			// console.log( cs );
+			for( var i in cs ){
+				// document.write( cs[i] + '<br/>' );
+			}
+			
+			cs.arc(100,100,40,0,Math.PI * 2,false);	
+			cs.fillStyle = 'pink';
+			cs.fill();
+
+			cs.beginPath();
+				cs.moveTo(200,200);
+				cs.arcTo(200,100,150,150,30);
+				cs.stroke();
+			cs.closePath();	
+
+
+
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="jquery.fullPage.css" />
+		<script type="text/javascript">
+			
+			//默认滚动条默认事件
+			window.onmousewheel = function( ev ){
+				
+				if (ev) ev = window.event;
+				
+				if ( ev.preventDefault ) {
+					ev.preventDefault();
+				} else {
+					ev.returnValue = false;
+				}
+			
+				return false;
+				
+			}
+			
+		</script>
+		
+	</head>
+
+	<body>
+
+		<!--fullpage-->
+		<div id="fullpage">
+			<!--第一屏-->
+			<div class="section page0">1111111</div>
+			<div class="section page1">2222222</div>
+			<div class="section page2">3333333</div>
+			<div class="section page3">4444444</div>
+			<div class="section page4">5555555</div>
+			<div class="section page5">6666666</div>
+		</div>
+		<!--end fullpage-->
+	
+		<script src="jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="zepto.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="jquery.fullPage.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			$('#fullpage').fullpage({
+				
+				sectionsColor: ['pink','tan','maroon','cyan','deeppink','khaki'],
+				
+				anchors: ['firstPage','secondPage','thirdPage','fourthPage','fivePage','sixPage'],
+				
+//				navigation: true,
+				
+//				navigationTooltips: ['首页','营销手段','服务优势','特色功能','技术特点','申请加入'],
+				
+				//进入
+				afterLoad: function( anchorlink,idx ){
+					
+					$('.page0');
+					
+				},
+				
+				//离开
+				onLeave: function( idx,nextIndex,direction ){
+					
+						
+				},
+				
+				//载入完毕
+				afterRender: function(){
+					
+				}
+				
+			});
+				
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			canvas {
+				background: black;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<script src="three.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+
+			var scene = new THREE.Scene();
+
+			var camera = new THREE.PerspectiveCamera(45,window.innerWidth,window.innerHeight,.1,100);
+
+			var renderer = new THREE.WebGLRenderer();
+
+			renderer.setSize(window.innerWidth,window.innerHeight);
+			document.body.appendChild( renderer.domElement );
+
+			camera.position.set(0,0,5);
+
+			scene.add(camera);
+			
+
+			var geometry = new THREE.Geometry();
+			
+			// 设置顶点位置
+			// 顶部4顶点
+			geometry.vertices.push(new THREE.Vector3(-1, 2, -1));
+			geometry.vertices.push(new THREE.Vector3(1, 2, -1));
+			geometry.vertices.push(new THREE.Vector3(1, 2, 1));
+			geometry.vertices.push(new THREE.Vector3(-1, 2, 1));
+			
+			// 底部4顶点
+			geometry.vertices.push(new THREE.Vector3(-2, 0, -2));
+			geometry.vertices.push(new THREE.Vector3(2, 0, -2));
+			geometry.vertices.push(new THREE.Vector3(2, 0, 2));
+			geometry.vertices.push(new THREE.Vector3(-2, 0, 2));
+			
+			// 设置顶点连接情况
+			// 顶面
+			geometry.faces.push(new THREE.Face4(0, 1, 2, 3));
+			
+			// 底面
+			geometry.faces.push(new THREE.Face4(4, 5, 6, 7));
+			
+			// 四个侧面
+			geometry.faces.push(new THREE.Face4(0, 1, 5, 4));
+			geometry.faces.push(new THREE.Face4(1, 2, 6, 5));
+			geometry.faces.push(new THREE.Face4(2, 3, 7, 6));
+			geometry.faces.push(new THREE.Face4(3, 0, 4, 7)); 
+			
+			
+			var material = new THREE.MeshNormalMaterial({
+				color: 'cyan',
+				wireframe: true
+			});
+			
+			var cube = new THREE.Mesh( geometry,material );
+
+			scene.add( cube );
+
+			renderer.render( scene,camera );
+
+						
+			
+		</script>
+		
+	</body>
+</html>

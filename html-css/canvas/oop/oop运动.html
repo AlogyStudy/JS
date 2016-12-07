@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+  <canvas id="cvs" width="500" height="600" style="border: 1px solid #1e1e1e;"></canvas>
+	
+	<script src="../js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+	
+  <script>
+
+
+    var cvs = document.querySelector('#cvs');
+
+    var cs = cvs.getContext('2d');
+		
+		/**
+		 * 小球
+		 * @param {Number} x
+		 * @param {Number} y
+		 * @param {Number} r
+		 * @param {String} color
+		 */
+		function Circle( x,y,r,color ){
+			
+			this.x = x;
+			this.y = y;
+			this.r = r;
+			this.color = color;
+			
+			//dic
+			this.dx = _.random(-2,2);
+			this.dy = _.random(-2,2);
+			
+			//渲染
+//			this.render();
+			
+		}
+		
+		//帧编号
+		var foramCount = 0;
+		
+		//fps
+		var fps = 0;
+		
+		//临时fps
+		var _fps = 0;
+		
+		//临时时间戳
+		var _timestmap;
+		
+		
+		
+		//渲染
+		Circle.prototype.render = function(){
+			
+			cs.beginPath();
+			
+			cs.fillStyle = this.color;
+				
+			cs.arc( this.x , this.y , this.r , 0 , Math.PI*2 , false );	
+			
+			cs.fill();
+					
+			cs.closePath();
+			
+		}
+		
+		//更新
+		Circle.prototype.update = function(){
+			
+			this.x += this.dx;
+			this.y += this.dy;
+			
+			if ( this.x < this.r || this.x > cvs.width - this.r ) {
+				
+				this.dx = -this.dx;
+				
+			} else if ( this.y < this.r || this.y > cvs.height - this.r ) {
+				
+				this.dy = -this.dy;
+				
+			}
+			
+		}
+		
+		
+		var ball = new Circle(100,100,20,'cyan');
+
+		setInterval(function(){
+			
+			//清除画布
+			cs.clearRect(0,0,cvs.width,cvs.height);
+			
+			foramCount++;
+			
+			cs.fillStyle = 'maroon';
+			cs.font = '14px 微软雅黑';
+			cs.fillText('帧编号:'+foramCount,10,30);
+			
+			//计算fps
+			if ( Date.parse(new Date()) == _timestmap ) {
+				
+				_fps++;
+				
+			} else {
+				
+				_timestmap = Date.parse(new Date());
+				
+				fps = _fps;
+				
+				_fps = 0;
+				
+			}
+			
+			//输出fps
+			cs.fillStyle = 'magenta';
+			
+			cs.fillText('fps: ' + fps,10,50);
+			
+			
+			ball.update();
+			ball.render();
+			
+		},-1);
+
+  </script>
+
+</body>
+</html>

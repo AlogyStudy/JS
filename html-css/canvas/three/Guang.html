@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      background: black;
+    }
+  </style>
+
+
+</head>
+<body>
+
+<script src="three.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="//cdn.bootcss.com/three.js/r57/three.js"></script>-->
+
+<script type="text/javascript">
+
+  var scene = new THREE.Scene();
+
+  var camera = new THREE.OrthographicCamera(-2,2,1.5,-1.5,1,10);
+
+  var renderer = new THREE.WebGLRenderer();
+
+  renderer.setSize(window.innerWidth,window.innerHeight);
+
+  document.body.appendChild(renderer.domElement);
+
+
+  camera.position.set(4,-3,5);
+
+  //照相机沿z轴负方向观察的，因此观察不到正方体，只看到一片黑。可以通过lookAt函数指定它看着原点方向：
+  var vector3 = new THREE.Vector3(0,0,0);
+
+  camera.lookAt( vector3 );
+
+
+  scene.add( camera );
+
+  //环境光
+//  var light = new THREE.AmbientLight(0xcccccc);
+
+
+//  点光源
+//  点光源是不计光源大小，可以看作一个点发出的光源。点光源照到不同物体表面的亮度是线性递减的，
+// 因此，离点光源距离越远的物体会显得越暗。
+  //THREE.PointLight(hex, intensity, distance)
+  // hex是光源十六进制的颜色值；intensity是亮度，缺省值为1，表示100%亮度；distance是光源最远照射到的距离，缺省值为0。
+  /*var light = new THREE.PointLight(0xffffff,2,100);
+  light.position.set(0,1.5,2);
+  scene.add(light);*/
+
+  //平行光
+  //THREE.DirectionalLight(hex, intensity)
+  /*var light = new THREE.DirectionalLight();
+  light.position.set(2,5,3);
+  scene.add(light);*/
+
+  //聚光灯
+  //THREE.SpotLight(hex, intensity, distance, angle, exponent)
+  //angle是聚光灯的张角，缺省值是Math.PI / 3，最大值是Math.PI / 2；
+  // exponent是光强在偏离target的衰减指数（target需要在之后定义，缺省值为(0, 0, 0)），缺省值是10。
+ /* var light = new THREE.SpotLight();
+  //除了设置光源本身的位置，一般还需要设置target：
+  light.position.set(x1,y1,z1);
+  light.target.position.set(x2,y2,z2);*/
+
+  var geomertry = new THREE.CubeGeometry(1,1,1);
+  var material = new THREE.MeshBasicMaterial({
+    color: 'cyan',
+//    wireframe: true
+  });
+
+  var cube = new THREE.Mesh(geomertry,material);
+
+  var whiteCube = new THREE.Mesh(new THREE.CubeGeometry(2,2,2),
+    new THREE.MeshLambertMaterial({
+      color: 0xffffff
+//      wireframe: true
+    })
+  );
+  whiteCube.position.x = 3;
+  scene.add( whiteCube );
+
+  scene.add( cube );
+
+
+  renderer.render( scene,camera );
+
+</script>
+
+
+
+</body>
+</html>

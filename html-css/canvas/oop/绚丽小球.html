@@ -1,0 +1,168 @@
+<!DOCTYPE html
+>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				background: black;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		
+		<canvas id="cvs" style="border: 1px solid magenta; background: black;"></canvas>
+		
+		<script src="../js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			var cvs = document.querySelector('#cvs');
+			
+			var cs = cvs.getContext('2d');
+			
+			var color = ["#FFCC00","#FF9900","#99CC33","#993366","#66CCCC","#FF99CC"];
+			
+			var windowWidth = document.documentElement.clientWidth;
+			var windowHeight = document.documentElement.clientHeight;
+			
+			cvs.width = windowWidth;
+			cvs.height = windowHeight;
+			
+			//运动对象
+			var actorArr = [];
+			
+			
+			function Circle( x,y,r ){
+				
+				this.x = x;
+				this.y = y;
+				this.r = r;
+				this.color = color[_.random(0,5)];
+				
+				//改变量
+				this.deltaX = _.random(4,8);
+				this.deltaY = _.random(4,8);
+				
+				//添加到运动对象数组
+				window.actorArr.push( this );
+			}
+			
+			//渲染
+			Circle.prototype.render = function(){
+				
+				//消失条件
+				if ( this.r < 0 ) {
+					
+					actorArr = _.without( actorArr,this );
+					
+					return false;
+					
+				}
+				
+				cs.beginPath();
+				
+					cs.fillStyle = this.color;
+					
+					cs.arc( this.x,this.y,this.r,0,7,false );
+					
+					cs.fill();
+					
+				cs.closePath();
+				
+			}
+			
+			//更新状态
+			Circle.prototype.update = function(){
+				
+				//x，y更改
+				this.x += this.deltaX;
+				this.y += this.deltaY;
+				
+				this.r -= 2;
+				
+			}
+			
+			//帧编号 -- 帧数
+			var frameNumber = 0;
+			
+			//fps
+			var fps = 0;
+			var _timestamp;
+			var _fps = 0;
+			
+			setInterval(function(){
+				
+				cs.clearRect(0,0,cvs.width,cvs.height);
+				
+				frameNumber++;
+				
+				cs.fillStyle = 'white';
+				cs.font = '10px 微软雅黑';
+				cs.fillText('帧编号为：' + frameNumber,10,20);
+				
+				//计算 fps
+				if ( Date.parse( new Date() ) == _timestamp ) {
+					
+					_fps++;
+					
+				} else {
+					
+					_timestamp = Date.parse( new Date() );
+					
+					fps = _fps;
+					_fps = 0;
+					
+				}
+				
+				cs.fillStyle = 'white';
+				cs.font = '10px 微软雅黑';
+				cs.fillText('fps为：' + fps,10,50);
+				
+				//遍历actor 执行 actor 中的 render update方法
+				_.each(actorArr,function( actor ){
+					
+					actor.render();
+					actor.update();
+					
+				});
+				
+			},20);
+			
+			//添加鼠标监听
+			
+			cvs.onmousedown = function(){
+				
+				cvs.onmousemove = function( ev ){
+					
+					new Circle(ev.offsetX,ev.offsetY,10);
+					
+				}
+				
+			}
+			
+			document.onmouseup = function(){
+					
+				cvs.onmosuemove = null;	
+					
+			}
+
+/**
+ * 帧——就是影像动画中最小单位的单幅影像画面。 
+ * 一帧就是一副静止的画面，连续的帧就形成动画，如电视图象等。 
+ * 我们通常说帧数，简单地说，就是在1秒钟时间里传输的图片的帧数，
+ * 也可以理解为图形处理器每秒钟能够刷新几次，
+ * 通常用FPS（Frames Per Second）表示。
+ * 每一帧都是静止的图象，快速连续地显示帧便形成了运动的假象。
+ * 高的帧率可以得到更流畅、更逼真的动画。
+ * 每秒钟帧数 (fps) 愈多，所显示的动作就会愈流畅。
+ */
+			
+			
+		</script>
+		
+	</body>
+</html>

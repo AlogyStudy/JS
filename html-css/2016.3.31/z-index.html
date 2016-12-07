@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>z-index</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+		}
+		.papa1 {
+			z-index: 9;
+			background-color: tan;
+		}
+		.papa2 {
+			z-index: 10;
+			background-color: deeppink;
+		}
+
+		.erzi1 {
+			position: absolute;
+			left: 200px;
+			top: 20px;
+			z-index: 10000000;
+			width: 50px;
+			height: 50px;
+			background-color: khaki;
+		}
+		.erzi2 {
+			position: absolute;
+			left: 170px;
+			top: 30px;
+			z-index: 1;
+			width: 50px;
+			height: 50px;
+			background-color: #f80;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="papa1">
+		<div class="erzi1"></div>
+	</div>
+	<div class="papa2">
+		<div class="erzi2"></div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			var a = 0;
+			
+			var img = new Image();
+			
+			img.src = 'images/123.jpg';
+			
+			img.onload = function(){
+				
+				a++;
+				console.log( a + '--123' );
+				window.onload = function(){
+					
+					setInterval(function(){
+						
+						a+=10;
+						
+						console.log( a + '---' );
+						
+					});
+					
+				}
+				
+				console.log( 'aaa'+ a );
+				debugger;
+			}
+			
+			
+			console.log( '11'+ a);
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<style type="text/css">
+			header {
+				width: 100%;
+				height: 50px;
+				background: #171717;
+				box-shadow: 0 5px 8px 2px rgba(43, 45, 51, 0.51);
+			}
+			.head {
+				width: 950px;
+				margin: 0 auto;
+			}
+			nav ul li {
+				float: left;
+				width: 100px;
+				text-align: center;
+				line-height: 50px;
+				transition: all 1s ease 0s;
+			}
+			nav ul li a {
+				display: block;
+				color: #ccc;
+			}
+			nav ul li:not(.search):hover {
+				border-bottom: 3px solid maroon;
+				background: white;
+			}
+			nav ul li:not(.search):hover a {
+				color: maroon;
+			}
+			nav ul li:nth-child(1) a {
+				background: white;
+			}
+			nav ul li a {
+				position: relative;
+				padding-left: 20px;
+			} 
+			nav ul li a::before {
+				content: "";
+				position: absolute;
+				left: 6px;
+				top: 10px;
+				width: 39px;
+				height: 30px;
+				background: url(images/tingicos.png) no-repeat -76px -113px;
+				transition: all .2s ease-in-out 0s; 
+			}
+			nav ul li:nth-child(2) a::before {
+				background-position: -76px -764px;
+			} 
+			nav ul li:nth-child(3) a::before {
+				background-position: -76px -603px;
+			}
+			nav ul li:nth-child(4) a::before {
+				background-position: -76px -30px;
+				height: 27px;
+			}
+			nav ul li:nth-child(5) a::before {
+				background-position: -76px -573px;
+			}
+			nav ul li:nth-child(6) a::before {
+				background-position: -76px -704px;
+			}
+			nav ul li:nth-child(7) a::before {
+				height: 25px;
+				background-position: -76px -57px;
+				top: 14px;
+			}
+			
+			nav ul li:nth-child(2):hover a::before {
+		    background-position: -76px -734px;
+			}
+			nav ul li:nth-child(3):hover a::before {
+				background-position: -76px -664px;
+			}
+			nav ul li:nth-child(4):hover a::before {
+				background-position: -76px -143px;
+			}
+			nav ul li:nth-child(5):hover a::before {
+				background-position: -76px -634px;
+			}
+			nav ul li:nth-child(7):hover a::before {
+				background-position: -76px -170px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<header>
+			<div class="head">
+				<nav>
+					<ul class="clearfix">
+						<li><a href="#">最新</a></li>
+						<li><a href="#">电台</a></li>
+						<li><a href="#">单曲</a></li>
+						<li><a href="#">专辑</a></li>
+						<li><a href="#">MV</a></li>
+						<li class="search"><a href="#">查找</a></li>
+						<li><a href="#">留言</a></li>
+					</ul>
+				</nav>
+				<div class="login"></div>
+			</div>
+		</header>
+		
+	</body>
+</html>

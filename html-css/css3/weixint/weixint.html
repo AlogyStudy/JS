@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="jquery.fullPage.css"/>
+		<script type="text/javascript">
+			
+			//默认滚动条默认事件
+			window.onmousewheel = function( ev ){
+				
+				if (ev) ev = window.event;
+				
+				if ( ev.preventDefault ) {
+					ev.preventDefault();
+				} else {
+					ev.returnValue = false;
+				}
+			
+				return false;
+				
+			}
+			
+		</script>
+		<style type="text/css">
+		
+			.nav {
+				position: fixed;
+				width: 100%;
+				height: 60px;
+				background: rgba(128, 0, 0, 0.19);
+				z-index: 100;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.23);
+			}	
+		
+			.navWrap ul li {
+				float: left;
+				width: 100px;
+				height: 60px;
+				line-height: 60px;
+				text-align: center;
+				font-size: 14px;
+				font-family: "microsoft yahei";
+			}		
+			.navWrap ul li a {
+				display: block;
+				width: 100px;
+				height: 60px;
+			}	
+			.navWrap ul li a:hover,#myMenu .active {
+				color: #F7B81A;
+				background: rgb(242, 242, 242);
+			}
+			.section {
+				overflow: hidden;
+			}
+			.inner-c {
+				height: 100%;
+				position: relative;
+			}
+			
+			/*第一屏*/
+			.page0 {
+				background: url(images/b1_bg.jpg) no-repeat center top;
+				background-size: cover;
+			}
+			.page0 .b1_01 {
+				position: absolute;
+				bottom: -100px;
+				left: 50%;
+				margin-left: -720px;
+			}
+			.page0 .b1_02 {
+				position: absolute;
+				top: 80px;
+				left: -100px;
+			}
+			.page0 .b1_03 {
+				position: absolute;
+				top: 200px;
+				right: 70px;
+			}
+			.page0 .b1_03_btn {
+				position: absolute;
+				top: 400px;
+				right: 170px;
+			}
+
+			.page0 .b1_04 {
+				position: absolute;
+				top: 300px;
+				right: -110px;
+			}
+			
+			
+			
+		</style>
+	</head>
+
+	<body>
+
+		<div class="nav">
+				<div class="navWrap w1000 clearfix">
+					<h1 class="logo fl"><img src="images/logo.jpg"/></h1>
+					<ul class="fl" id="myMenu">
+						<li data-menuanchor="firstPage"><a href="#firstPage" class="cur">首页</a></li>
+						<li data-menuanchor="secondPage"><a href="#secondPage">营销手段</a></li>
+						<li data-menuanchor="thirdPage"><a href="#thirdPage">服务优势</a></li>
+						<li data-menuanchor="fourthPage"><a href="#fourthPage">特色功能</a></li>
+						<li data-menuanchor="fivePage"><a href="#fivePage">技术特点</a></li>
+						<li data-menuanchor="sixPage"><a href="#sixPage">申请加入</a></li>
+						<li data-menuanchor="sixPage"><a href="#sixPage">登陆注册</a></li>
+						<li><a target="_blank" href="http://www.baidu.com">技术特点</a></li>
+					</ul>
+				</div>
+			</div>
+		
+		
+		<!--fullpage-->
+		<div id="fullpage">
+			<!--第一屏-->
+			<div class="section page0">
+				<div class="inner-c w1000"></div>	
+			</div>
+			
+			<div class="section page1">2222222</div>
+			<div class="section page2">3333333</div>
+			<div class="section page3">4444444</div>
+			<div class="section page4">5555555</div>
+			<div class="section page5">6666666</div>
+		</div>
+		<!--end fullpage-->
+
+		<script src="../js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.fullPage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+		
+			//首屏是否加载完毕
+			var already = false;
+			
+			$('#fullpage').fullpage({
+				
+				sectionsColor: ['pink','tan','maroon','cyan','deeppink','khaki'],
+				
+				anchors: ['firstPage','secondPage','thirdPage','fourthPage','fivePage','sixPage'],
+				
+				navigation: true,
+				
+				menu: '#myMenu',
+				
+				navigationTooltips: ['首页','营销手段','服务优势','特色功能','技术特点','申请加入'],
+				
+				//进入
+				afterLoad: function( anchorlink,idx ){
+					var m = 0;
+					
+					switch ( idx ) {
+						case 1:
+							if ( already ) {
+								go();
+								return false;
+							}
+									
+							//资源数组
+							var R = [
+								{
+									'src': 'images/b1_01.png',
+									'className': 'b1_01'
+								},{
+									'src': 'images/b1_02.png',
+									'className': 'b1_02'
+								},{
+									'src': 'images/b1_03.png',
+									'className': 'b1_03'
+								},{
+									'src': 'images/b1_03_btn.png',
+									'className': 'b1_03_btn'
+								},{
+									'src': 'images/b1_04.png',
+									'className': 'b1_04'
+								}
+							];
+							
+							var count = 0;
+							
+							var $innner_c = $('.inner-c');
+							
+							for ( var i=0,len=R.length; i<len; ++i ) {
+								  
+								  var img = new Image()
+								  img.src = R[i].src
+								  img.className = R[i].className
+										  
+								  //图片监听
+								  img.onload = function(){
+								  	
+								  	count++;
+								  	
+										//添加到DOM									  
+										$(this).appendTo($innner_c);
+										
+										//所有图片加载完毕
+								  	if ( count == len ) {
+								  		already = true;
+											go();
+								  	}
+								  }
+								  
+							}
+							
+							function go(){
+								
+								//动画  龙卷风
+								$('.page0 .b1_02').show().css({
+									'margin-left': '-100px',
+									'opacity': 0
+								})
+								.animate({
+									'margin-left': '0',
+									'opacity': 1
+								},800)
+					  		
+					  		//动画  文字
+					  		$('.page0 .b1_03').show().css({
+					  			'margin-right': '100px',
+					  			'opacity': 0
+					  		})
+					  		.animate({
+					  			'margin-right': '0',
+					  			'opacity': 1
+					  		},800)
+
+								//按钮
+					  		$('.page0 .b1_03_btn').show().css({
+					  			'margin-right': '-100px',
+					  			'opacity': 0
+					  		})
+					  		.animate({
+					  			'margin-right': '0',
+					  			'opacity': 1
+					  		},800)
+					  		
+					  		//小石头
+					  		$('.page0 .b1_01').show().delay(600).fadeIn();
+					  		$('.page0 .b1_04').show().delay(1000).fadeIn();
+					  		
+							}
+							
+						break;
+						
+					}
+					
+					
+				},
+				
+				//离开
+				onLeave: function( idx,nextIndex,direction ){
+					
+					switch ( idx ){
+							
+						case 1:
+						
+							$('.page0 img').fadeOut();
+								
+						break;
+							
+						default:
+							break;
+					}	
+						
+				},
+				
+				//载入完毕
+				afterRender: function(){
+					
+				}
+				
+			});
+				
+		</script>
+
+	</body>
+
+</html>

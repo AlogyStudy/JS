@@ -1,0 +1,151 @@
+
+
+Game , Background , Pipe ,Bird
+
+
+Game -- 控制中枢， 其它类的 都是Game的属性，如果其它类想共同实现全局变量的效果，需要在其它类中引用。
+
+Game Fun
+	图片加载完成后，执行 init, state  //初始化和游戏开始
+
+Game.prototype.mainLoop 
+	主循环  
+		信号量 -- fps，frameNumber
+				//前一秒，后一秒 的 时间戳 的 改变量
+
+		//计算fps   //比较新老newOld变量是否变化, 变化执行变化后状态的改变影响,不变化交替新老newOld变化量
+
+		if ( Date.parse(new Date()) == this._timestamp ) {
+			//前一秒，后一秒 的 时间戳 的 改变量
+			
+			this._fps ++; 
+			
+		} else {
+			
+			//复制当前的 时间戳
+			this._timestamp = Date.parse(new Date());
+			
+			this.fps = this._fps;
+			this._fps = 0;
+			
+		}  	
+
+
+		碰撞检测	
+			保存环境
+			执行其中一个对象
+			换环境
+			执行另一个对象
+			获取像素点，循环判断
+			还原环境
+			渲染需要的对象	
+
+
+		执行演员列表	
+			actor();
+
+
+Game.prototype.state
+	定时器执行  主循环
+			管子因为需要多次出现，需要在定时器中实例化  可以 耦合frameNumber减少 实例化的次数. 通过取模实现。(呈现周期执行) // _this.frameNumber % 80 == 0
+
+Game.prototype.init 	
+	实例化各种类
+	添加事件监听
+
+Game.prototype.stop	
+
+
+
+Background Fun
+	添加到 actorArr中.
+
+Background.prototype.render
+	渲染图片
+	需要的张数。
+
+Background.prototype.update
+	更新图片 x 轴位置.
+	无缝滚动图片原理。
+
+
+
+Pipe Fun
+	type
+	选择图片
+
+Pipe.prototype.render 
+	根据类型，渲染图片
+
+Pipe.prototype.update
+	加分逻辑
+		是否加分 ， this.done  //这边没有 置为false 的原因是 setInterval 每隔20mm 会实例化，每次都是 this.done 执行 一次false , 所以不用 手动执行 false.
+	if ( this.x < g.bird.x - this.pic.width && !this.done ) {
+		
+		this.done = true;
+		
+		g.score ++;
+		
+	}
+
+
+
+Bird Fun		
+
+
+Bird.prototype.render
+	旋转，动画，使用异空间 ，cs.save(); cs.restore();
+
+Bird.prototype.update		
+	小鸟忽扇，下降程度
+
+	小鸟忽扇，改变 step 形态
+
+	下降程度
+	根据是否具有能量
+	//没有能量  , 小鸟是否具有能量， 来决定是否 下降
+	if( !this.hasEnergy ) {
+		
+		
+		this.y += Math.pow(this._frameNumber / 10,2);  //下降速度二次
+		 
+		//角度变化
+		this.angle = this._frameNumber / 12;
+		
+	} else {
+		
+		//有能量  y 改变
+		this.y -= this.upFrame - this._frameNumber;
+		
+		this.angle = this._frameNumber / 12;
+
+		//大于10帧， 重置为false
+		if ( this._frameNumber > this.upFrame ) {
+			
+			this.hasEnergy = false;
+			
+			this._frameNumber = 0;   
+			
+		}
+		
+	}
+
+}
+
+//增加能量
+Bird.prototype.getEnergy = function(){
+	
+	//改变能量
+	this.hasEnergy = true;
+	
+	//内部帧数  归零
+	this._frameNumber = 0;
+	
+	//上升
+//		this.y -= 40;
+	
+}
+
+
+
+

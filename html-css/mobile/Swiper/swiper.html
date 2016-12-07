@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<!--<link rel="stylesheet" type="text/css" href="swiper.css"/>-->
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #eee;
+				font-size: 14px;
+				color: #000;
+			}
+			
+			.swiper-wrapper {
+				width: 100%;
+				height: 300px;
+				margin: 0 auto;
+			}
+			
+			.swiper-wrapper .swiper-slide {
+				text-align: center;
+				font-size: 18px;
+				background: #fff;
+				
+				display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+			}
+			
+			.swiper-wrapper {
+		    width: 100%;
+		    height: 300px;
+		    margin: 0 auto;
+			}
+			
+			.swiper-slide img {
+				width: 100%;
+			}
+			.swiper-wrap {
+				position: relative;
+			}
+			.pagination {
+				position: absolute;
+				z-index: 100;
+			}
+			
+			
+			.swiper-container-android .swiper-slide, .swiper-wrapper {
+		    -webkit-transform: translate3d(0px, 0, 0);
+		    -moz-transform: translate3d(0px, 0, 0);
+		    -o-transform: translate(0px, 0px);
+		    -ms-transform: translate3d(0px, 0, 0);
+		    transform: translate3d(0px, 0, 0);
+			}
+			.swiper-wrapper {
+				position: relative;
+		    width: 100%;
+		    height: 100%;
+		    z-index: 1;
+		    display: -webkit-box;
+		    display: -moz-box;
+		    display: -ms-flexbox;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-transition-property: -webkit-transform;
+		    -moz-transition-property: -moz-transform;
+		    -o-transition-property: -o-transform;
+		    -ms-transition-property: -ms-transform;
+		    transition-property: transform;
+		    -webkit-box-sizing: content-box;
+		    -moz-box-sizing: content-box;
+		    box-sizing: content-box;
+			}
+			
+			.swiper-wrapper .swiper-slide {
+		    text-align: center;
+		    font-size: 18px;
+		    background: #fff;
+		    display: -webkit-box;
+		    display: -ms-flexbox;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    -ms-flex-pack: center;
+		    -webkit-justify-content: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    -ms-flex-align: center;
+		    -webkit-align-items: center;
+		    align-items: center;
+			}
+			
+			.swiper-slide {
+				-webkit-flex-shrink: 0;
+		    -ms-flex: 0 0 auto;
+		    flex-shrink: 0;
+		    width: 100%;
+		    height: 100%;
+		    position: relative;
+			}
+			
+			.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets {
+		    bottom: 10px;
+		    left: 0;
+		    width: 100%;
+			}
+			.swiper-pagination-bullet {
+				width: 8px;
+		    height: 8px;
+		    display: inline-block;
+		    border-radius: 100%;
+		    background: #000;
+		    opacity: 0.2;
+			}
+			.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+				margin: 0 5px;
+			}
+			.swiper-pagination-bullet-active {
+				opacity: 1;
+    		background: #007aff;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="swiper-wrap">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<img src="images/0.png" alt="" />
+				</div>
+				<div class="swiper-slide">
+					<img src="images/1.png" alt="" />
+				</div>
+				<div class="swiper-slide">
+					<img src="images/2.png" alt="" />
+				</div>
+				<div class="swiper-slide">
+					<img src="images/3.png" alt="" />
+				</div>
+				<div class="swiper-slide">
+					<img src="images/4.png" alt="" />
+				</div>
+			</div>
+			<div class="pagination"></div>
+		</div>
+		<!--end swiper-wrap-->
+		
+		<script src="swiper.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="//cdn.bootcss.com/Swiper/3.3.1/js/swiper.min.js"></script>-->
+		<script type="text/javascript">
+		
+			var swiper = new Swiper('.swiper-wrap',{
+				'pagination': '.pagination',//小圆点
+				'autoplay': 2000 //自动轮播
+			});
+			
+		</script>
+		
+	</body>
+</html>

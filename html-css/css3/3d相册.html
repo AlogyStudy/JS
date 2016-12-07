@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				background: #000000;
+			}
+			.stage {
+				width: 800px;
+				height: 400px;
+				margin: 0 auto;
+				perspective: 1000px;
+			}
+			.unit {
+				width: 800px;
+				height: 400px;
+				position: relative;
+				transform-style: preserve-3d;
+				transition: all .4s ease 0s;
+			}
+			.unit ul {
+				list-style: none;
+			}
+			.unit ul li {
+				position: absolute;
+				left: 250px;
+				top: 135px;
+				backface-visibility: hidden;
+			}		
+						
+		</style>
+	</head>
+	<body>
+		
+		<h2>
+			<input type="button" value="点击旋转" id="btn" />
+		</h2>
+		<div class="stage">
+			<div class="unit">
+				<ul>
+					<li><img src="images/1.png" /></li>
+					<li><img src="images/2.png" /></li>
+					<li><img src="images/3.png" /></li>
+					<li><img src="images/4.png" /></li>
+					<li><img src="images/5.png" /></li>
+					<li><img src="images/6.png" /></li>
+					<li><img src="images/7.png" /></li>
+					<li><img src="images/8.png" /></li>
+					<li><img src="images/9.png" /></li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var $unit = $('.unit');
+			
+			$unit.find('li').each(function( i,val ){
+				$(this).css({
+					'transform': 'rotateY('+ (i*40) +'deg) translateZ(400px)'
+				});
+			});
+			
+			var lock = true;
+			
+			var nowDegree = 0;
+			$('#btn').click(function(){
+				if ( !lock ) return false;
+					
+				nowDegree += 40;
+				$unit.css({
+					'transform': 'rotateY('+ nowDegree +'deg)'
+				});
+				lock = false;
+				setTimeout(function(){
+					//开锁
+					lock = true;
+				},400);
+				return false;
+			});
+			
+		</script>
+		
+	</body>
+</html>

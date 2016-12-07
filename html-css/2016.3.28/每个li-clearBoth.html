@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>每个li清除浮动</title>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	ul {
+		list-style: none;
+	}
+	a {
+		text-decoration: none;
+		color: #333;
+	}
+	.news {
+		margin: 40px;
+		width: 300px;
+	}
+	.news li {
+		border-bottom: 1px dotted beige;
+	}
+	.news li a {
+		font: 14px/24px "SimSun";
+		display: block;
+		overflow: hidden;
+	}
+	.news li span.title {
+		float: left;
+	}
+	.news li span.date {
+		float: right;
+	} 
+
+	</style>
+</head>
+<body>
+	
+	<ul class="news">
+		<li>
+			<a href="#">
+				<span class="title">啊啊啊啊啊啊啊</span>
+				<span class="date">2016.3.18</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<span class="title">哦哦哦哦哦哦哦哦哦</span>
+				<span class="date">2016.3.28</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<span class="title">额额额额额额额额额额额额额额</span>
+				<span class="date">2016.3.29</span>
+			</a>
+		</li>
+	</ul>
+
+</body>
+</html>

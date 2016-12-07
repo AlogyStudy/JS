@@ -1,0 +1,93 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			
+			/*var a = 5;
+			var b = a >> 2;
+			
+			console.log( b );
+			*/
+			
+			
+			var a = 9;  //1001
+			var b = a >> 3;  //1
+			console.log( b ); //1
+
+			var a = 59;  //111011
+			var b = a>>1;  //11101  
+			console.log( b ); //29
+			
+			var a = 4;  //0100 
+			var b = a << 1; //1000
+			console.log( b ); //8  //1000
+			
+			var a = 0x1234;   //0001 0010 0011 0100
+			var b = a >> 8;   //0001 0010  // 2+16
+			
+			console.log( b ); //18
+			
+			
+			console.log( 7 | 5 ); //111 101	//111  //7
+			console.log( 9 | 5 ); //1001  0101  //1101 //13
+			
+			
+			console.log( 7 & 5 );  //111  101   //101 //5
+			console.log( 9 & 5 );  //1001 0101 //0001 //1
+			
+			console.log( 43 & 38 );  //101011 100110  //100010  32+2 //34
+			
+			console.log( 0x5 & 0xf  );  //0101  //15  1111 //0101  //5
+			console.log( 0x6 & 0xf  );     //6
+			console.log( 0xf & 0xf  );     //15
+			
+			
+			console.log( 43 ^ 38 );  //13
+			//101011 
+			//100110
+			//001101
+			
+			//13 // 1101
+			
+			var a = 0x1234;
+			//得到数字3
+			//0001 0010 0011 0100
+			//>>4 
+			//&
+			var b = a >> 4 & 0xf;  //0001 0010 0011 //1111
+			console.log( b );//3
+			var b = a >> 8 & 0xf; // 0001 0010 //1111  
+			console.log(b); //2
+			
+			
+			//得到e
+			var a = 0x4e00;  //0100 1110 0000 0000 
+			console.log( a>>8 & 0xf );  //1110  //e 14
+			
+			
+			function getRow( number,row ){ 
+				//3 --> 4 , 2 --> 8 , 1 --> 12
+				
+				return number >> ( (3 - row) * 4 ) & 0xf;
+				
+			}
+			
+			console.log( getRow(0x4e00,1) ); //14  e
+			
+			//判断是否下落， 按位与 计算后为 0000  
+			//比如: 1100 是否能够在 0001 下落, 可以 , 1100 & 0001  结果为 0000
+			//总结果为 1101  是 按位或 
+			
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="400" height="500" style="border: 1px solid aqua;"></canvas>
+		
+		
+		<script type="text/javascript">
+			
+			var cvs = document.querySelector('#cvs');
+			
+			var cs = cvs.getContext('2d');
+			
+			cs.beginPath();
+			
+			cs.moveTo(100,40);
+			cs.lineTo(200,200);
+			cs.lineTo(100,360);
+		
+				cs.strokeStyle = 'cyan';
+				cs.lineWidth = 2;	
+				
+			cs.stroke();
+			
+			cs.closePath();
+			
+			
+			cs.beginPath();
+			
+			cs.moveTo(50,10);
+			cs.lineTo(100,100);
+			cs.lineTo(50,190);
+		
+				cs.strokeStyle = 'pink';
+				cs.lineWidth = 2;	
+				
+			cs.stroke();
+			
+			cs.closePath();
+			
+			
+			for ( var i=0; i<3; ++i ) {
+				
+				cs.beginPath();
+			
+				cs.moveTo(100,40);
+				cs.lineTo(200,200);
+				cs.lineTo(100,360);
+			
+					cs.strokeStyle = 'cyan';
+					cs.lineWidth = 2;	
+					
+				cs.stroke();
+				
+				cs.closePath();
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

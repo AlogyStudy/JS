@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+	
+		<script src="js/lodash.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+		<script type="text/javascript">
+			
+			console.log( _.without([1, 2, 1, 3], 1, 2) );
+			
+			console.log( _.size([1,2,3,4,,5,5]) );
+			
+			console.log( _.VERSION );
+			
+			console.log( typeof _.toString([1, 2, 3]) );
+			
+			console.log( _.random(0,5),_.random(5),_.random(5,true),_.random(1.2,5.2) );
+			
+			console.log( _.now() );
+			
+			_.defer(function( text ){
+				
+				console.log( text );
+				
+			},'123');
+			
+			_.defer(function( stamp ){
+				
+				console.log( stamp,_.now() - stamp );
+				
+			},_.now());
+			
+		</script>
+		
+	</body>
+</html>

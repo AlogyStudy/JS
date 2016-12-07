@@ -1,0 +1,26 @@
+{
+	"resource": [
+		{
+			"name": "bg1",
+			"src": "images/bg_day.png"
+		}, {
+			"name": "bird0_0",
+			"src": "images/bird0_0.png"
+		}, {
+			"name": "bird0_1",
+			"src": "images/bird0_1.png"
+		}, {
+			"name": "bird0_2",
+			"src": "images/bird0_2.png"
+		}, {
+			"name": "land",
+			"src": "images/land.png"
+		}, {
+			"name": "pipe_up",
+			"src": "images/pipe_up.png"
+		}, {
+			"name": "pipe_down",
+			"src": "images/pipe_down.png"
+		}
+	]
+}

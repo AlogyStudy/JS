@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#cvs {
+				border: 1px solid tan;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="400" height="300"></canvas>
+		
+		<script type="text/javascript">
+			
+			
+			var cvs = document.querySelector('#cvs');
+			
+			var cs = cvs.getContext('2d');
+			
+			
+			var rad = 0.1;
+			setInterval(function(){
+				
+				rad += 0.1;
+				cs.clearRect(0,0,cvs.width,cvs.height);
+				
+				cs.save();
+				//平移坐标系
+				cs.translate(100,100);
+				
+				//旋转
+				cs.rotate(rad);
+				
+				//原点移动到 物体中心
+				cs.fillRect(-20,-20,40,40);
+				cs.restore();
+				
+			},30);
+			
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			
+			var lastMousemoveTime = 0, mousemoveTime = 100;
+			function mousemoveListener(e){
+				
+			  var now = new Date().getTime();
+			  
+			  if(now - lastMousemoveTime <= mousemoveTime) {
+			    return;
+			  }
+			  
+			  lastMousemoveTime = now;
+			  
+			  setTimeout(function(){
+			  	
+			  	console.log( 123 );
+			  	
+			  }, mousemoveTime);
+			}
+			
+			
+		</script>
+		
+	</body>
+</html>

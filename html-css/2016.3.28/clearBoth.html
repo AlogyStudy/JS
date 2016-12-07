@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试清除浮动</title>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	.box {
+		width: 500px;
+		border: 10px solid deeppink;
+	}
+	.box p {
+		float: left;
+	}
+	.box p.no1 {
+		width: 100px;
+		background-color: skyblue;
+		height: 400px;
+	}
+	.box p.no2 {
+		width: 100px;
+		background-color: khaki;
+		height: 300px;
+	}
+
+	</style>
+</head>
+<body>
+	
+	<div class="box">
+		<p class="no1"></p>
+		<p class="no2"></p>
+	</div>
+
+</body>
+</html>

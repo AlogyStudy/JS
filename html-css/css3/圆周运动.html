@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			#box1 {
+				width: 40px;
+				height: 40px;
+				background: cyan;
+				border-radius: 50%;
+				position: absolute;
+				left: 200px;
+				top: 200px;
+			}
+			.round {
+				border: 1px solid #111;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="box1"></div>
+		
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+		
+			var box1 = document.getElementById("box1");
+			
+			cirlcleMove({
+			"obj" 		: box1,
+			"yuanxin"	: [200,200] ,
+			"r" 		: 200,
+			"looptime" 	: 4000,
+			"degree" 	: 270
+		});
+			
+			function cirlcleMove( argsJSON ){
+				
+				//配置信息
+					
+				//运动单元	
+				var obj = argsJSON.obj
+				
+				//圆心
+				var a = argsJSON.yuanxin[0] || 200;
+				var b = argsJSON.yuanxin[1] || 200;
+				
+				//半径
+				var r = argsJSON.r || 200;
+				
+				//信号量   0 十二点方向
+				var degree = argsJSON.degree || 0;
+				
+				//运动一圈的时间
+				var looptime = argsJSON.looptime;
+				
+				
+				
+				//动画每帧的间隔时间
+				var interval = 20;
+				
+				//运动一圈的帧数
+				var loopFrames = looptime / interval;
+				//每帧改变的度数
+				var degreeDelta = 360 / loopFrames;
+	
+				//开启定时器
+				setInterval(function(){
+					
+					degree++;
+					
+					if ( degree>360 ) {
+						degree = 0;
+					}
+					
+					goRounds( degree );
+					
+				},interval);
+				
+				
+				//运动
+				function goRounds( degree ){
+					
+					obj.style.left = a + r * Math.sin( degreeToRad(degree) ) + 'px';
+					obj.style.top = b - r * Math.cos( degreeToRad(degree) ) + 'px';
+					
+					//创建跟随圆.
+					var round = document.createElement('div');
+					round.className = 'round';
+					document.body.appendChild(round);
+					
+					round.style.left = box1.offsetLeft + 'px';
+					round.style.top = box1.offsetTop + 'px';
+					
+				}
+				
+				//角度制转为弧度制
+				function degreeToRad( degree ){
+					
+					return degree * Math.PI/180;
+					
+				}
+			}
+			
+			
+		</script>
+		
+	</body>
+</html>

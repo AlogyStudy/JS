@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		
+		<script type="text/javascript">
+			
+      /*(function() {
+          //font-size 
+          var baseFontSize = 30;
+          var baseWidth =  300;
+          
+          var clientWidth = document.documentElement.clientWidth || window.innerWidth;
+          var innerWidth = Math.max(Math.min(clientWidth, 480), 320);
+
+          var rem = 100;
+
+          if (innerWidth > 362 && innerWidth <= 375) {
+          	
+              rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.9);
+              
+          }
+
+          if (innerWidth > 375) {
+          	
+              rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.84);
+              
+          }
+
+          document.querySelector('html').style.fontSize = rem + 'px';
+          
+      }());*/
+      
+		</script>
+		
+	</head>
+	<body>
+		
+		<div class="app-download-wrapper clearfix">
+			<a href="#"><img src="images/t1.jpg" /></a>
+			<a href="#"><img src="images/t2.jpg" /></a>
+		</div>
+		
+		<header class="head">
+			<h1>
+				<a href="#">当当</a>
+			</h1>
+			<!--search-->
+			<div class="search">
+				<div class="search-txt">
+					<form action="" method="post">
+						<input type="text" name="" id="" value="" class="txt" placeholder="不一样的卡梅拉" />
+						<input type="button" name="" id="" value="" class="btn" />
+					</form>
+				</div>
+			</div>
+			<!--end search-->
+			<div class="classify">
+				<a href="#">
+					<em>分类</em>
+				</a>
+			</div>
+			<!--end classify-->
+		</header>
+		
+		<!--wrapper-->
+		<section class="wrapper">
+			
+			<div class="wrapper-content">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="images/1.jpg"/></div>
+					<div class="swiper-slide"><img src="images/2.jpg"/></div>
+					<div class="swiper-slide"><img src="images/3.jpg"/></div>
+				</div>
+				<div class="pagination"></div>
+			</div>
+			<!--end wrapper-content-->
+			
+			<nav>
+				<ul class="clearfix">
+					<li><a href="#">分类</a></li>
+					<li><a href="#">APP下载</a></li>
+					<li><a href="#">购物车</a></li>
+					<li><a href="#">我的当当</a></li>
+					<li><a href="#">好书榜</a></li>
+					<li><a href="#">童书榜</a></li>
+					<li><a href="#">海外购</a></li>
+					<li><a href="#">电子书</a></li>
+				</ul>
+			</nav>
+			
+		</section>
+		<!--end wrapper-->
+		
+		
+		<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var swiper = new Swiper('.wrapper-content',{
+				'pagination': '.pagination',//小圆点
+				'autoplay': 2000 //自动轮播
+			});
+			
+		</script>
+	</body>
+</html>

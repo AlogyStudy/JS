@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div class="inner-c">
+			
+		</div>
+		
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.mousewheel.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			//当前页面
+			var nowPage = 0;
+			
+			//入场动画数组
+			var inAnimateArr = new Array(4);
+			
+			//出场动画数组
+			var outAnimateArr = new Array(4);
+			
+			//设计动画出场进场
+			//0号页面进场
+			inAnimateArr[0] = function(){
+				
+				console.log('0号进场动画');
+				
+			}
+			
+			//0号页面出场
+			outAnimateArr[0] = function(){
+				
+				console.log('0号出场动画');
+				
+			}
+			
+			//1号页面进场
+			inAnimateArr[1] = function(){
+				
+				console.log('1号进场动画');
+				
+			}
+			
+			//1号页面出场
+			outAnimateArr[1] = function(){
+				
+				console.log('1号出场动画');
+				
+			}
+			
+			//2号页面进场
+			inAnimateArr[2] = function(){
+				
+				console.log('2号进场动画');
+				
+			}
+			
+			//2号页面出场
+			outAnimateArr[2] = function(){
+				
+				console.log('2号出场动画');
+				
+			}
+			
+			//3号页面进场
+			inAnimateArr[3] = function(){
+				
+				console.log('3号进场动画');
+				
+			}
+			
+			//3号页面出场
+			outAnimateArr[3] = function(){
+				
+				console.log('3号出场动画');
+				
+			}
+			
+			//4号页面进场
+			inAnimateArr[4] = function(){
+				
+				console.log('4号进场动画');
+				
+			}
+			
+			//4号页面出场
+			outAnimateArr[4] = function(){
+				
+				console.log('4号出场动画');
+				
+			}
+			
+			//页面开始 ，就应该执行 0 号页面动画
+			inAnimateArr[0]();
+			
+			//添加事件驱动
+			
+			$(document).mousewheel(function( ev,delta ){
+				
+				//备份old信号量
+				var oldPage = nowPage;
+				
+				//鼠标方向
+				nowPage -= delta;
+				
+				//后置验收
+				if ( nowPage>3 ) {
+					nowPage = 0;
+				} else if ( nowPage<0 ) {
+					nowPage = 0;
+				}
+				
+				//改变信号量过后				
+				if ( oldPage != nowPage ) {
+					
+					//调用函数
+					outAnimateArr[oldPage]();
+					inAnimateArr[nowPage]();
+					
+				}
+				
+				//阻止默认事件
+				ev.preventDefault();
+				
+			});
+			
+		</script>
+		
+	</body>
+</html>

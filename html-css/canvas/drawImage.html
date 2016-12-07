@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="400" height="400" style="border: 1px solid tan;"></canvas>	
+		
+		<script type="text/javascript">
+			
+			var cvs = document.querySelector('#cvs');
+			
+			var cs = cvs.getContext('2d');
+			
+			var oImg = new Image();
+			oImg.src = 'images/123.jpg';
+			
+			oImg.onload = function(){
+				
+				cs.drawImage( oImg,307,348,207,252,10,10,207,252 );
+				
+				cs.drawImage( oImg,33,0,590,70,10,300,600,60 );
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

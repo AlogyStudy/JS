@@ -1,0 +1,13 @@
+
+
+.carousel ul li {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.carousel ul li img {
+	width: 100%;
+}
+

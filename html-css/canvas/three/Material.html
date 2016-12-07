@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			html,body {
+				overflow: hidden;
+			}
+			canvas {
+				background: black;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<script src="three.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			//场景 -- 画布
+			var scene = new THREE.Scene();
+
+			//摄像机 -- 眼睛   (视角,摄像头拍摄下来的东西的长宽比,)  照相机它定义了三维空间到二维屏幕的投影方式
+			var camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1 , 10);
+
+			// 渲染 --  画笔
+			var renderer = new THREE.WebGLRenderer();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+//			camera.position.set(0,0,5);
+
+			camera.position.set(4,-3,5);	
+			
+			//照相机沿z轴负方向观察的，因此观察不到正方体，只看到一片黑。可以通过lookAt函数指定它看着原点方向：
+			var vector3 = new THREE.Vector3(0,0,0);
+			
+			camera.lookAt( vector3 );
+
+			scene.add(camera);
+
+			var geometry = new THREE.CubeGeometry(1,2,3);
+
+
+			//基本材质
+			/*var material = new THREE.MeshBasicMaterial({
+				color: 'cyan',
+				wireframe: true
+			});*/
+			
+			
+			//Lambert材质  //Idiffuse = Kd * Id * cos(theta)  Idiffuse是漫反射光强，Kd是物体表面的漫反射属性，Id是光强，theta是光的入射角弧度。
+			
+			/*var material = new THREE.MeshLambertMaterial({
+				color: '0x00ff00',
+				emissive: 0xff0000   //emissive是材质的自发光颜色，可以用来表现光源的颜色。单独使用红色
+			}); */
+			
+			//Phong材质   // Ispecular = Ks * Is * (cos(alpha)) ^ n   
+			//可以通过shininess属性控制光照模型中的n值，当shininess值越大时，高光的光斑越小，默认值为30。
+			/*var material = new THREE.MeshPhongMaterial({
+				color: 0xff0000,
+		    specular: 0xffff00,
+		    shininess: 100
+			});*/
+
+			
+			//法向材质
+//			var material = new THREE.MeshNormalMaterial();
+
+//			材质的纹理贴图	
+//			var texture = THREE.ImageUtils.loadTexture('../img/0.png');
+
+			var texture = THREE.ImageUtils.loadTexture('../img/0.png', {}, function() {
+				renderer.render(scene, camera);
+			});
+
+			var material = 	new THREE.MeshLambertMaterial({
+				map: texture
+			});
+				
+	
+			var cube = new THREE.Mesh( geometry,material );
+			
+			
+			scene.add(cube);
+			
+
+
+			renderer.render( scene,camera );
+			
+			
+		</script>
+		
+	</body>
+</html>

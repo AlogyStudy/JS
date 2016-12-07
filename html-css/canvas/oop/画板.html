@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="500" height="400" style="border: 1px solid magenta;"></canvas>
+		
+		
+		<script type="text/javascript">
+			
+			var cvs = document.querySelector('#cvs');
+			
+			var cs = cvs.getContext('2d');
+			
+			cvs.onmousedown = function(){
+				
+				cvs.onmousemove = function( ev ){
+					
+					cs.beginPath();
+					
+						cs.arc(ev.offsetX,ev.offsetY,10,0,7,false);
+						cs.fill();
+						
+					cs.closePath();
+					
+				}
+				
+			}
+			
+			document.onmouseup = function(){
+				
+				cvs.onmousemove = null; 
+				
+			}
+			
+			
+		</script>
+		
+	</body>
+</html>

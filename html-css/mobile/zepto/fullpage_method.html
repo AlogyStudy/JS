@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">    
+    <title>方法</title>
+    <link rel="stylesheet" type="text/css" href="zepto.fullpage.css"/>
+    <style>
+        #prev, #next{
+            position: fixed;
+            z-index: 1;
+            right: 10px;
+        }
+        #prev{
+            top: 100px;
+        }
+        #next{
+            top: 150px;
+        }
+        
+        /*global*/
+				.wp{
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    right: 0;
+			    bottom: 0;
+			    overflow: hidden;            
+				}
+				.page{
+			    font-size: 72px;
+			    line-height: 320px;
+			    text-align: center;
+				}
+				.page1{
+			    background: red;
+				}
+				.page2{
+			    background: yellow;
+				}
+				.page3{
+			    background: maroon;
+				}
+				.page4{
+			    background: green;
+				}
+    </style>
+    
+</head>
+<body>
+    <a href="" id="prev">向前</a>
+    <a href="" id="next">向后</a>
+    <div class="wp">
+        <div class="wp-inner">
+            <div class="page page1">1</div>
+            <div class="page page2">2</div>
+            <div class="page page3">3</div>
+            <div class="page page4">4</div>
+        </div>
+    </div>
+    <!--<script src="../src/js.fullpage.js"></script>-->
+    <script src="js.fullpage.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script>
+    		
+    		var fullpage = document.querySelector('.wp-inner').fullpage({
+    			
+    			'afterChange': function( next,cur ){
+    				
+    				switch ( arguments[0].cur ){
+    					case 0:
+    						
+    						document.querySelector('.page1').style.fontSize = '100px';
+    						document.querySelector('.page1').style.webkitTransition = 'all 1s';
+    						
+    						break;
+    					default:
+    						break;
+    				}
+    				
+    			},
+    			
+    			'beforeChange': function( next,cur ){
+    				
+    				switch ( cur ){
+    					case 0:
+    						
+    						document.querySelector('.page1').style.fontSize = '0';
+    						document.querySelector('.page1').style.webkitTransition = 'all 1s';
+    					
+    						break;
+    					default:
+    						break;
+    				}
+//  				console.log( next,cur );
+    				
+    			}
+    			
+    		});
+    		
+    		document.querySelector('#prev').onclick = function( ev ){
+    			
+    			fullpage.movePrev(true);
+
+					ev.preventDefault();
+					
+    		}
+    			
+    		document.querySelector('#next').onclick = function( ev ){
+    			
+    			fullpage.moveNext(true);
+    			
+    			ev.preventDefault();
+    			
+    		}
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>聚划算</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		header{
+			background-color: #E51650;
+			height: 40px;
+			width: 100%;
+			position: relative;
+		}
+		header .logo{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100px;
+			background-color: pink;
+			height: 40px;
+			z-index: 999;
+		}
+		header .btn{
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 60px;
+			background-color: pink;
+			height: 40px;
+			z-index: 999;
+		}
+		
+		header nav{
+			padding: 0 60px 0 100px;
+			width: 100%;
+			height: 40px;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			overflow: hidden;
+		}
+		#unit{
+			width: 100%;
+			height: 40px;
+		}
+		header nav ul{
+			list-style: none;
+			width: 1000px;
+			height: 40px;
+			padding-left: 10px;
+		}
+		header ul li{
+			float: left;
+			width: 60px;
+			line-height: 40px;
+		}
+		header ul li a{
+			text-decoration: none;
+			color:white;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="logo">聚划算</div>
+		<nav id="nav">
+			<div id="unit">
+				<ul>
+					<li><a href="#">女装</a></li>
+					<li><a href="#">男装</a></li>
+					<li><a href="#">鞋包</a></li>
+					<li><a href="#">内衣</a></li>
+					<li><a href="#">饰品</a></li>
+					<li><a href="#">运动</a></li>
+					<li><a href="#">美妆</a></li>
+					<li><a href="#">童装</a></li>
+					<li><a href="#">食品</a></li>
+					<li><a href="#">母婴</a></li>
+					<li><a href="#">百货</a></li>
+					<li><a href="#">汽车</a></li>
+					<li><a href="#">家电</a></li>
+					<li><a href="#">数码</a></li>
+					<li><a href="#">家装</a></li>
+					<li><a href="#">家纺</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="btn"></div>
+	</header>
+
+	<script type="text/javascript">
+		
+		var nav = document.getElementById("nav");
+		
+		var unit = document.getElementById("unit");
+		
+		//总宽度
+		var allWidth = unit.getElementsByTagName('li').length * unit.getElementsByTagName('li')[0].clientWidth;
+		
+		//屏幕宽度
+		var windowWidth = document.documentElement.clientWidth;
+		
+		var minWidth = allWidth - ( windowWidth - 100 - 60 );
+		
+		//绑定事件
+		nav.addEventListener('touchstart',touchstartHandler,false);
+		nav.addEventListener('touchmove',touchmoveHandler,false);
+		nav.addEventListener('touchend',touchendHandler,false);
+		
+		//误差
+		var deltaX = 0;
+		
+		//信号量
+		var nowX = 0;
+		
+		//鼠标移动的值
+		var moveArr = [];
+		
+		//事件处理函数
+		function touchstartHandler( ev ){
+			
+			deltaX = ev.touches[0].clientX - nowX;
+			
+			ev.preventDefault();
+			
+		}
+		
+		function touchmoveHandler( ev ){
+			
+			nowX = ev.touches[0].clientX - deltaX;
+			
+			unit.style.transform = 'translateX(' + nowX + 'px)';
+			
+			moveArr.push( ev.touches[0].clientX );
+			
+			ev.preventDefault();
+			
+		}
+		
+		function touchendHandler( ev ){
+			
+			//计算距离
+			var s = moveArr[moveArr.length - 1] - moveArr[moveArr.length - 2];
+			
+			nowX = nowX + s * 3;
+			
+			//后置判断信号量
+			if ( nowX > -minWidth ) {
+				
+				//right
+				nowX = -minWidth;
+				
+				unit.style.transition = 'all .4s cubic-bezier(0.25, 0.1, 0.25, 1) 0s';
+				
+			} else if ( nowX < 0 ) {
+				
+				//left
+				nowX = 0;
+				
+				unit.style.transition = 'all .4s cubic-bezier(0.25, 0.1, 0.25, 1) 0s';
+				
+			} else {
+				
+				//content
+				unit.style.transition = 'all .4s';
+				
+			}
+			
+			unit.style.transform = 'translateX(' + nowX + 'px)';
+			
+			ev.preventDefault();
+			
+		}
+		
+		
+		
+		
+	</script>
+
+</body>
+</html>

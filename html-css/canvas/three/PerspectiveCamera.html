@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			canvas {
+				background: black;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<script src="three.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="//cdn.bootcss.com/three.js/r50/three.js"></script>-->
+		
+		<script type="text/javascript">
+			
+			var scene = new THREE.Scene();
+
+			var camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,10);
+
+			var renderer = new THREE.WebGLRenderer();
+			
+			renderer.setSize(window.innerWidth,window.innerHeight);
+			
+			document.body.appendChild( renderer.domElement );
+
+			camera.position.set(0,0,5);
+
+			scene.add(camera);
+
+			var geometry = new THREE.CubeGeometry(1,2,3);
+
+			var material = new THREE.MeshBasicMaterial({
+
+				color: 'cyan',
+				wireframe: true
+			});
+
+
+			var cube = new THREE.Mesh( geometry,material );
+
+			scene.add(cube);
+
+			renderer.render( scene,camera );
+
+		</script>
+		
+		
+	</body>
+</html>

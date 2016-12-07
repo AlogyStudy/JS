@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="../js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			
+			//就是对会频繁触发的函数事件做一些限制，让这些函数可以在每隔一定的时间或者每次满足一定的条件下再触发
+			/**
+			 * 函数节流
+			 * @param {Function} fn 执行的函数
+			 * @param {Number} delay 延迟执行的时间
+			 */
+			function debounce( fn,dealy ){
+				
+				var timer;
+				
+				return function(){
+					
+					//设表先关
+					clearTimeout(timer);
+					
+					var context = this;
+					var args = arguments;
+					var _dealy = dealy ? dealy : 600;
+					
+					timer = setTimeout(function(){
+						
+						fn.apply(context,args);
+						
+					},_dealy);
+					
+				}
+			}
+			
+			//调用方法
+			$(document).mousemove(debounce(function(){
+				
+				console.log( arguments );
+				
+			}));
+			
+			
+		</script>
+		
+	</body>
+</html>

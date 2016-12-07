@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="reset.css"/>
+		<link rel="stylesheet" type="text/css" href="carousel.css"/>
+	</head>
+	<body>
+		
+		
+		<div class="carousel" id="carousel">
+			
+			<div class="imageList">
+				<ul>
+					<li><a href="#"><img src="images/0.png" /></a></li>
+					<li><a href="#"><img src="images/1.png" /></a></li>
+					<li><a href="#"><img src="images/2.png" /></a></li>
+					<li><a href="#"><img src="images/3.png" /></a></li>
+					<li><a href="#"><img src="images/4.png" /></a></li>
+				</ul>
+			</div>
+			
+		</div>
+		
+		<script type="text/javascript">
+			
+			//原理：三小盒法
+			
+			//屏幕的宽度
+			var windowWidth = document.documentElement.clientWidth;
+			
+			var carousel = document.getElementById("carousel");
+			
+			var imagesLis = document.querySelectorAll('#carousel .imageList li');
+		
+			//设置li的默认位置
+			for ( var i=1; i<imagesLis.length; ++i ) {
+				 
+				 imagesLis[i].style.webkitTransform =  'translateX(' + windowWidth + 'px)';
+				 
+			}
+
+			//信号量
+			var idx = 0;   //当前的中间图片
+			var prev = 4;  //上一张图片
+			var next = 1;  //下一张图片
+			
+
+			//偏移量
+			var deltaX;
+			//手指开始触摸的位置
+			var startX; 
+
+			//时间戳
+			var startTime;
+
+			//事件监听
+			carousel.addEventListener('touchstart',touchstartHandler,false);
+			carousel.addEventListener('touchmove',touchmoveHandler,false);
+			carousel.addEventListener('touchend',touchendHandler,false);
+			
+			//事件处理函数
+			function touchstartHandler( ev ){
+				
+				//偏移量
+				deltaX = ev.touches[0].clientX;
+				
+				startX = ev.touches[0].clientX;
+				
+				//置空过渡
+				imagesLis[prev].style.webkitTransition = 'none';
+				imagesLis[idx].style.webkitTransition = 'none';
+				imagesLis[next].style.webkitTransition = 'none';
+				
+				startTime = new Date();
+				
+				//阻止默认事件
+				ev.preventDefault();
+				
+			}
+			
+			
+			function touchmoveHandler( ev ){
+				
+				//得到坐标
+				var disX = ev.touches[0].clientX;
+				
+				//改变图片的位置
+				imagesLis[idx].style.webkitTransform = 'translateX(' + (disX - deltaX) + 'px)';
+				imagesLis[next].style.webkitTransform = 'translateX(' + ( windowWidth + disX - deltaX) + 'px)';
+				imagesLis[prev].style.webkitTransform = 'translateX(' + ( -windowWidth + disX - deltaX) + 'px)';
+
+				
+				//阻止默认事件
+				ev.preventDefault();
+
+			}
+			
+			//end 抬起
+			function touchendHandler( ev ){
+				
+				//判定是否往那边滑动，及是否滑动成功
+				var distance = ev.changedTouches[0].clientX - startX;
+				
+				//滑动的时间
+				var time = new Date() - startTime;
+				
+				if ( distance >= windowWidth/2 || (distance > 20) && (time < 400) ) { //向右边滑动成功 ,加上方向&&时间戳
+					
+					console.log( '向右边' );
+					
+					//改变信号量
+					
+					//滑动 右边， 备份原来的idx，为next
+					next = idx;
+					
+					idx = prev;
+					
+					prev--;
+					if ( prev < 0 ) {
+						prev = 4;
+					}
+					
+					//移动
+					imagesLis[idx].style.webkitTransform = 'translateX(0px)';
+					imagesLis[next].style.webkitTransform = 'translateX(' + windowWidth + 'px)';
+					
+					//加上过度
+					imagesLis[idx].style.webkitTransition = 'all .2s ease 0s';
+					imagesLis[next].style.webkitTransition = 'all .2s ease 0s';
+					
+				}	else if ( distance <= -windowWidth/2 || (distance < -20) && (time < 400) ) {  //向左边滑动成功
+					
+					console.log( '向左边' );
+					 
+					//改变信号量
+					
+					//滑动 左边， 备份原来的idx，为prev
+					prev = idx;
+					
+					idx = next;
+					
+					next++;
+					if ( next > 4 ) {
+						next = 0;
+					}
+					
+					//改变图片的位置
+					imagesLis[idx].style.webkitTransform = 'translateX(0px)';
+					imagesLis[prev].style.webkitTransform = 'translateX(' + -windowWidth + 'px)';
+					 
+					//加上过度
+					imagesLis[idx].style.webkitTransition = 'all .2s ease 0s';
+					imagesLis[prev].style.webkitTransition = 'all .2s ease 0s';
+							 
+				} else {  //滑动失败
+					
+					console.log( '滑动失败' );
+					
+					//各回各家.
+					
+					//改变图片的位置
+					imagesLis[prev].style.webkitTransform = 'translateX(' + -windowWidth + 'px)';
+					imagesLis[idx].style.webkitTransform = 'translateX(0px)';
+					imagesLis[next].style.webkitTransform = 'translateX(' + windowWidth + 'px)';
+					 
+					//加上过度
+					imagesLis[prev].style.webkitTransition = 'all .2s ease 0s';
+					imagesLis[idx].style.webkitTransition = 'all .2s ease 0s';
+					imagesLis[next].style.webkitTransition = 'all .2s ease 0s';
+					
+				}
+				
+				//阻止默认事件
+				ev.preventDefault(); 
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

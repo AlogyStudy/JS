@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<canvas id="cvs" width="500" height="500" style="border: 1px solid cyan; margin: 0 auto;"></canvas>
+		
+		
+		<script type="text/javascript">
+				
+			var cvs = document.querySelector('#cvs');
+			var cs = cvs.getContext('2d');
+			
+			/**
+			 * 圆-时钟
+			 * @param {Number} x
+			 * @param {Number} y
+			 * @param {Number} d
+			 * @param {String} color
+			 * @param {Number} fine
+			 * @param {Boolean} solid  圆是否填充,默认为填充
+			 */
+			
+			function Arc( x,y,d,color,w,solid ){
+				
+				this.x = x;
+				this.y = y;
+				this.d = d;
+				
+				this.color = color;
+				this.w = w;
+				
+				//是否填充属性
+				this.solid = solid;
+				
+				//渲染圆
+				this.render();
+				
+			}
+			
+			//渲染圆
+			Arc.prototype.render = function(){
+				
+				//是否是填充
+				var solid = this.solid ? 'stroke' : 'fill';
+				
+				cs.beginPath();
+				
+				cs[solid+'Style'] = this.color;  
+				cs.lineWidth = this.w;
+				
+				cs.arc(this.x,this.y,this.d,0,Math.PI*2,false);
+				
+				cs[solid]();
+				
+				cs.closePath();
+				
+			}
+			
+			/**
+			 * 线
+			 * @param {Number} x1
+			 * @param {Number} x2
+			 * @param {Number} y1
+			 * @param {Number} y2
+			 * @param {Number} w
+			 * @param {String} color
+			 */
+			function Line( x1,y1,x2,y2,w,color ){
+				
+				this.x1 = x1;
+				this.y1 = y1;
+				
+				this.x2 = x2;
+				this.y2 = y2;
+				
+				this.color = color;
+				
+				this.w = w;
+				
+				this.render();
+				
+			}
+			
+			Line.prototype.render = function(){
+				
+				for ( var i=0; i<12; ++i ) {
+					
+					
+					
+				}
+				
+				cs.beginPath();
+					
+					cs.moveTo(this.x1,this.y1);
+					cs.lineTo(this.x2,this.y2);
+					
+					cs.lineWidth = this.w;
+					cs.strokeStyle = this.color;
+					
+					cs.stroke();
+				
+				cs.closePath();
+				
+			}
+			
+			//外圈
+			var arc = new Arc(250,250,100,'pink',1,true);
+			
+			//实心点
+			var dian = new Arc(250,250,5,'black',1);	
+				
+			//线
+			var xian1 = new Line(230,150,230,170,1,'tan');			
+			
+			
+		</script>
+		
+		
+		
+	</body>
+</html>

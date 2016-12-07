@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#div1 {
+				width: 100px;
+				height: 100px;
+				background: cyan;
+				position: absolute;
+				left: 0;
+				top: 100px;
+				transition: all 1s ease 0s;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<input type="button" name="" id="" value="点击移动" />
+		
+		<div id="div1"></div>
+		
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			$('input').click(function(){
+				
+				$('div').css({
+					'left': 700
+				});
+							
+				//模拟回调函数，  css函数中没有回调函数。			
+				setTimeout(function(){
+					
+					//重置transform
+					$('div').css('transform','none');
+					$('div').css('background','tan');
+					
+				},1000);
+				
+			});
+			
+		</script>
+		
+	</body>
+</html>

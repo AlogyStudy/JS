@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		
+		<link rel="stylesheet" type="text/css" href="index1200.css"/>
+		<link rel="stylesheet" type="text/css" href="" id="rwd"/>		
+		
+		<script type="text/javascript">
+			
+			var rwd = document.querySelector('#rwd');
+			
+			setCss();
+			window.onresize = setCss();
+			
+			function setCss(){
+				
+				var windowWindth = document.documentElement.clientWidth;
+				
+				if ( windowWidth >= 1200 ) {
+					
+					rwd.href = '';
+					
+				} else if ( windowWidth >=980 ) {
+					
+					rwd.href = 'css/index980.css';
+					
+				} else if ( windowWidth >= 640 ) {
+					
+					rwd.href = 'css/index640.css';
+					
+				} else if ( windowWidth >=320 ) {
+					
+					rwd.href = 'css/index640.css';
+					
+				}
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		
+		<header>
+			<div class="logo"></div>
+			<nav></nav>
+			<div class="tools"></div>
+		</header>
+		
+	</body>
+</html>

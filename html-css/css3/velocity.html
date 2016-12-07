@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<style type="text/css">
+			body {
+				perspective: 500px;
+			}
+			div {
+				width: 100px;
+				height: 100px;
+				background: cyan;
+				position: absolute;
+				left: 100px;
+				top: 200px;
+			}
+		</style>
+		
+		<input type="button" id="" value="点击" />
+		<div></div>
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="//cdn.bootcss.com/velocity/1.2.3/velocity.js"></script>-->
+		
+		<script type="text/javascript">
+			
+			$('input').click(function(){
+				
+				$('div').velocity({
+					'rotateY': '200deg',
+					'translateZ': '100px',
+					'border': '1px solid #000'
+				},1000)
+//				.velocity('reverse',1000);
+				
+			});
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name=viewport content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 60px;
+			height: 60px;
+			background-color: orange;
+			position: absolute;
+			top: 100px;
+			left: 100px;
+		}
+
+		span{
+			width: 1px;
+			position: absolute;
+			height: 600px;
+			left: 800px;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	
+	
+	<div></div>
+
+	<span class="line"></span>
+
+	
+	<script type="text/javascript">
+		
+		var oDiv = document.querySelector('div');
+		
+		//误差值
+		var deltaX = 0;
+		
+		//信号量
+		var nowX = 100;
+		
+		
+		//移动数据的数组
+		var moveArr = [];
+		
+		oDiv.addEventListener('touchstart',touchstartHandler,false);
+		oDiv.addEventListener('touchmove',touchmoveHandler,false);
+		oDiv.addEventListener('touchend',touchendHandler,false);
+		
+		
+		function touchstartHandler( ev ){
+			
+			//误差值
+			deltaX = ev.touches[0].clientX - nowX;
+			
+			//去掉过度
+			oDiv.style.transition = 'none';
+			
+			ev.preventDefault();
+			
+		}
+		
+		function touchmoveHandler( ev ){
+			
+			nowX = ev.touches[0].clientX - deltaX;
+			
+//			oDiv.style.transform = 'translateX('+ nowX +'px)';
+			oDiv.style.left = nowX + 'px';
+			
+			//放入当前指针的位置
+			moveArr.push( ev.touches[0].clientX );
+			
+			ev.preventDefault();
+			
+		}
+		
+		function touchendHandler( ev ){
+			
+			
+			var s = moveArr[moveArr.length-1] - moveArr[moveArr.length-2];
+			
+			var targetX = nowX + s * 5;
+			
+			//处理临时信号量 , 判断方向
+			if ( targetX > 800 - 60 ) {  //信号量的值大于 障碍物的left值-自身的值	
+				
+				targetX = 800 - 60;
+				
+				//过渡实现
+				oDiv.style.transition = 'all .5s cubic-bezier(0.25, 0.1, 0.25, 1) 0s';
+				
+			} else if ( targetX < 0 ) {
+				
+				targetX = 0;
+				
+				//过渡实现
+				oDiv.style.transition = 'all .5s cubic-bezier(0.25, 0.1, 0.25, 1) 0s';
+			
+			} else {
+				
+				//过渡实现
+				oDiv.style.transition = 'all .5s';
+				
+			}
+			
+			
+			oDiv.style.left = targetX + 'px';
+			
+			// 目标值 赋值 信号量 
+			nowX = targetX;
+			
+			ev.preventDefault();
+			
+		}
+		
+		
+		
+		
+	</script>
+
+</body>
+</html>
