@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		.flyIn{
+			margin:50px auto; 
+			width:800px;
+			height:500px;
+			border:1px solid #ccc;
+			position: relative;
+			/*overflow: hidden;*/
+		}
+		.flyIn .imgStandBy{
+			height:100%;
+		}
+		.flyIn .imgStandBy ul {
+			position: absolute;
+			left:100px;
+			top:100px;
+			list-style: none;
+		}
+		.flyIn .imgStandBy ul li{
+			/*display: none;*/
+			/*不能设置为displ:none 如果设置了就不会预加载*/
+			position: absolute;
+			top:0;
+			left: 0;
+			opacity: 0;
+			filter:alpha(opacity: 0);
+		}
+		.flyIn .imgStandBy ul li.kuilei{
+			opacity: 1;
+			filter:alpha(opacity: 100);
+		}
+		.flyIn .imgStandBy ul.ready{
+			position: absolute;
+			left:1000px;
+			top:100px;
+			list-style: none;
+		}
+		.flyIn .btns{
+			width:100%;
+			height:100%;
+			position: relative;
+		}
+		.flyIn .btns span{
+			position: absolute;
+			top:50%; 
+			width:40px;
+			height:80px;
+			margin-top: -80px;
+			background-color: #872;
+		}
+		.flyIn .btns .lftBtn{ 
+			left: 10px; 
+		}
+		.flyIn .btns .rgtBtn{ 
+			right: 10px; 
+		} 
+	</style>
+</head>
+<body>
+	<div class="flyIn" id="flyIn">
+		<div class="btns">
+			<span id="lftBtn" class="lftBtn"></span>
+			<span id="rgtBtn" class="rgtBtn"></span>
+		</div>
+		<div class="imgTarget" id="imgTarget">
+			
+		</div>
+		<div class="imgStandBy" id="imgStandBy">
+			<ul>
+				<li class="kuilei"><a javascript::><img src="images/0.jpg"/></a></li>
+				<li><a javascript::><img src="images/1.jpg"/></a></li>
+				<li><a javascript::><img src="images/2.jpg"/></a></li>
+				<li><a javascript::><img src="images/3.jpg"/></a></li>
+				<li><a javascript::><img src="images/4.jpg"/></a></li>
+			</ul>
+			<ul class="ready">
+				 <span id="test"></span>
+			</ul>
+		</div>
+	</div>
+</body>
+ <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+ <script type="text/javascript">
+
+ 	//问题： 当重新加载的时候 图片有时不会全部加载完成
+ 	//思路  
+ 	//许多的切片 每片一个背景
+ 	var cols=10;//飞入时有多少个列
+ 	var rows=9;//飞入时有多少个行
+ 	var singleWpx=0;//初始化单个切片的宽度变量
+ 	var singleHpx=0;//初始化单个切片的高度变量
+ 	//图片的宽度
+ 	var imgWidth=0;
+ 	//图片的高度
+ 	var imgHeight=0;
+ 	//定义json对象存储的是单个盒子的宽高
+ 	var singleJSONArr=[] ;
+ 	//信号量
+ 	var idx=0;
+ 	//定义一个变量以节省资源
+ 	var hadClick=false;
+ 	//每个切片 需要移动的距离 left和top
+ 	var mobileLeft;
+ 	var mobileRight
+ 	//获取图片的宽高以计算应有多少切片
+ 	var imgCount=0;  
+ 	//将所有需要$()函数给提取出来以稍微提升效率
+ 	$img=$("img");//所有的图片
+ 	$maxBox=$(".flyIn"); 
+ 	var targetImgLocation = $(".imgTarget");
+ 	$img.each(function(){ 
+ 		$(this).load(function() { 
+ 		imgWidth=parseFloat($(this).css("width"));
+ 		imgHeight=parseFloat($(this).css("height"));
+ 		singleWpx=imgWidth/cols;//单个切片的像素宽度赋值
+ 		singleHpx=imgHeight/rows;//单个切片的像素高度赋值
+	 	singleJSONArr[imgCount] = {   //json对象赋值 注意：使用imgCount来记录数组的个数 因为无法判断哪个图片先load完成 所以无法将尺寸与图片正确对应 因为可能第三张图片先 加载完成 却被记录在 了下标为0的数组里 
+	 		"width": singleWpx,
+	 		"height":singleHpx
+	 	}  
+	 	imgCount++;
+	 	if(imgCount==$img.length){
+	 			for(var i =0 ;i<singleJSONArr.length;i++){
+	 				console.log(singleJSONArr.length+"张图片加载完毕");
+	 			}
+	 	} 
+ 		console.log(imgWidth);
+ 		}); 
+ 	});
+ 	//点击右按钮的时候
+
+ 	$(".flyIn .btns .rgtBtn").click(function(){
+
+ 		if(!imgCount){
+ 			alert("一张图片也没有");
+ 			return ;
+ 		}
+ 		$(".kuilei").removeClass('kuilei');
+ 		var delay=0; //延迟时间
+ 		// console.log(idx);
+ 		// console.log(singleJSONArr[idx]); 
+ 		//目标图片的左坐标位置  为最大盒子的宽度减去目标盒子(用来显示)的宽度再除以2 以居中
+ 	//console.log(	singleJSONArr[idx]["width"]);
+ 		var imgTargetLeftLocation=(parseFloat($maxBox.css("width"))-parseFloat(singleJSONArr[idx]["width"]*cols))/2;
+ 		//console.log(imgTargetLeftLocation);
+ 		//目标图片的上坐标位置  为最大盒子的高度减去 目标盒子的高度再除以2 以居中
+ 		var imgTargetTopLocation=(parseFloat($maxBox.css("height"))-parseFloat(singleJSONArr[idx]["height"]*rows))/2;
+ 		//console.log(imgTargetTopLocation);
+ 		 idx++;
+ 		idx>=imgCount ? idx=0 : idx ;
+ 		 flyIn(idx);
+ 		// console.log(singleJSONArr[0]["width"]);
+ 		// return ;
+ 		targetImgLocation.css("width",singleJSONArr[idx]["width"]*cols ).css("height",singleJSONArr[idx]["height"]*rows).css("position","absolute").css("top",imgTargetTopLocation).css("left",imgTargetLeftLocation);
+ 		//生成全部切片
+ 		//计算需要跑动的距离 
+  
+ 		var needRunLeft=$(".ready")[0].offsetLeft-imgTargetLeftLocation;
+ 		var needRunTop=$(".ready")[0].offsetTop-imgTargetTopLocation;
+ 		//先运动 后切换图片
+ 		
+ 		//console.log($(".ready")[0].offsetTop-(imgTargetTopLocation);
+ 		// console.log((imgTargetTopLocation);
+ 		// console.log(imgTargetLeftLocation);
+ 		//因为代码生成 所以不能提取到外面预定义为变量
+ 		$(".ready p").each(function(){ 
+ 			//依次跑到对应的位置
+ 			$(this).delay(delay+=3).animate({"left":parseFloat($(this).css("left"))-needRunLeft,"top":parseFloat($(this).css("top"))-needRunTop},400);
+ 		})  
+ 	})
+$(".flyIn .btns .lftBtn").click(function(){
+		if(!imgCount){
+ 			alert("一张图片也没有");
+ 			return ;
+ 		}
+ 		var delay=0; 
+ 		// console.log(idx);
+ 		// console.log(singleJSONArr[idx]); 
+ 		//目标图片的左坐标位置  为最大盒子的宽度减去目标盒子(用来显示)的宽度再除以2 以居中
+ 		var imgTargetLeftLocation=(parseFloat($maxBox.css("width"))-parseFloat(singleJSONArr[idx]["width"]*cols))/2;
+ 		//console.log(imgTargetLeftLocation);
+ 		//目标图片的上坐标位置  为最大盒子的高度减去 目标盒子的高度再除以2 以居中
+ 		var imgTargetTopLocation=(parseFloat($maxBox.css("height"))-parseFloat(singleJSONArr[idx]["height"]*rows))/2;
+ 		//console.log(imgTargetTopLocation);
+ 		idx--;
+ 		idx<0 ? idx=imgCount-1 : idx ;
+ 		flyIn(idx);
+ 		// console.log(singleJSONArr[0]["width"]);
+ 		// return ;
+ 		targetImgLocation.css("width",singleJSONArr[idx]["width"]*cols ).css("height",singleJSONArr[idx]["height"]*rows).css("position","absolute").css("top",imgTargetTopLocation).css("left",imgTargetLeftLocation);
+ 		//生成全部切片
+ 		//计算需要跑动的距离 
+ 		//console.log($(".ready")[0].offsetLeft-imgTargetLeftLocation);
+ 		var needRunLeft=$(".ready")[0].offsetLeft-imgTargetLeftLocation;
+ 		var needRunTop=$(".ready")[0].offsetTop-imgTargetTopLocation;
+ 		//先运动 后切换图片 
+ 		//console.log($(".ready")[0].offsetTop-(imgTargetTopLocation);
+ 		// console.log((imgTargetTopLocation);
+ 		// console.log(imgTargetLeftLocation);
+ 		//因为代码生成 所以不能提取到外面预定义为变量
+ 		$(".ready p").each(function(){ 
+ 			//依次跑到对应的位置
+ 			$(this).delay(delay+=3).animate({"left":parseFloat($(this).css("left"))-needRunLeft,"top":parseFloat($(this).css("top"))-needRunTop},400);
+ 		})  
+ 	})
+	 function flyIn(idx){//运行这个函数的时候 换图片并且重新执行切片的初始化动作 但是会造成资源过度浪费  待优化  
+		for(var i=0;i<rows;i++){ //循环初始化每个小切片
+		 	for(var j=0;j<cols;j++){
+		 		$("<p></p>").css(singleJSONArr[idx]).css("position","absolute").css("left",j * singleWpx ).css("background","url(images/"+idx+".jpg) "+ -j * singleWpx+"px " +  -i * singleHpx +"px").css("top",i * singleHpx).appendTo(".flyIn .imgStandBy ul.ready");
+		 			// console.log("这个图片的背景定位为"+"background","url(images/"+idx+".jpg) "+ j * singleWpx+"px " +  i * singleHpx +"px");
+		 	}
+		 } 
+	 }
+ </script>
+</html>

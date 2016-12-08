@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			p{
+				width: 40px;
+				height: 40px;
+				background: firebrick;
+			}
+			
+		</style>
+	</head>
+	<body>
+	
+		<p class="t"></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p class="t"></p>
+		<p></p>
+		<p class="t"></p>
+		<p class="t"></p>
+		<p></p>
+		<p class="t"></p>
+		
+		<script src="jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+		<script type="text/javascript">
+			
+			$('p').click(function(){
+				alert( $(this).is('.t') );
+			});
+			
+		</script>
+	</body>
+</html>

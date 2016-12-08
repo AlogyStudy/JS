@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<input type="text" name="" id="txt" value="" />
+		<input type="button" id="btn" value="插入" />
+		<ul></ul>
+		
+		<script type="text/javascript">
+			
+			var oTxt = document.getElementById("txt");
+			var oBtn = document.getElementById("btn");
+			var lis = document.getElementsByTagName('li');
+			
+			var oUl = document.getElementsByTagName('ul')[0];
+			
+			oBtn.onclick = function(){
+				
+				var oLi = document.createElement('li');
+				oLi.innerHTML = oTxt.value;
+				oUl.insertBefore(oLi,lis[0]);
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

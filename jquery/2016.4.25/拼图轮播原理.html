@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			div {
+				width: 10px;
+				height: 10px;
+				position: absolute;
+				background: url(images/0.jpg);
+				top: 0;
+				left: 3000px;
+				/*border: 1px solid firebrick;*/
+			}
+			
+		</style>		
+	</head>
+	<body>
+		 
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//创建 标签。 行列 多少个。 行 10个 ，列10个。
+			for ( var r=0; r<30; ++r ) {  //行
+				for ( var c=0; c<56; ++c ) { //列
+					var $div = $('<div></div>');
+					$div.css({
+						/*'left': r%56*10,
+						'top': parseInt(c/30)*10*/
+						'left': 500,
+						'top': 500,
+						'display': 'none',
+						'background-position': '-'+ c*10 +'px -'+ r*10 +'px'
+					});
+					$div.appendTo( $('body') );
+				}
+			}
+			
+			$('div').each(function( i ){
+				$(this).fadeIn().delay(i%56*10).animate({
+					'left': i%56*10,
+					'top': parseInt(i/56)*10
+				},200);
+			});
+			
+		</script>
+		
+		
+	</body>
+</html>

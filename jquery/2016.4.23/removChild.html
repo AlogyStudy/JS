@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<ul>
+			<li>111111111</li>
+			<li>222222222</li>
+			<li>333333</li>
+		</ul>
+		
+		<script type="text/javascript">
+			
+			//点击谁 谁消失
+			var oUl = document.getElementsByTagName('ul')[0];
+			var lis = oUl.getElementsByTagName('li');
+			for ( var i=0; i<lis.length; ++i ) {
+				lis[i].onclick = function(){
+					oUl.removeChild(this);
+				}
+			}
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.carousel{
+			width: 560px;
+			height: 300px;
+			margin: 100px auto;
+			border: 1px solid #333;
+			position: relative;
+			overflow: hidden;
+		}
+		.carousel .m_unit{
+			width: 5000px;
+			height: 300px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.carousel ul{
+			list-style: none;
+		}
+		.carousel ul li{
+			float: left;
+			width: 560px;
+			height: 300px;
+		}
+		.btns a{
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			top: 50%;
+			margin-top: -20px;
+			background-color: orange;
+			font-size: 30px;
+			line-height: 40px;
+			text-align: center;
+			border-radius: 50%;
+			font-weight: bold;
+			cursor: pointer;
+			z-index: 999;
+		}
+		.btns a:hover{
+			background-color: gold;
+		}
+		.leftBtn{
+			left: 10px;
+		}
+		.rightBtn{
+			right: 10px;
+		}
+		.circles{
+			position: absolute;
+			width: 150px;
+			height: 16px;
+			bottom: 10px;
+			right: 10px;
+		}
+		.circles ol{
+			list-style: none;
+		}
+		.circles ol li{
+			float: left;
+			width: 16px;
+			height: 16px;
+			background-color: orange;
+			margin-right: 6px;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+		.circles ol li.cur{
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="carousel" id="carousel">
+		<div class="btns">
+			<a class="leftBtn"  id="leftBtn"></a>
+			<a class="rightBtn" id="rightBtn"></a>
+		</div>
+		<div class="m_unit" id="m_unit">
+			<ul>
+				<li><a><img src="images/0.jpg" alt="" /></a></li>
+				<li><a><img src="images/1.jpg" alt="" /></a></li>
+				<li><a><img src="images/2.jpg" alt="" /></a></li>
+				<li><a><img src="images/3.jpg" alt="" /></a></li>
+				<li><a><img src="images/4.jpg" alt="" /></a></li>
+			</ul>
+		</div>
+		<div class="circles" id="circles">
+			<ol>
+				<li class="cur"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+	</div>
+	
+
+	<script src="jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		//索引
+		var idx = 0;
+		var imgLength = $('#m_unit li img').length;
+		var imgWidth = $('#m_unit li img').width();
+		
+		//复制图片 
+		$('#m_unit ul').append( $('#m_unit li:first').clone() );
+		
+		//自动轮播
+		var timer = setInterval(rightBtnHandler,2000);
+		$('#carousel').mouseenter(function(){
+			clearInterval(timer);
+		});
+		$('#carousel').mouseleave(function(){
+			timer = setInterval(rightBtnHandler,2000);
+		});
+		
+		//添加左边监听
+		$('#rightBtn').click(rightBtnHandler);
+		
+		function rightBtnHandler(){
+			if( $('#m_unit').is(':animated') ) return false;
+			idx++;
+			changeCrile();
+			$('#m_unit').animate({'left': - idx*imgWidth},800,function(){
+				if( idx>imgLength-1 ){
+					idx = 0;
+					$('#m_unit').css('left',0);
+				}
+			});
+		}
+		
+		//添加右边监听
+		$('#leftBtn').click(function(){
+			if( $('#m_unit').is(':animated') ) return false;
+			idx--;
+			if( idx<0 ){
+				idx = imgLength-1;
+				$('#m_unit').css('left',-idx*imgWidth);
+			}
+			changeCrile();
+			$('#m_unit').animate({'left': -idx*imgWidth},800);
+		});
+		
+		//小圆点监听
+		$('#circles li').click(function(){
+			idx = $(this).index();
+			$('#m_unit').animate({'left': -idx*imgWidth},800);
+			changeCrile();
+		});
+		
+		//小圆点change
+		function changeCrile(){
+			var n = idx;
+			if( n>imgLength-1 ){
+				n = 0;
+			}
+			$('#circles li').eq(n).addClass('cur').siblings().removeClass('cur');
+		}
+		
+	</script>
+
+</body>
+</html>
