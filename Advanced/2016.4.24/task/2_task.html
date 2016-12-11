@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.carousel{
+			width: 380px;
+			height: 280px;
+			border: 1px solid #000;
+			margin: 100px auto;
+		}
+		.imageList{
+			height: 230px;
+			overflow: hidden;
+		 	position: relative;
+		}
+		.carousel .imageList  ul{
+			list-style: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.carousel .imageList ul li{
+			width: 380px;
+			height: 230px;
+		}
+		.carousel .imageList  ul li img{
+			width: 100%;
+			height: 100%;
+		}
+		.carousel .smallImage ul{
+			list-style: none;
+		}
+		.carousel .smallImage ul li{
+			float: left;
+			width: 70px;
+			height: 44px;
+			border: 3px solid #333;
+		}
+		.carousel .smallImage ul li:hover{
+			border-color: #ccc;
+		}
+		.carousel .smallImage ul li.cur{
+			border-color: orange;
+		}
+		.carousel .smallImage ul li img{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="carousel">
+		<div class="imageList">
+			<ul>
+				<li><a href="#"><img src="imags/1.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="imags/2.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="imags/3.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="imags/4.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="imags/5.jpg" alt="" /></a></li>
+			</ul>
+		</div>
+		<div class="smallImage">
+			<ul>
+				<li class="cur"><a href="javascript:;"><img src="imags/1.jpg" alt="" /></a></li>
+				<li><a href="javascript:;"><img src="imags/2.jpg" alt="" /></a></li>
+				<li><a href="javascript:;"><img src="imags/3.jpg" alt="" /></a></li>
+				<li><a href="javascript:;"><img src="imags/4.jpg" alt="" /></a></li>
+				<li><a href="javascript:;"><img src="imags/5.jpg" alt="" /></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript">
+	
+		
+		var $m_unit = $('.imageList ul');
+		var lisHeight = $m_unit.find('li').height();
+		var timer = null;
+		$m_unit.find('li').eq(0).clone().appendTo( $m_unit );
+		
+		var idx = 0;
+		
+		timer = setInterval(move,2000);
+		$('.carousel').mouseenter(function(){
+			clearInterval(timer);
+		});
+		$('.carousel').mouseleave(function(){
+			timer = setInterval(move,2000);
+		});
+		
+		function move(){
+			idx++;
+			$m_unit.animate({'top':-idx*lisHeight},function(){
+				if( idx>4 ){
+					idx = 0;
+					$m_unit.css('top',0);
+				}
+			});
+			changeCur();
+		}
+		
+		//小圆点监听
+		$('.smallImage ul li').click(function(){
+			idx = $(this).index();
+			$m_unit.animate({'top': -idx*lisHeight});
+			changeCur();
+		});
+	
+	
+		//小圆点变化
+		function changeCur(){
+			var n = idx>4 ? 0 : idx; 
+			$('.smallImage ul li').eq(n).addClass('cur').siblings().removeClass('cur');
+		}
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			function Dog(){
+				
+			}
+			
+			var d = new Dog();
+			console.log( d instanceof Dog );  //true
+			
+			function Cat(){
+				
+			}
+			Cat.prototype = new Dog;
+			
+			var gst = new Cat();
+			
+			console.log( gst instanceof Cat );  //true 
+			console.log( gst instanceof Dog ); //true 
+			console.log( gst instanceof Object ); //true 
+			
+			
+		</script>
+		
+	</body>
+</html>

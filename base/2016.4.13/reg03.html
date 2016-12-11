@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+
+
+		<script type="text/javascript">
+
+
+			var reg = /hi/; //仅看字符串是否有 hi
+			console.log( reg.test('hello') );  //false
+			console.log( reg.test('this is iqianduan') ); //true
+
+			//测试单词 hi
+			var reg01 = /^hi/;
+			console.log( reg01.test('this is') ); //false
+			console.log( reg01.test('this is, hi,his') );//true
+			console.log('---------');
+			// 匹配单词hi
+			// var reg = /\bhi.+/;  错误
+			var reg = /\bhi\w*/g;
+			console.log( reg.exec('this is') ); //null
+			console.log( reg.exec('his') ); //["his", index: 0, input: "his"]
+			console.log( reg.exec('history,hi') );//["history", index: 0, input: "history,hi"]
+			console.log( reg.exec('history') );//["history", index: 0, input: "history"]
+
+
+			console.log('--------');
+
+			//测试hi开头的单词，但是不是hi
+			var reg02 = /^hi+/;
+			console.log( reg02.test('his') );
+
+			//匹配进行时的单词  //ing
+			var reg03 = /ing$/;
+			console.log( reg03.test('when i feeling happy,you are crying') );
+
+		</script>
+
+
+	</body>
+</html>

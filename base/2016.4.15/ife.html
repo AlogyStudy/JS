@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+			<script type="text/javascript">
+				
+				var arr =[];
+				
+				for( var i=0; i<=10; ++i ){
+					(function( m ){
+						// debugger;
+						arr[m] = function(){
+							console.log( m );
+						}
+					})( i );
+				}
+				
+				arr[2]();
+
+
+				~function(){
+					console.log('123');
+				}();
+
+			</script>
+		
+	</body>
+</html>

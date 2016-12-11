@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>百度社招</title>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/talent.css"/>
+	</head>
+	<body>
+		
+		<div class="header"></div>
+		<div class="banner"></div>
+		<div class="crumbs"></div>
+		
+		<!--pagination-->	
+		<div class="pagination" id="pagination">
+			<div class="pagination-con clearfix">
+				<h2>职位信息</h2>
+				<!--pagination-info-->
+				<div class="pagination-info clearfix">
+					<ul>
+						<li class="pagination-info-head clearfix">
+							<ul>
+								<li>职位信息</li>
+								<li>职位类别</li>
+								<li>工作地点</li>
+								<li>招聘人数</li>
+								<li>更新时间</li>
+							</ul>
+						</li>
+						<!--pagination-info-body-->
+						<li class="pagination-info-body">
+<!--							<ul class="clearfix pagination-info-con">
+								<li><a href="#">自动驾驶事业部_仿真器前端工程师</a></li>
+								<li>技术</li>
+								<li>北京市</li>
+								<li>若干</li>
+								<li class="publish-date">
+									<!--∧--
+									<span>2016-05-04  <a href="javascript: void(0);" class="up-arrow-icon">∨</a></span>
+									<!--job-detail--
+									<div class="job-detail hide">
+										<div class="job-duty">
+											<h4>工作职责：</h4>
+											<p>-负责海外移动端流量引入，管理不仅限于SEM、display、Search、DSP、affiliate等付费渠道</p>
+											<p>-负责流量渠道规模化增长和新渠道拓展，拉动移动端产品的流量增长</p>
+											<p>-基于用户和预算目标，负责流量渠道、媒体的采购价格策略制定，提高流量投入产出比</p>
+											<p>-实时监控流量效果及调整投放方案，配合产品团队提升流量变现效率</p>
+										</div>
+										<div class="job-demand">
+											<h4>职位要求：</h4>
+											<p>-本科以上学历，广告传播、市场营销、电子商务等相关专业</p>
+											<p>-有SEM、affiliate、媒体BD合作经验，熟悉CPC\CPS\CPM采购方式，熟悉google\FB等投放平台，或者有affiliate平台运营经验</p>
+											<p>-移动端推广成功案例，有海外主要移动流量渠道和媒体的关系</p>
+											<p>-出色的数据和分析经验，熟练使用各种优化工具、分析工具，精通EXCEL等基本工具，会使用SQL语言、google analytics等数据或网站分析工具优先</p>
+											<p>-目标导向,具备良好的沟通能力、执行力、强烈的责任心和学习能力，具有团队合作精神</p>
+											<p>-英文书写和交流熟练，CET-6以上</p>
+										</div>
+										<div class="job-operation">
+											<a class="apply-job">申请职位</a>
+											<a class="collect-job">收藏职位</a>
+										</div>
+									</div>
+									<!--end job-detail--
+								</li>
+							</ul>
+						
+-->						</li>
+						<!--end pagination-info-body-->
+					</ul>
+				</div>
+				<!--end pagination-info-->
+				<!--page-->
+				<div class="page clearfix">
+					<div class="page-con clearfix">
+						<a>1</a>
+						<a>2</a>
+						<a>3</a>
+						<span>...</span>
+						<a>4</a>
+						<a>5</a>
+					</div>
+				</div>
+				<!--end page-->
+			</div>
+				
+		</div>
+		<!--end pagination-->
+		
+		<div class="footer"></div>
+		
+		<!--template-->
+		<script type="text/template" id="temp">
+			<ul class="clearfix pagination-info-con">
+				<li class="info-first"><a href="<%=postId%>"><%=name%></a></li>
+				<li><%=postType%></li>
+				<li><%=workPlace%></li>
+				<li class="info-num"><%=recruitNum%></li>
+				<li class="publish-date">
+					<!--∧-->
+					<span><%=publishDate%>  <a href="javascript: void(0);" class="up-arrow-icon">∨</a></span>
+					<!--job-detail-->
+					<div class="job-detail hide clearfix">
+						<div class="job-duty">
+							<h4>工作职责：</h4>
+							<p><%=serviceCondition%></p>
+						</div>
+						<div class="job-demand">
+							<h4>职位要求：</h4>
+							<p><%=workContent%></p>
+						</div>
+						<div class="job-operation">
+							<a class="apply-job">申请职位</a>
+							<a class="collect-job">收藏职位</a>
+						</div>
+					</div>
+					<!--end job-detail-->
+				</li>
+			</ul>
+		</script>
+		<!--end template-->
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/underscore.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+		<script type="text/javascript">
+			//获取模板
+			var $temp = $('#temp');
+			
+			var $infoContent = $('.pagination-info-body');
+			
+			var fnCompile = _.template( $temp.html() );
+			
+			var page = 1;
+			getjson(page);
+			
+			function getjson( page ){
+				$.ajax({
+					type: 'get',
+					url: 'JSON/getPostList' + page,
+					data: {'z': Math.random()},
+					async: true,
+					'success': function( iData ){
+						
+						var oIData = JSON.parse( iData );
+						var arrPostList = oIData.postList;
+						
+						if ( (oIData.currentPage > 9) ) {
+							return false;
+						}
+						
+						//开锁
+						lock = true;
+						
+						
+						$.each( arrPostList,function( i,dict ){
+							var strDom = fnCompile( dict );
+							var $strDom = $(strDom);
+							
+							var strInfo = $strDom.find('.info-first').find('a').html();
+							var strInfoLength = strInfo.length;
+							
+		//					'国际化产品研发中心（深圳）_前端开发工程师'.replace('国际化产品研发中心（深圳）_前端开发工程师'.slice(19),'...')
+							if ( strInfoLength>=19 ) {
+								var strInfoCon = strInfo.replace( strInfo.slice(17), '...' );
+								$strDom.find('.info-first').find('a').html(strInfoCon);
+							}
+							
+							//模板修正
+							dict.url = 'http://talent.baidu.com/external/baidu/index.html#/jobDetail/2/' + dict.postId;
+							//模板修正 错误 url 报错
+							var tf = true;
+							$infoContent.append( $strDom );
+							
+							$strDom.find('.up-arrow-icon').click(function(){
+								if ( tf ) {
+									$(this).html('∧');
+									$(this).parent('span').siblings('.job-detail').slideDown();
+	//								.pagination-info-con
+	//								var jobHeight = $(this).parent('span').siblings('.job-detail').outerHeight(true);
+									var a = $(this).parent('span').siblings('.job-detail').find('.job-duty').outerHeight(true);
+									var b = $(this).parent('span').siblings('.job-detail').find('.job-demand').outerHeight(true);
+									var c = $(this).parent('span').siblings('.job-detail').find('.jjob-operation').outerHeight(true);
+									var jobHeight = a + b + c + 100;		
+									$(this).parents('.pagination-info-con').css('height',jobHeight);
+									tf = false;
+								} else {
+									$(this).html('∨');
+									$(this).parent('span').siblings('.job-detail').hide();
+									$(this).parents('.pagination-info-con').css('height',40);
+									tf = true;
+								}
+								
+							});
+						});
+						
+						
+						//处理字符串
+						function repString(){
+							var strInfo = $strDom.find('.info-first').find('a').html();
+							var strInfoLength = strInfo.length;
+		//					'国际化产品研发中心（深圳）_前端开发工程师'.replace('国际化产品研发中心（深圳）_前端开发工程师'.slice(19),'...')
+							if ( strInfoLength>19 ) {
+								strInfo.replace(strInfo.slice(19),'...');
+							}
+						}
+					
+					}
+					
+				});
+			}
+		
+			
+			var lock = true;
+//			var arrNum = [1,2,3,4,5];
+			$('.page-con').find('a').click(function( ev ){
+				if (!true) return false;
+				
+				var aA = $('<a></a>');
+				
+				$('.pagination-info-body').empty();
+				console.log( $(this).index() );
+				page = $(this).index()+1;
+				
+//				page++;
+				getjson(page);
+				lock = false;
+				
+				ev.preventDefault();
+				return false;
+			});
+			
+		</script>
+		
+	</body>
+</html>

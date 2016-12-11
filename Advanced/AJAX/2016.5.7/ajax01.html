@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<h1 id="h1"></h1>
+		<script type="text/javascript">
+			
+			var h1 = document.getElementById("h1");
+			
+			var xhr = new XMLHttpRequest();
+			
+			xhr.onreadystatechange = function(){
+				if( xhr.readyState == 4 ){
+					h1.innerHTML = xhr.responseText;
+				}
+			}
+			
+			xhr.open('get','test.txt',true);
+			
+			xhr.send(null);
+			
+		</script>
+		
+	</body>
+</html>

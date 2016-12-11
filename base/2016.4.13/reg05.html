@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+    <script type="text/javascript">
+
+
+      //goooooooooods  --> goods
+      var str = 'goooooooooods,goooods,goooood,gooooo,gooooods';
+      var reg = /g[o]{3,}?ds/g;
+      console.log( str.replace(reg,'goods') ); //goods,goods,goooood,gooooo,goods
+
+      //查找进行时的单词的词根， 即 不要ing 。  going -> go
+      var str = 'going,comming,fly';
+      // var reg = /\b[a-zA-Z]+ing\b/g;
+      // var reg = /\b[a-zA-Z]+(?=ing)\b/g; //结尾\b 是错误的， 欲查不消耗字符， 相当于/\b[a-zA-Z]+\b/ 这种形式
+      var reg = /\b[a-zA-Z]+(?=ing)/g; // 类似探照灯，先去判断几位是否满足，满足返回，不满足继续下一位.
+      console.log( str.match(reg) );  // ["go", "comm"]
+
+
+      //查找win98,win95,win32,win2003,winxp   -->win98,win32,win2003,winxp
+      var str = 'win98,win95,win32,win2003,winxp';
+      var reg = /\bwin(?!95)/g;
+      console.log( str.match(reg) ); // ["win", "win", "win", "win"]
+
+      //找出 un系列单词的词根
+      var reg = /[\w]+(?<=un)/g;
+      var str = 'unhappy';
+      console.log(str.match(reg));  //报错
+
+    </script>
+
+  </body>
+</html>

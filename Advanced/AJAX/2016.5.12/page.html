@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>百度招聘</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				background-color: #ccc;
+			}
+			a {
+				color: #111;
+				text-decoration: none;
+			}
+			
+			.content {
+				background-color: white;
+				width: 980px;
+				margin: 0 auto;
+				font-size: 12px;
+				padding: 20px;
+			}
+			
+			.content .row {
+				overflow: hidden;
+				line-height: 40px;
+				position: relative;
+			}
+			
+			.content .hd {
+				font-weight: bold;
+			}
+			
+			.content .row .cols {
+				overflow: hidden;
+				position: relative;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.content .row .col {
+				float: left;
+			}
+			
+			.content .row .col1 {
+				width: 30%;
+			}
+			
+			.content .row .col2 {
+				width: 15%;
+			}
+			
+			.content .row .col3 {
+				width: 20%;
+			}
+			
+			.content .row .col4 {
+				width: 20%;
+			}
+			
+			.content .row .col3 {
+				width: 15%;
+			}
+			
+			.content .info {
+				overflow: hidden;
+				font-size: 16px;
+				line-height: 32px;
+			}
+			
+			.content .info h3 {
+				float: left;
+			}
+			
+			.content .info p {
+				float: right;
+			}
+			
+			.content .row_btn {
+				position: absolute;
+				width: 21px;
+				height: 10px;
+				background-color: red;
+				right: 10px;
+				top: 50%;
+				margin-top: -5px;
+				background: url(images/banner-icon.png) -28px -146px;
+				cursor: pointer;
+			}
+			
+			.content .row_btn.up {
+				background-position: -2px -145px;
+			}
+			
+			.content .detail {
+				display: none;
+				border-bottom: 1px solid #ccc;
+			}
+			.content {
+				overflow: hidden;
+			}
+			.content .pageNav {
+				width: 259px;
+				margin: 20px auto 0;
+			}
+			.content ul {
+				list-style: none;
+			}
+			.content ul li {
+				float: left;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				margin-right: 5px;
+				border: 1px solid aqua;
+				cursor: pointer;
+			}
+			.content ul li.cur {
+				background: maroon;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="info">
+				<h3>职位信息</h3>
+				<p>一共有444个职位</p>
+			</div>
+			<div class="jobtable" id="jobtable">
+				<div class="row hd">
+					<div class="cols">
+						<div class="col col1">职位名称</div>
+						<div class="col col2">职位类别</div>
+						<div class="col col3">工作地点</div>
+						<div class="col col4">招聘人数</div>
+						<div class="col col5">更新时间</div>
+					</div>
+				</div>
+				<!--end row-->
+			</div>
+			<div class="pageNav">
+				<ul>
+					<li class="cur"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+			<!--end pageNav-->
+		</div>
+
+		<script type="text/template" id="row_template">
+			<div class="row">
+				<div class="cols">
+					<div class="col col1">
+						<a href='<%=link%>'>
+							<%=name%>
+						</a>
+					</div>
+					<div class="col col2">
+						<%=postType%>
+					</div>
+					<div class="col col3">
+						<%=workPlace%>
+					</div>
+					<div class="col col4">
+						<%=recruitNum%>
+					</div>
+					<div class="col col5">
+						<%=publishDate%>
+					</div>
+					<div class="row_btn"></div>
+				</div>
+				<div class="detail">
+					<div className="serviceCondition">
+						<h5>入职资格： </h5>
+						<%=serviceCondition%>
+					</div>
+					<div className="workContent">
+						<h5>工作内容： </h5>
+						<%=workContent%>
+					</div>
+				</div> 
+			</div>
+		</script>
+
+		<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+		<script type="text/javascript" src="js/underscore.js"></script>
+
+		<script type="text/javascript">
+		
+//			var $jobtable = $('#jobtable');
+			
+			var funComplice = _.template($('#row_template').html());
+			
+			function JobRow( arrDict ) {
+				
+				this.arrDict = arrDict;
+				//字典修正
+				this.arrDict.link = "http://talent.baidu.com/external/baidu/index.html#/jobDetail/2/" + this.arrDict.postId;
+				
+				if ( this.postType.indeof('技术') != -1 ) {
+					this.postType = '技术';
+				}
+				
+				//绑定模板
+				this.strDom = funComplice( this.arrDict );
+				//得到JQ字符串对象
+				this.$strDom = $(this.strDom);
+				this.$rowBtn = this.$strDom.find('.row_btn');
+				this.$detail = this.$strDom.find('.detail');
+				
+				//btn 是否 展开
+				this.state = 0; // 0 表示没打开， 1表示打开 
+				
+				this.render();
+				this.bindEvent();
+				
+				//job实例的数组中添加自己
+				jobTable.addElement(this);
+				
+			}
+			
+			//渲染
+			JobRow.prototype.render = function(){
+				
+				jobTable.$dom.append(this.$strDom);
+				
+			}
+			
+			//绑定事件
+			JobRow.prototype.bindEvent = function(){
+				var _this = this;
+				this.$rowBtn.click(function(){
+					if ( _this.state == 0 ) {
+						
+						_this.$detail.stop(true).slideDown();
+						
+						$(this).addClass('up');
+						_this.state = 1;
+						
+					} else if( _this.state == 1 ){
+						
+						_this.$detail.stop(true).slideUp();
+						$(this).removeClass('up');
+						
+						_this.state = 0;
+						
+					}
+				});
+			}
+			
+			//自杀  //删除dom
+			JobRow.prototype.killMySelf = function(){
+				this.$strDom.remove();
+			}
+			
+			//jobTable
+			function JobTable(){
+					this.$dom = $('#jobtable');
+					console.dirxml( this.$dom );
+					
+					//工作结果数组
+					this.jobRows = [];
+					
+					if ( window.location.hash == '' ) {
+						window.location.hash = 1;
+					}
+					
+					//读取hash
+					var pageUrl = parseInt( window.location.hash.slice(1) );
+					
+					//转到page1上
+					this.gotoPage(pageUrl);
+					
+					//自己的导航条  
+					this.pageNav = new PageNav();
+					
+			}
+			
+			JobTable.prototype.addElement = function( ele ){
+				this.jobRows.push(ele);
+			}
+			
+			//换页
+			JobTable.prototype.gotoPage = function( pageName ){
+				
+					var _this = this;
+					
+					$.get('JSON/getPostList'+pageName,function( iData ){
+						
+						var dataObj = JSON.parse(iData);
+						
+						//总页数
+						var totalPage = dataObj.totalPage;
+						_this.pageNav.update(pageName,totalPage);
+						
+						_.each(_this.jobRows,function( _jobRow ){
+							
+							_jobRow.killMySelf();
+							
+						});
+						
+						$.each(dataObj.postList,function( i,dict ){
+							
+							//每一条记录的对象		
+							new JobRow(dict);
+							
+						});
+						
+						//开锁
+						lock = true;
+						
+					});
+			}
+			/**
+			 * 导航类
+			 * @param {Number} maxPage 最大页数
+			 */
+			function PageNav( maxPage ){
+				
+				this.curPage = 1;
+				this.maxPage = maxPage;
+				this.$dom = $('.pageNav');
+				this.$lis = this.$dom.find('li');
+				//渲染 Nav
+				this.render();
+				//监听
+				this.bindEvent();
+			}
+			
+			//更新 状态  //重新修改 new 对象 ， 就不需要 update了。
+			PageNav.prototype.update = function( curPage,maxPage ){
+				
+				this.curPage = curPage;
+				this.maxPage = maxPage;
+				
+				this.render();
+				
+			}
+			
+			//渲染 Nav
+			PageNav.prototype.render = function(){
+				
+				if ( this.curPage>=1 && this.curPage<=3 ) {
+					
+					this.$lis.eq(0).html(1);
+					this.$lis.eq(1).html(2);
+					this.$lis.eq(2).html(3);
+					this.$lis.eq(3).html(4);
+					this.$lis.eq(4).html('…');
+					this.$lis.eq(5).html(this.maxPage-1);
+					this.$lis.eq(6).html(this.maxPage);
+					//添加类
+					this.$lis.eq(this.curPage-1).addClass('cur').siblings().removeClass('cur');
+					
+				} else if ( this.curPage<=this.maxPage && this.curPage>=this.maxPage-2 ) {  //中间部分
+					
+					this.$lis.eq(0).html(1);
+					this.$lis.eq(1).html(2);
+					this.$lis.eq(2).html('…');
+					this.$lis.eq(3).html(this.maxPage-3);
+					this.$lis.eq(4).html(this.maxPage-2);
+					this.$lis.eq(5).html(this.maxPage-1); 
+					this.$lis.eq(6).html(this.maxPage);
+					//添加类
+					this.$lis.eq(this.curPage-3).addClass('cur').siblings().removeClass('cur');
+					
+				} else {  //中间 位数
+					
+					this.$lis.eq(0).html(1);
+					this.$lis.eq(1).html('…');
+					this.$lis.eq(2).html(this.curPage-1);
+					this.$lis.eq(3).html(this.curPage);
+					this.$lis.eq(4).html(this.curPage+1);
+					this.$lis.eq(5).html('…');
+					this.$lis.eq(6).html(this.maxPage);
+					//添加类
+					this.$lis.eq(3).addClass('cur').siblings().removeClass('cur');
+					
+				}
+			}
+			
+			//添加监听
+			PageNav.prototype.bindEvent = function(){
+				
+				var _this = this;
+				
+				this.$lis.click(function(){
+					if ( !lock ) return false; 	
+					if ( $(this).html() == '…' ) {
+						return false;
+					}
+					
+					var num = parseInt( $(this).html() );
+					
+					jobTable.gotoPage(num);
+					
+					//更新URL的hask
+					window.location.hash = num;
+					
+					lock = false;
+					
+				});
+				
+			}
+			
+			var lock = true;
+			var jobTable = new JobTable();
+			
+		</script>
+
+	</body>
+
+</html>

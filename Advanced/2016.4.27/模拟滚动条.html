@@ -1,0 +1,151 @@
+<!DOCTYPE html>	
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
+			width: 800px;
+			height: 400px;
+			border: 1px solid #000;
+			margin: 50px auto;
+			position: relative;
+			overflow: hidden;
+		}
+		.box .content{
+			position: absolute;
+			width: 740px;
+			top: 0;
+			left: 0;
+			line-height: 150%;
+			font-size: 14px;
+			padding: 20px;
+		}
+		.box .content p{
+			margin-bottom: 20px;
+		}
+		.box .bar{
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 20px;
+			height: 400px;
+			background-color: #ccc;
+			cursor: default;
+		}
+		.box .bar b{
+			position: absolute;
+			width: 20px;
+			height: 34px;
+			background-color: orange;
+			cursor: default;
+		}
+		.cont {
+			background: firebrick;
+			height: 1000px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box">
+		<div class="bar" id="bar">
+			<b id="barB"></b>
+		</div>
+		<div class="content"  id="content">
+			<p>111111111</p>
+			<p class="cont"></p>
+			<p>2222222222222</p>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+		var barB = document.getElementById("barB");
+		var oBar = document.getElementById("bar");
+		
+		var box = document.getElementById("box");
+		var content = document.getElementById("content");
+		
+		var rate =  box.clientHeight/content.clientHeight;
+		
+		barB.style.height = oBar.clientHeight*rate + 'px';
+		
+		//没有信号量，这是我们写的程序
+		var nowBar = 0;
+		var nowConent = 0;
+		
+		//拖拽
+		barB.onmousedown = function( ev ){
+			var ev = ev || window.event;
+			
+			var delateY = ev.clientY - barB.offsetTop;
+			
+			document.onmousemove = function( ev ){
+				var ev = ev || window.event;
+				
+				var nowBar = ev.clientY - delateY;
+				if( nowBar<0 ){
+					nowBar = 0;
+				} else if( nowBar>oBar.clientHeight-barB.clientHeight ){
+					nowBar = oBar.offsetHeight-barB.offsetHeight;
+				}
+				
+				barB.style.top = nowBar + 'px';
+				nowConent = nowBar/rate;
+				content.style.top = -nowConent + 'px';
+				return false;
+			}
+			document.onmouseup = function(){
+				document.onmousemove = null;
+			}
+			
+		}
+		
+		function wheel( ev ){
+			if( !ev ) ev = window.event;
+			
+			var direc = null;
+			//down -> 1 
+			//up -> -1
+			if( ev.wheelDelta ){
+				direc = ev.wheelDelta > 0 ? 1 : -1; 
+			} else if( ev.detail ){
+				direc = ev.detail > 0 ? -1 : 1;
+			}
+			
+			//content带着一起运动	
+			nowBar += -20 * direc;
+			//验收
+			if( nowBar<0 ){
+				nowBar = 0;
+			} else if( nowBar>oBar.clientHeight-barB.clientHeight ){
+				nowBar = oBar.offsetHeight-barB.offsetHeight;
+			}
+			
+			nowConent = nowBar/rate;
+			
+			barB.style.top = nowBar + 'px';
+			content.style.top = -nowConent + 'px';
+			
+			//阻止默认事件
+			if( ev.preventDefault ) {
+				ev.preventDefault();
+			} else {
+				ev.returnValue = false;
+			}
+			
+		}
+		
+		box.onmousewheel = wheel;
+		try{
+			box.addEventListener('DOMMouseScroll',wheel,false);
+		}catch( err ){}
+		
+	</script>
+
+</body>
+</html>

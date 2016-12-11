@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.somecontent{
+			width: 1000px;
+			height: 1232px;
+			margin: 0 auto;
+			background-color: #ccc;
+		}
+		.floor{
+			width: 1000px;
+			margin: 0 auto;
+			height: 400px;
+			background: yellowgreen;
+			margin-bottom: 10px;
+		}
+		.f1{
+			height: 433px;
+		}
+		.f2{
+			height: 352px;
+		}
+
+		.leftNav{
+			position: fixed;
+			bottom: 110px;
+			left: 10px;
+			width: 60px;
+		}
+		.leftNav ul{
+			list-style: none;
+		}
+		.leftNav ul li{
+			width: 60px;
+			height: 60px;
+			background-color: #ccc;
+		}
+		.leftNav ul li a{
+			display: block;
+			width: 60px;
+			height: 60px;
+			line-height: 60px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 14px;
+		}
+		.leftNav ul li a.number{
+			display: block;
+		}
+		.leftNav ul li a.chinese{
+			display: none;
+			color:white;
+		}
+		.leftNav ul li.cur a.number{
+			display: none;
+		}
+		.leftNav ul li.cur a.chinese{
+			display: block;
+		}
+		.leftNav ul li.cur{
+			background-color: rgb(111,0,0);
+		}
+	</style>
+</head>
+<body>
+	<div class="somecontent"></div>
+
+	<div class="leftNav" id="leftNav">
+		<ul>
+			<li>
+				<a href="javascript:;" class="number">1F</a>
+				<a href="javascript:;" class="chinese">百货</a>
+			</li>
+			<li>
+				<a href="javascript:;" class="number">2F</a>
+				<a href="javascript:;" class="chinese">男装</a>
+			</li>
+			<li>
+				<a href="javascript:;" class="number">3F</a>
+				<a href="javascript:;" class="chinese">女装</a>
+			</li>
+			<li>
+				<a href="javascript:;" class="number">4F</a>
+				<a href="javascript:;" class="chinese">裤子</a>
+			</li>
+			<li>
+				<a href="javascript:;" class="number">5F</a>
+				<a href="javascript:;" class="chinese">童装</a>
+			</li>
+			<li>
+				<a href="javascript:;" class="number">6F</a>
+				<a href="javascript:;" class="chinese">运动</a>
+			</li>
+			<li>
+				<a href="javascript:;" class="number">7F</a>
+				<a href="javascript:;" class="chinese">电子</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="floor f1">11111111111</div>
+	<div class="floor f2">22222222</div>
+	<div class="floor f3">33333333</div>
+	<div class="floor f4">44444444444</div>
+	<div class="floor f5">555555555</div>
+	<div class="floor f6">6666666</div>
+	<div class="floor f7">7777777777</div>
+	<div class="somecontent"></div>
+
+	<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		
+			
+		
+	</script>
+
+</body>
+</html>

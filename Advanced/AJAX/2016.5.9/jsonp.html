@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+		</script>
+		
+		<script type="text/javascript">
+			
+			jsonp('http://yx.xianjian.com/p/api.php?method=wf&api_key=nimakdkeiLdkfen2lidkdlDLLEKd&page=1&per_page=10&tag=&type=5&order=2&_ksTS=1462767366304_78&jsoncallback=mm',{
+				
+			},'mm',function( data ){
+				console.log( data );
+			});
+			
+			/**
+			 * jsonp 跨域请求
+			 * @param {String} url  需要的
+			 * @param {Object} tagJson  请求的参数
+			 * @param {String} callbackName  jsonp函数名
+			 * @param {Function} callback 回调函数
+			 */
+			function jsonp( url,tagJson,callbackName,callback ){
+				//挂载window数据
+				window[callbackName] = callback;
+				
+				var oScript = document.createElement('script');
+				//添加到document
+				document.body.appendChild(oScript);
+				
+				oScript.src = url;
+				//删除document
+				document.body.removeChild(oScript);
+				
+					//输入一个{"name":"kaola","age":18,"sex":"男"}
+					//返回一个name=kaola&age=18&sex=%E8%C6%B6
+				/**
+				 * 序列化 对象
+				 * @param {Object} json 所需要的对象
+				 * @return {String} 序列化过后的string
+				 */
+				function _queryjson2querystring( json ){
+					var arr = [];
+					for ( var k in json ) {
+						arr.push(k + '=' + encodeURIComponent(json[k]) );
+					}
+					return arr.join('&');
+				}
+				
+			}
+			
+			
+			
+					
+		</script>
+		
+	</body>
+</html>

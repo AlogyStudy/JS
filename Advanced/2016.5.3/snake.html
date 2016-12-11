@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		
+			table, tr, td {
+				border: 1px solid #000;
+				border-collapse: collapse;
+			}
+			
+			td {
+				width: 18px;
+				height: 18px;
+			}
+			
+			.red {
+				background-color: red;
+			}
+			
+			.blue {
+				background-color: blue;
+			}
+			
+	</style>
+	
+	
+	</head>
+	<body>
+		
+		<table id="table"></table>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * Map类
+					width
+					height
+						
+					render()
+				
+				Snake类
+					属性：
+					color
+					length  --> [{x: ,y: }] 表示 所在的table中的格
+				
+				格	
+					way
+					
+					方法：
+					render()
+					update()
+						
+					添加事件绑定
+					bindEvnet()
+					growup()
+				
+					
+				Food类
+					left
+					top
+					
+					render()
+					chanePosition()
+			 */
+			
+				
+				var oTable = document.getElementById("table");
+				
+				//Map 类
+				/**
+				 * Map类
+					width
+					height
+						
+					render()
+				 */
+				/**
+				 * 行，列
+				 * @param {Object} row  需要多少行 默认为 20
+				 * @param {Object} col  需要多少列  默认为 20
+				 */
+				function Map( row,col ){
+					
+					this.row = row || 20;
+					this.col = col || 20;
+					this.tds = []; //二维数组
+					
+					this.init();
+					//重置画布
+					this.reset();
+				}
+				
+				//初始化画布
+				Map.prototype.init = function(){
+					
+					for ( var i=0; i<this.row; i++ ) {
+						var thisRowTd = [];
+						this.domTr = document.createElement('tr');
+						for ( var j=0; j<this.col; j++ ) {
+							this.domTd = document.createElement('td');
+							this.domTr.appendChild( this.domTd );
+							thisRowTd.push(this.domTd);
+						}
+						oTable.appendChild( this.domTr );
+						this.tds.push(thisRowTd);
+					}
+				}
+				
+				//重置画布
+				Map.prototype.reset = function(){
+					for ( var i=0; i<20; ++i ) {
+						for ( var j=0; j<20; ++j ) {
+							this.tds[i][j].className = '';
+						}
+					} 
+				}
+				
+				/**
+				 * Snake类
+				 * 	//1：蛇的身体对象， 2：方向
+						属性：
+						color
+						length  --> [{x: ,y: }] 表示 所在的table中的格
+					
+					格	
+						way
+						
+						方法：
+						render()
+						update()
+							
+						添加事件绑定
+						bindEvnet()
+						growup()
+				 */
+				function Snake(){
+//					this.color = color;
+					this.bodyArr = [
+						{x: 3,y: 8},
+						{x: 3,y: 7},
+						{x: 3,y: 6},
+						{x: 3,y: 5},
+						{x: 3,y: 4}
+					];
+					//移动方向
+					this.direction = 'right';  //合法值 ， top ， left，right，bottom.
+					
+					//渲染小蛇
+					this.render();
+					//蛇移动
+//					this.update();
+					//事件绑定
+					this.bindEvent();
+					
+				}
+				
+				//渲染小蛇
+				Snake.prototype.render = function(){
+					//重置画布
+					m.reset();
+					//让自己小格添加上 red  类
+					for ( var i=0; i<this.bodyArr.length; ++i ) {
+						m.tds[ this.bodyArr[i].x ][ this.bodyArr[i].y ].className = 'blue';
+					}
+				}
+				
+				//蛇移动    //核心原理 ： 数组变化.
+				Snake.prototype.update = function(){
+					this.bodyArr.pop();//删除尾巴
+					//增加头部
+					switch ( this.direction ){
+						case 'right':
+							this.bodyArr.unshift( {x: this.bodyArr[0].x, y: this.bodyArr[0].y+1} );
+							break;
+						case 'top':
+							this.bodyArr.unshift( {x: this.bodyArr[0].x-1, y: this.bodyArr[0].y} );
+							break;
+						case 'bottom':
+							this.bodyArr.unshift( {x: this.bodyArr[0].x+1, y: this.bodyArr[0].y} );
+							break;
+						case 'left':	
+							this.bodyArr.unshift( {x: this.bodyArr[0].x, y: this.bodyArr[0].y-1} );
+							break;
+					}
+					//增加头部
+//					this.bodyArr.unshift( {x: this.bodyArr[0].x+1, y: this.bodyArr[0].y} );
+
+					//判断是否碰到食物 
+					if ( this.bodyArr[0].x == food.foodx && this.bodyArr[0].y == food.foody ) {
+						food.chanePosition();
+						this.growup();
+					}
+
+				}
+				
+				//事件绑定
+				Snake.prototype.bindEvent = function(){
+					
+					var _this = this;
+					document.onkeydown = function( ev ){
+						if ( !ev ) ev = window.event;
+											
+						switch ( ev.keyCode ){
+							case 37:
+								if ( _this.direction == 'right' ) {
+									return false;
+								}
+								_this.direction = 'left';
+								break;
+							case 38:
+								if ( _this.direction == 'bottom' ) {
+									return false;
+								}
+								_this.direction = 'top';
+								break;	
+							case 39:
+								if ( _this.direction == 'left' ) {
+									return false;
+								}
+								_this.direction = 'right';
+								break;
+							case 40:
+								if ( _this.direction == 'top' ) {
+									return false;
+								}
+								_this.direction = 'bottom';
+								break;	
+						}
+					}
+				}
+				
+				//蛇增长
+				Snake.prototype.growup = function(){
+					//增加头部
+					switch ( this.direction ){
+						case 'right':
+							this.bodyArr.unshift( {x: this.bodyArr[0].x, y: this.bodyArr[0].y+1} );
+							break;
+						case 'top':
+							this.bodyArr.unshift( {x: this.bodyArr[0].x-1, y: this.bodyArr[0].y} );
+							break;
+						case 'bottom':
+							this.bodyArr.unshift( {x: this.bodyArr[0].x+1, y: this.bodyArr[0].y} );
+							break;
+						case 'left':	
+							this.bodyArr.unshift( {x: this.bodyArr[0].x, y: this.bodyArr[0].y-1} );
+							break;
+					}
+				}
+				
+				//食物类
+				function Food(){
+					
+					this.foodx = parseInt(Math.random() * 20);
+					this.foody = parseInt(Math.random() * 20);
+					//渲染食物
+					this.render();
+					//改变定位
+					this.chanePosition();
+				}
+				//渲染食物
+				Food.prototype.render = function(){
+					m.tds[this.foodx][this.foody].className = 'red';
+				}
+				//改变定位
+				Food.prototype.chanePosition = function(){
+						this.foodx = parseInt(Math.random() * 20);
+						this.foody = parseInt(Math.random() * 20);
+						this.noBody();
+				}
+				// 判断不在蛇身上生成
+				Food.prototype.noBody = function(){
+					for ( var i=0; i<snake.bodyArr.length; ++i ) {
+						if ( this.x == snake.bodyArr[i].x && this.y == snake.bodyArr[i].y ) {
+							//重新生成
+							this.chanePosition();
+							return false;
+						}  
+					}
+				}
+				
+				var m = new Map();
+				var snake = new Snake();
+				var food = new Food();
+				
+				setInterval(function(){
+					//每秒钟蛇更新
+					//渲染小蛇
+					snake.render();
+					//蛇移动
+					snake.update();
+					
+					//每秒钟食物更新
+					food.render();
+					
+				},1000);
+				
+		</script>
+		
+		
+	</body>
+</html>

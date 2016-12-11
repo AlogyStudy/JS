@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 编写函数rightchange(char,n) 实现字符串char循环右移n位。
+					比如rightchange("abcdefg",2) 返回"fgabcde"
+			 */
+			
+				/**
+				 * 字符串char循环右移n位
+				 * @param {String} char  需要的字符串
+				 * @param {Number} n  移动的位数
+				 */
+				/*function rightchange( char,n ){  //方法1
+//					abcdefg
+						var arr = char.split('');
+						for( var i=1; i<=n; ++i ){
+							arr.unshift( arr.pop() );
+						}
+						return arr.join('');
+//						debugger;
+//						console.log(  );  //["e", "f", "g", "a", "b", "c", "d"]
+				}*/
+				
+				/**
+				 * 字符串char循环右移n位
+				 * @param {String} char  需要的字符串
+				 * @param {Number} n  移动的位数
+				 */
+				function rightchange( char,n ){  //方法2
+					//abcdefg  2 
+					//fg + abcde
+					//str.substr(-n) + str.substr(0,char.length-n);
+					return char.substr(-n) + char.substr(0,char.length-n);	
+					
+				}
+				
+				console.log( rightchange('abcdefg',2) );
+			
+		</script>
+		
+	</body>
+</html>

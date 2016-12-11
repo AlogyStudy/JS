@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			var str = 'me,Not the same as me';
+//			str = str.replace(/me/g,'mm');
+			
+			console.log(str);
+			str = str.replace(/me/g,function( a,b,c ){
+				console.log(a,b,c);
+				//a -- 正则匹配上的是什么
+				//b -- 匹配位置的下标
+				//c -- 原串
+			});
+			
+			
+			var str = '每天花50元，吃饭花40元，睡觉花10元';
+			str = str.replace(/(\d+)元/g,function( a,b ){
+				return '$' + Math.round(parseInt(b)/6*100)/100;
+			});
+			console.log(str);
+			
+			
+			var str = "Kebo Bryant";
+//			str = str.replace(/(\w+)\s(\w+)/g,'$2 $1');
+			console.log(str);  //Bryant Kebo
+			
+			str = str.replace(/(\w+)\s(\w+)/g,function( match,$1,$2 ){
+				return $2 + ' ' + $1;
+			});
+			console.log(str);
+			
+			str = str.replace(/(\w+)\s(\w+)/g,function( a,b,c,d,e ){
+				/**
+				 * a --> 匹配到的字符串
+				 * b --> 捕获分组
+				 * c --> 捕获分组
+				 * d --> 位置
+				 * e --> 原串
+				 */
+			});
+			console.log(str);
+			
+			
+		</script>
+		
+	</body>
+</html>

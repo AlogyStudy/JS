@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<ul>
+			<li class="A">A</li>
+			<li class="B">B</li>
+			<li class="C">C</li>
+		</ul>
+		<div>
+			<ul>
+				<li class="D">D</li>
+				<li class="E">E</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			
+			
+			/*function $(){
+				var elements = [];
+				for( var i=0; i<arguments.length; ++i ){
+					var eles = arguments[i];
+					if( typeof eles === 'string' )
+						eles = document.getElementById(eles);
+					if( arguments.length == 1 ){
+						return eles;
+					};
+					elements.push(eles);
+				};
+				return elements;
+			}
+			
+			var mm = $('box1');
+			console.log( mm );*/
+			
+			
+			/**
+			 * $选择器
+			 * @param {string} elem 标签选择器
+			 */
+			
+			function $( elem ){
+				
+				var arr = elem.split(' ');
+				var root = arr[0];
+				var rest = arr.slice(1).join(' ');
+				
+				//找到root中的所有 tagName
+				function find( root,select ){
+					
+				}
+				
+			}
+			
+//			$('div ul li');
+		
+			
+		var resArr = [];
+		/**
+		 * 
+		 * @param {Object} root
+		 * @param {String} select
+		 */
+		function find( root,select ){
+
+			var arr = select.split(' ');
+			var roots = root.getElementsByTagName(arr[0]);
+			var rese = arr.slice(1).join(' ');
+			
+			if( !rese ) {
+				for ( var i=0; i<roots.length; i++ ) {
+					roots[i] && resArr.push( roots[i] );
+				}
+				return false;
+			}
+			
+			for ( var i=0; i<roots.length; i++ ) {
+				find( roots[i],rese );
+			}
+			
+		}
+		
+		find(document,'div ul li');
+		console.log( resArr );
+			
+		
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+		<p>4</p>
+		<p>5</p>
+		
+		<script type="text/javascript">
+			
+			var aP = document.getElementsByTagName('p');
+			aP[0].style.backgroundColor = 'tan';
+			console.log( Object.prototype.toString.call(aP) );
+			console.log( Object.prototype.toString.call(aP[0]) );
+			
+			console.log('----------');
+			
+			for ( var k in aP ) {
+				console.log(k,aP[k]);
+			}
+			
+		</script>	
+		
+	</body>
+</html>

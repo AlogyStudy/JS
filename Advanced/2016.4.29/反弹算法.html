@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 600px;
+			height: 400px;
+			border: 1px solid #000;
+			position: relative;
+			margin: 100px;
+		}
+		p{
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			top: 100px;
+			left: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+
+	</div>
+
+	<script type="text/javascript">
+		var box = document.getElementById("box");
+//			var oWid = document.body.clientWidth;
+		//小球的构造函数
+		function Ball(left,top){
+			//直径
+			this.d = 30;
+			this.opacity = Math.random();
+			this.left = left || Math.random() * (box.clientWidth - this.d);
+			this.top = top|| Math.random() * (box.clientHeight - this.d);
+			//自己的直径
+			//每步移动的x分量、y分量。-5~5随机数
+			this.deltaX = parseInt(Math.random() * 11) - 5;
+			this.deltaY = parseInt(Math.random() * 11) - 5;
+			//初始化
+			this.init();
+			//渲染
+			this.move();
+		}
+		Ball.prototype.init = function(){
+			this.dom = document.createElement("p");
+			box.appendChild(this.dom);
+		}
+		//小球的渲染
+		Ball.prototype.render = function(){
+			//render的本质就是把自己的left属性、top属性作用到自己的dom的style身上。
+			this.dom.style.left = this.left + "px";
+			this.dom.style.top = this.top + "px";
+			this.dom.style.width = this.d + 'px';
+			this.dom.style.height = this.d + 'px';
+			this.dom.style.backgroundColor = '#'+(~~(Math.random()*(1<<24))).toString(16);
+			this.dom.style.opacity = this.opacity;
+		}
+		//小球的移动
+		Ball.prototype.move = function(){
+			//备份
+			var self = this;
+			
+			//定时器
+			this.timer = setInterval(function(){
+				self.left += self.deltaX;
+				self.top += self.deltaY;
+				self.d -= 2;
+				//碰边检测
+				if(self.top >= box.clientHeight - self.d || self.top <= 0){
+					//碰到底边
+					self.deltaY = -self.deltaY;
+				}
+				if(self.left >= box.clientWidth - self.d || self.left <= 0){
+					self.deltaX = -self.deltaX;
+				}
+				if(self.d <= 6){
+					box.removeChild(self.dom);
+				}
+				self.render();
+			},60);
+		}
+
+
+	 	box.onmousemove = function( ev ){
+	 		var ev = ev || window.event;
+	 		new Ball(ev.offsetX,ev.offsetY);
+	 	}
+	 	
+	 	
+	</script>
+</body>
+</html>

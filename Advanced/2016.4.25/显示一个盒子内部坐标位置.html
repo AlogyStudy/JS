@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			
+			div {
+				width: 400px;
+				height: 400px;
+				background: firebrick;
+				margin: 100px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		
+		<div></div>
+		
+		
+		<script type="text/javascript">
+			
+			var oDiv = document.getElementsByTagName('div')[0];
+			
+			oDiv.onmousemove = function( ev ){
+				if( !ev ) ev = window.event;
+				
+				var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+				var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+				
+				var l = ev.clientX - (getAllLeft(oDiv) - scrollLeft);
+				var t = ev.clientY - (getAllTop(oDiv) - scrollTop);
+				
+				oDiv.innerHTML = l + '  ' + t;
+				
+			}
+			
+			
+			/**
+			 * 元素在页面中的净位置 ，所有offsetTop和
+			 * @param {Object} obj 
+			 * @return {Number} 返回当前元素的 净位置值
+			 */
+			
+			function getAllTop( obj ){
+				var allTop = obj.offsetTop;
+				var currentObj = obj;
+				while( currentObj = currentObj.offsetParent ){  //小心while循环少算一次。
+					allTop += currentObj.offsetTop;
+				}
+				return allTop;
+			}
+			
+			/**
+			 * 元素在页面中的净位置 ，所有的offsetLeft和
+			 * @param {Object} obj
+			 * @return {Number} 返回当前元素的 净位置值
+			 */
+			function getAllLeft( obj ){
+				
+				var allLeft = obj.offsetLeft;
+				var currentObj = obj;
+				while( currentObj = currentObj.offsetParent ){
+					allLeft += currentObj.offsetLeft;
+				}
+				return allLeft;
+			}
+
+		</script>
+		
+	</body>
+</html>

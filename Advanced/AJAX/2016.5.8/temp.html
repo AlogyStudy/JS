@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			table,tr,td{
+				border: 1px solid tan;
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		<table id="tb">
+			<tr>
+				<td>姓名</td>
+				<td>年纪</td>
+				<td>性别</td>
+			</tr>
+		</table>
+		
+		<script type="text/template" id="temp">
+			<tr>
+				<td>@name@</td>
+				<td>@age@</td>
+				<td>@sex@</td>
+			</tr>
+		</script>
+		
+		<script src="jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var $tb = $('#tb');
+			
+			//模板
+			var tempStr = $('#temp').html();
+			
+			//读取数据
+			$.get('temp.json',function( data ){
+				for ( var i=0; i<data.res.length; ++i ) {
+					var dict = data.res[i];
+					var DomString = complie(tempStr,dict);
+					$tb.append(DomString);
+				}
+			});
+			
+			/**
+			 * 模板转换
+			 * @param {String} tempStr  转换的数据
+			 * @param {Object} dict   字典
+			 */
+			function complie( tempStr,dict ){
+				return tempStr.replace(/\@([\w]+)\@/g,function( match,$1 ){
+					return dict[$1];
+				});
+			}
+		</script>
+	</body>
+</html>

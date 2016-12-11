@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.box {
+				width: 940px;
+				height: 500px;
+				border: 1px solid maroon;
+				margin: 50px auto;
+				position: relative;
+			}
+			
+			.block {
+				position: absolute;
+				left: 0;
+				top: 0;	
+				width: 94px;
+				height: 36px;
+				background: url(images/block.png);
+			}
+			.ball {
+				position: absolute;
+				width: 27px;
+				height: 27px;
+				background: url(images/ball.png);				
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="box" id="box">
+			<!--<div class="block"></div>-->
+			<div class="ball" id="ball"></div>
+		</div>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 砖块类Block
+						属性：
+							left
+							top
+						方法：
+							redner()
+							check()	
+								检测自己是否被撞到
+							hide()  
+								消失
+	
+					地图类Map
+						属性
+							map 二维数组 
+						方法
+							create(),根据map属性，建立整个砖块，游戏画布
+	
+					小球类Ball		
+						属性
+							left
+							top	
+						方法
+							render()
+							move()  撞边检测，反弹业务
+		
+					挡板类  Recket
+						属性
+							left	
+							top
+						方法
+							render()
+							bindEvent()
+			 */
+			
+				var oBox = document.getElementById("box");
+				var OBall = document.getElementById("ball");
+				
+				//砖块类
+				/**
+				 * 	属性：
+							left
+							top
+							color  用于背景定位
+							width
+							height
+							alive  是否存活
+						方法：
+							init() -- 创建DOM
+							redner() -- 渲染    位置， 背景，初始状态
+							check()	 
+								检测自己是否被撞到
+							hide()  
+								消失
+				 */
+				function Block( left,top,color ){
+					this.left = left;
+					this.top = top;
+					this.color = color; // 0 , 1 ,2 ,3 ,4
+					
+					this.width = 94;
+					this.height = 36;
+					
+					this.alive = true; //是否存活
+					
+					this.init();
+//					this.check(); //检测是否被撞到
+				}
+				
+				//初始化 -- 创建DOM
+				Block.prototype.init = function(){
+						this.dom = document.createElement('div');
+						this.dom.className = 'block';
+						
+						this.dom.style.left = this.left + 'px';
+						this.dom.style.top = this.top + 'px';
+						this.dom.style.backgroundPosition = -94*this.color + 'px 0px';
+						
+						oBox.appendChild( this.dom );
+				}
+				//检测是否被撞到
+				Block.prototype.check = function(){
+					
+					//如果检测被碰撞到了，定时器停止
+					//顶边
+//					if ( ball.top >= this.top-ball.d && ball.top < this.top && ball.left >= this.left - ball.d && ball.left <= this.left + this.width + ball.d ) {
+					if ( ball.top >= this.top - ball.d && ball.top < this.top && ball.left >= this.left - ball.d && ball.left <= this.left + this.width + ball.d ) {
+//						this.dom.innerHTML = '123';
+							Ball.deltaY = -Ball.deltaY;
+							this.hide();
+							return true;
+					}
+					//bottom
+					else if ( ball.top <= this.top + this.height && ball.top > this.top && ball.left >= this.left-ball.d && ball.left <= this.left+this.width+ball.d ) {
+						Ball.deltaY = -Ball.deltaY;
+						this.hide();
+						return true; // 消除碰到 一个砖块和另一个砖块之间 会同时消除两个砖块
+					}
+					//left
+					else if ( ball.left >= this.left-this.d && ball.left < this.left && ball.top > this.top && ball.top < this.top + this.height - ball.d ) {
+						Ball.deltaX = -Ball.deltaX;
+						this.hide();
+					}
+					
+					//right
+//					else if ( ball.left <= )
+					
+				}
+				Block.prototype.hide = function(){
+					
+					this.alive = false;  //判断是否存活   如果是 false 表示已经销毁.
+					box.removeChild(this.dom);  //删除 DOM 要注意， 是否影响循环 ， 通过建立 属性true 和false 来判断是否存活. 
+				}
+				
+//				new Block(100,100,1);
+
+				//地图类 Map
+				/**
+				 * 属性
+							map 二维数组 
+						方法
+							create(),根据map属性，建立整个砖块，游戏画布
+							增加checkAll() 随时监测 是否被撞到
+				 */
+				function Map(){
+					//利用二维数组构建 地图
+					this.map = [ //// 0 , 1 ,2 ,3 ,4 -- 数字表示砖块的背景颜色
+						[ , 1, 4, 1, 1, 2, 3, 1, 1,  ],
+						[ , 1, 4, 1, 1, 2, 3, 1, 1,  ],
+						[ ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+						[ , 1, 4, 1, 1, 1, 3, 1, 1,  ],
+						[ ,  , 4, 1, 1, 1, 3, 1,  ,  ],
+						[ ,  ,  , 1, 1, 2, 3,  ,  ,  ],
+						[ ,  ,  ,  , 1, 2,  ,  ,  ,  ],
+						[ ,  ,  ,  , 1, 2,  ,  ,  ,  ]
+					];
+					
+					//数组存放着所有的砖块
+					this.blockArr = []; 
+					
+					//创建地图  -- 管理砖块
+					this.create();
+					//检查所有砖块是否被撞击
+//					this.checkAllBlock();
+					
+				}
+				
+				//创建地图   -- 根据地图来创建地图
+				Map.prototype.create = function(){
+					for ( var row=0; row<this.map.length; ++row ) {
+						for ( var col=0; col<this.map[0].length; ++col ) {
+							if ( this.map[row][col] ) {
+								this.blockArr.push( new Block( 94*col, 36*row ,this.map[row][col] ) );
+							}
+						}
+					}
+				}
+				//检查所有砖块是否被撞击
+				Map.prototype.checkAllBlock = function(){
+					for ( var i=0; i<this.blockArr.length; ++i ) {
+//						this.blockArr[i].check();
+							//增加判断 是否存活的情况    加标记
+							this.blockArr[i].alive && this.blockArr[i].check(); 		
+					}
+				}
+				
+				/**
+				 *属性
+						left
+						top	
+						deltaX
+						deltaY
+						d
+					方法
+						render()
+						move()  撞边检测，反弹业务
+				 */
+				function Ball( left,top ){
+					this.left = left || 400;
+					this.top = top || 350;
+					this.d = 27; //直径
+					
+					this.dom = OBall;  //小球
+					
+					this.deltaX = 1;  //x 改变量
+					this.deltaY = -2;  //y 改变量
+					
+					this.move();
+				}
+				
+				//渲染小球	
+				Ball.prototype.render = function(){
+					this.dom.style.left = this.left + 'px';
+					this.dom.style.top = this.top + 'px';
+				};
+				
+				Ball.prototype.move = function(){
+					var _this = this;
+					this.timer = setInterval(function(){
+						
+						_this.left += _this.deltaX;
+						_this.top += _this.deltaY;
+						//碰边检测
+						//左右
+						if( _this.left>=oBox.clientWidth-_this.d || _this.left<=0 ){
+							_this.deltaX = -_this.deltaX;
+						}
+						//上下
+						if( _this.top>=oBox.clientHeight-_this.d || _this.top<=0 ){
+							_this.deltaY = -_this.deltaY;
+						}
+						
+						//每10毫秒，都要执行block中的自己的check方法
+						map.checkAllBlock();
+						
+						//重新渲染小球
+						_this.render();
+					},10);
+				}
+				
+				
+				var map = new Map();
+				var ball = new Ball();
+				
+				
+		</script>
+		
+	</body>
+</html>

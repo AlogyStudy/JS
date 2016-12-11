@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background-color: #ccc;
+		}
+		.waterfall{
+			width: 790px;
+			margin: 0 auto;
+			position: relative;
+		}
+		.grid{
+			position: absolute;
+			width: 230px;
+			background-color: white;
+			padding: 10px;
+			border-radius: 15px;
+		}
+		.grid img{
+			width: 230px;
+		}
+	</style>
+</head>
+<body>
+	<div class="waterfall">
+		<div class="grid">
+			<img src="images/0.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/1.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/2.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/3.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/4.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/5.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/6.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/7.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/8.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/9.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/10.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+<!--		<div class="grid">
+			<img src="images/11.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>
+		<div class="grid">
+			<img src="images/12.png" alt="" />
+			<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+		</div>-->
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script src="js/underscore.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		$(function(){
+			
+			$grids = $('.grid');
+			//建立数组
+			var colHeight = [0,0,0];
+			$grids.each(function( i,val ){
+				
+				var minVal = _.min(colHeight);
+				var minIndex = _.indexOf( colHeight,minVal );
+				//赋值
+				$(this).css({
+					'left': minIndex*270,
+					'top': minVal
+				});
+				
+				//修改数组
+				colHeight[minIndex] += $(this).outerHeight()+ 20;
+				
+			});
+					
+		});
+			
+	</script>
+</body>
+</html>

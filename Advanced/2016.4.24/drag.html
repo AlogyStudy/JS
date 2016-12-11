@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		  * {
+		  	margin: 0;
+		  	padding: 0;
+		  }
+			#box {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100px;
+				height: 100px;
+				background: firebrick;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="box"></div>
+		
+		
+		<script type="text/javascript">
+			
+			var oBox = document.getElementById("box");
+			
+			oBox.onmousedown = function( ev ){
+				var ev = ev || window.event;
+				
+				var deltaX = ev.clientX - oBox.offsetLeft;
+				var deltaY = ev.clientY - oBox.offsetTop;
+				document.onmousemove = function( ev ){
+					var ev = ev || window.event;
+					var l = ev.clientX - deltaX;
+					var t = ev.clientY - deltaY;
+					
+					if( l>0 ){
+						oBox.style.left = l + 'px';
+					} 
+					if( t>0 ){
+						oBox.style.top = t + 'px';
+					}
+//					if(  ){}
+				}
+				
+			}
+			oBox.onmouseup = function(){
+				document.onmousemove = null;
+			}
+			
+		</script>
+		
+		
+	</body>
+</html>

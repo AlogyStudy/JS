@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			function Person( name,age,sex ){
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+			}
+			Person.prototype.sayHello = function(){
+				alert('我是'+this.name);
+			}
+			
+			function Student( name,age,sex,classs ){
+				this.constructor.apply(this,arguments);
+				
+				this.classs = classs;
+			}
+			
+			Student.prototype = new Person();
+			
+			console.log( Student.prototype.constructor );
+			
+			var xm = new Student('xm',23,'nv',9527);
+			
+			console.log( Student.prototype );
+			console.log( xm );
+			console.log( xm.constructor );
+			
+		</script>
+		
+	</body>
+</html>

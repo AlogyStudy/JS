@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>找什么字符</title>
+  </head>
+  <body>
+
+
+    <script type="text/javascript">
+
+
+      //找不吉利的数字
+      //3,4,7
+      var reg = /[3,4,7]/; //字符集合， 不能使用 /347/ 字面值表示，是表示整体。
+      console.log( reg.test('12121212') );//false
+      console.log( reg.test('12341234') ); //true
+
+      console.log('-------------');
+      //是否含有数字
+      // var reg = /[0123456789]/;
+      // var reg = /[0-9]/;
+      var reg = /\d/;
+      console.log( reg.test('123afsdf') ); //true
+      console.log( reg.test('asdf') ); //false
+
+      //是否有大写字母
+      var reg = /[A-Z]/;
+      console.log( reg.test('asdf') );//false
+      console.log( reg.test('Asadf') ); //true
+      console.log('-------------');
+
+      //验证全为数字
+      var reg = /^[0-9]/;  //匹配非数字
+      console.log( reg.test('aaaaa') );//非数字存在  false
+      console.log( reg.test('123aaa') ); //有数字存在  true
+
+
+
+    </script>
+
+  </body>
+</html>

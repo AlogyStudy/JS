@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.nav{
+			width: 960px;
+			height: 40px;
+			margin: 50px auto;
+		}
+		.nav ul{
+			list-style: none;
+		}
+		.nav ul li{
+			float: left;
+			width: 120px;
+			height: 40px;
+			text-align: center;
+			line-height: 40px;
+			background-color: yellowgreen;
+			position: relative;
+		}
+		.nav ul li a{
+			text-decoration: none;
+			color: white;
+		}
+		.menu_news {
+			position: absolute;
+			left: 0;
+			top: 40px;
+			width: 200px;
+			background: darkgoldenrod;
+			display: none;
+		}
+		.menu_news li a {
+			display: block;
+			line-height: 40px;
+			height: 40px;
+		}
+		.menu_news li a:hover {
+			background: firebrick;
+		}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<ul>
+			<li><a href="#">栏目名称</a></li>
+			<li>
+				<a href="#">公司新闻</a>
+				<div class="menu_news">
+					<p><a href="#">公司新闻11</a></p>
+					<p><a href="#">公司新闻11</a></p>
+					<p><a href="#">公司新闻11</a></p>
+					<p><a href="#">公司新闻11</a></p>
+					<p><a href="#">公司新闻11</a></p>
+				</div>
+			</li>
+			<li><a href="#">公司财务</a></li>
+			<li><a href="#">栏目名称</a></li>
+			<li><a href="#">栏目名称</a></li>
+			<li><a href="#">栏目名称</a></li>
+			<li><a href="#">栏目名称</a></li>
+			<li><a href="#">栏目名称</a></li>
+		</ul>
+	</div>
+ 
+	<script type="text/javascript" src="jquery-1.12.3.min.js"></script>
+	<script type="text/javascript">
+
+		$(function(){
+			
+			/*$('.nav li').mouseenter(function(){
+				$(this).children('.menu_news').slideDown();
+			});
+			$('.nav li').mouseleave(function(){
+				$(this).children('.menu_news').slideUp();
+			});*/
+			
+			$('.nav li').mouseenter(function(){
+				$(this).children('.menu_news').slideDown();
+			}).mouseleave(function(){
+				$(this).children('.menu_news').slideUp();
+			});
+			
+			/*for ( var k in $('.nav li') ) {
+				console.log( k,$('.nav li')[k] );
+			}*/
+			
+		});
+
+	</script>
+</body>
+</html>	

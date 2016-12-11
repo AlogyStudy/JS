@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			//哥德巴赫猜想
+			//两个偶数 可以 拆分成 两个质数相加
+			//拆分，拆分的思想就是穷举的思想，
+			
+			var oushu = parseInt(prompt('请输入一个偶数'));
+			
+			for( var i=0; i<=oushu; ++i ){
+				if( isZhishu(i) && isZhishu(oushu-i) ){
+					console.log( '当前偶数可以拆分为：' + i + '与'+ (oushu-i) + '的和' );
+				}
+			}
+			
+			/**
+			 * @param {Number} m 判断该数字是否是质数
+			 * @return {Boolean}  
+			 */
+			function isZhishu( m ){
+				if( yueshu(m)==2 ){
+					return true;
+				}
+				return false;
+			}
+			
+			/**
+			 * @param {Number} m 需要的质数
+			 * @return {Number} 质数的个数
+			 */
+			function yueshu( m ){
+				var count = 0;
+				for( var i=1; i<=m; ++i ){
+					if( m%i==0 ){
+						count++;
+					}
+				}
+				return count;
+			}
+			
+		</script>
+		
+		
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<div class="box" id="box" style="width: 100px; height: 100px;"></div>	
+	<p id="oP"></p>
+	<script>
+
+	var oBox = document.getElementById('box');
+	var oP = document.getElementById('oP');
+
+	console.log( Object.prototype.toString.call(oBox.getAttribute('style')).slice(8,-1) );
+	console.log( Object.prototype.toString.call(oBox.style).slice(8,-1) );
+	console.log( Object.prototype.toString.call(oBox).slice(8,-1) ); //[object HTMLDivElement] //22  
+	console.log( Object.prototype.toString.call(oP).slice(8,-1) );
+
+	console.log('------------');
+
+	/*for( var k in oBox ){
+		console.log( k,oBox + '<br/>' );
+	}*/
+
+	</script>
+
+</body>
+</html>

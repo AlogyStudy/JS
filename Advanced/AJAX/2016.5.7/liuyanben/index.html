@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			table,tr,td{
+				border-collapse: collapse;
+				border: 1px solid #ccc;
+			}
+			td{
+				line-height: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<h1>小小留言本</h1>
+		<a href="write.html">添加留言</a>
+		<table id="biaoge">
+			<tr>
+				<td>id</td>
+				<td>姓名</td>
+				<td>时间</td>
+				<td>qq号</td>
+				<td>内容</td>
+				<td>是否删除</td>
+			</tr>
+		</table>
+			
+		<script src="js/myajax.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var biaoge = document.getElementById("biaoge");
+			
+			myajax.get('php/select.php',{'paixu': 1},function( err,data ){
+				if( err ) return false;
+				
+				var obj = JSON.parse(data);
+				
+				for ( var i=0; i<obj.jieguo.length; ++i ) {
+					var o = JSON.parse( obj.jieguo[i] );
+					biaoge.innerHTML += 
+						"<tr>" +
+							"<td>" + o.mess_id + "</td>" +
+							"<td>" + o.name + "</td>" +
+							"<td>" + o.time + "</td>" +
+							"<td>" + o.qqhao + "</td>" +
+							"<td class='content'>" + o.content + "</td>" +
+							"<td><a mm=" + o.mess_id + " href='javascript:;' class='shanchu'>删除</a></td>" +
+						"</tr>";
+				}
+				
+				//删除判断
+				
+				var aA = document.getElementsByClassName('shanchu');
+				for ( var j=0; j<aA.length; ++j ) {
+					aA[j].onclick = function(){
+						var _this = this;
+						var mess_id = this.getAttribute('mm');
+						myajax.get('php/delete.php',{'mess_id': mess_id },function( err,data ){
+							if( err ) return false;
+							
+							if ( data == 'ok' ) {
+								
+								if( confirm("你真要删除吗？") ) {
+									_this.parentNode.parentNode.parentNode.removeChild(_this.parentNode.parentNode);
+									alert('删除成功');
+								}
+								
+							} else {
+								alert('删除数据失败');
+							}
+							
+						});
+					}
+				}
+				var content = document.getElementsByClassName('content');
+				for ( var m=0; m<content.length; ++m ) {
+					  content[m].idx = m;
+					  content[m].onclick = function(){
+					  	var txt = this.innerHTML;
+					  	var inp = document.createElement('input');
+					  	inp.type = 'text';
+					  	inp.value = txt;
+					  	
+							this.appendChild(inp);					  	
+					  	return false;
+					  }
+				}
+				var txtB = document.getElementsByTagName('txtB');
+				for ( var k=0; k<txtB.length; ++k ) {
+						var _this = this;
+						var content = this.value;
+						var mess_id = this.getAttribute('mm');
+						myajax.get('php/delete.php',{'mess_id': mess_id,'content': content },function( err,data ){
+							if( err ) return false;
+							
+							if ( data == 'ok' ) {
+								
+									alert('删除成功');
+								
+							} else {
+								alert('删除数据失败');
+							}
+							
+						});
+
+				}
+				
+			});
+			
+		</script>
+			
+	</body>
+</html>

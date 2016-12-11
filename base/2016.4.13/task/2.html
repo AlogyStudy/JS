@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+    //检测是否是本地电话，如010-12345678,0418-12345678
+
+    var str = '010-12345678';
+    // var str = '0418-12345678';
+    var reg = /\b[010|0418]+-\d{8}\b/g;
+    console.log( reg.exec(str) );
+
+    </script>
+
+  </body>
+</html>

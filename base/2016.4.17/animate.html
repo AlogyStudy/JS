@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			div {
+				width: 80px;
+				height: 80px;
+				background: firebrick;
+				position: absolute;
+				left: 120px;
+				top: 120px;
+			}
+			
+		</style>
+		<script src="ComminUtils.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<div id="box1"></div>
+		
+		<script type="text/javascript">
+		
+			var oBox = document.getElementById("box1");	
+			
+			ryo.animate( oBox,{"left": 700,"top": 350},2000 );
+			
+			
+		</script>
+	</body>
+</html>

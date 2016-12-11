@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			#box1 {
+				width: 500px;
+				height: 100px;
+				background-color: firebrick;
+				padding-top: 400px;
+			}
+			#box2 {
+				width: 300px;
+				background-color: deeppink;
+				padding-top: 100px;
+			}
+			#box3 {
+				width: 60px;
+				height: 60px;
+				background-color: pink;
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id="box1">
+			<div id="box2">
+				<div id="box3"></div>
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript">
+			
+			//盒子在页面中的位置.
+			
+			var oBox1 = document.getElementById("box1");
+			var oBox2 = document.getElementById("box2");
+			var oBox3 = document.getElementById("box3");
+			
+			
+			/**
+			 * 元素在页面中的净位置 ，所有offsetTop和
+			 * @param {Object} obj
+			 * @param {Number} 返回当前元素的 净位置值
+			 */
+			
+			function getAllTop( obj ){
+				var allTop = obj.offsetTop;
+				var currentObj = obj;
+				while( currentObj = currentObj.offsetParent ){  //小心while循环少算一次。
+					allTop += currentObj.offsetTop;
+				}
+				return allTop;
+			}
+			
+//			console.log( getAllTop( oBox3 ) );
+			
+		</script>
+	
+	
+	
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			table,tr,td{
+				border: 1px solid tan;
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		<table id="biaoge">
+			<tr>
+				<td>姓名</td>
+				<td>年纪</td>
+				<td>性别</td>
+			</tr>
+		</table>
+		
+		<script type="text/template" id="temp">
+			<tr>
+				<td><%=name%></td>
+				<td><%=age%></td>
+				<td><%=sex%></td>
+			</tr>
+		</script>
+		<script src="jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="underscore.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			var $biaoge = $('#biaoge');
+			
+			//模板
+			var complie = _.template($('#temp').html());
+			//读取数据
+			$.get('temp.json',function( data ){
+				_.each( data.res,function( m ){
+					var domStr = complie(m);
+					$biaoge.append(domStr);
+				} );
+			});
+			
+		</script>
+		
+	</body>
+</html>

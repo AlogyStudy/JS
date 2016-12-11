@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script>
+
+	/**
+	 *如果一个数恰好等于它的因数之和，则称该数为“完美数”。
+		例如：
+		第1个完全数是6，它有因数1、2、3、6，除去它本身6外，其余3个数相加，1+2+3=6。
+		第2个完全数是28，它有因数1、2、4、7、14、28，除去它本身28外，其余5个数相加，1+2+4+7+14=28。
+		试寻找1~10000之间的所有完美数。
+	 *
+	 *	if( num == res ){
+	 *		console.log(num);
+	 *	}
+	 * 
+	 */
+	
+	//  6  --> 1,2,3,6     //7  8   11  13  14  16   17  18  19 
+	//  9  --> 1,3,9
+	//  10 --> 1,2,5,10
+	//  12 --> 1,2,6,12
+	//  14 --> 1,2,7,14
+	//  15 --> 1,3,5,15
+	//  16 --> 1,2,8,16
+	//  18 --> 1,2,9,18
+	//  28 --> 1,2,4,7,14,28
+
+	// var m = 28;
+	var m = 28;
+	for( var i=1; i<=m; ++i ){
+		var res=0;	
+		for( var j=1; j<i; ++j ){
+			if( i%j==0 ) res += j;
+		}
+		// console.log(res+'--');
+		if( res==i ){
+			console.log(i);
+		}
+	}
+
+
+/*	var m = 10000;
+	for( var i=2; i<=m; i+=2 ){
+		var res = 0;
+		for( var j=1; j<=i/2; ++j ){
+			if( i%j==0 ) res += j;
+		}
+		if( res==i  ){
+			console.log(i);
+		}
+	}
+*/	
+
+
+/*	var m = 28;
+
+	var res = 0;
+	for( var i=1; i<=m; i++ ){
+
+		if( m%i==0 ){  //因数
+			// console.log(i);
+			res += i;
+			if( m==i ){
+				res -= m;
+			}
+		}
+
+		if( i==res ){
+			console.log(i);
+		}
+
+	}	*/
+
+	</script>
+
+</body>
+</html>

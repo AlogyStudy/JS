@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			function Person(){
+				
+			}
+//			console.log( Person.__proto__.constructor );
+//			console.log( Person.prototype.constructor );
+			
+			var pser = new Person();
+			
+/*			console.log( Person.prototype.constructor ); // Person
+			console.log( Person.prototype.constructor ); // Person
+			console.log( pser.__proto__.constructor == Person.prototype.constructor );  //true
+*/
+			console.log( Person.prototype.constructor.__proto__ );
+			console.log( pser.__proto__.__proto__.constructor.prototype );
+			
+//			var  obj = {};
+//			console.log( obj.__proto__ );
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>间歇模型轮播</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			img {
+				border: none;
+			}
+			.carousel {
+				width: 290px;
+				height: 115px;
+				border: 1px solid firebrick;
+				margin: 100px auto;
+				position: relative;
+				/*overflow: hidden;*/
+			}
+			.carousel ul {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 300px;
+				list-style: none;
+			}
+			.carousel ul li {
+				float: left;
+				width: 90px;
+				height: 115px;
+				margin-right: 10px;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="carousel">
+				<ul id="m_unit">
+					<li><a href="#"><img src="img/0.png" /></a></li>
+					<li><a href="#"><img src="img/1.png" /></a></li>
+					<li><a href="#"><img src="img/2.png" /></a></li>
+					<li><a href="#"><img src="img/3.png" /></a></li>
+					<li><a href="#"><img src="img/4.png" /></a></li>
+					<li><a href="#"><img src="img/5.png" /></a></li>
+					<li><a href="#"><img src="img/6.png" /></a></li>
+					<li><a href="#"><img src="img/7.png" /></a></li>
+				</ul>
+		</div>
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			var idx = 0;
+			var lisLength = $('#m_unit li').length;
+			
+			//处理空 li。
+			if( lisLength%3 == 2 ){
+				$('<li></li>').appendTo( $('#m_unit') );
+			} else if( lisLength%3 == 1 ){
+				$('<li></li><li></li> ').appendTo( $('#m_unit') );
+			}
+			
+			$('#m_unit li:lt(3)').clone().appendTo('ul');
+			
+			//new Length
+			var lisLengthAll = $('#m_unit li').length;
+			var lock = true;
+			function move(){
+				if( !lock ) return false;
+				idx++;
+				$('#m_unit').animate({'top': -125*idx},800,function(){
+					if( idx>lisLengthAll/3-2 ){
+						idx = 0;
+						$('#m_unit').css('top', 0);
+						lock = false;
+					}
+				});
+			}
+			
+			setInterval(move,1000);
+			
+		</script>
+		
+	</body>
+</html>

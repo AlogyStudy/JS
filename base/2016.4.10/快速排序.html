@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+
+		<script type="text/javascript">
+		
+			var arr = [24, 11, 67, 10, 9, 23, 45,123,234,345,23,1,3,56,7,865];
+
+			function quickSort( arr ) {
+				
+				var len = arr.length;
+				//1:判断 是否是需要再次递归(递归出口)；    一般先处理递归出口 ， 比较好处理递归出口。
+				if (len <= 1) {
+					//不需要再继续
+					return arr;
+				}
+				
+				//2:选择 参考元 ，  第一个元素
+				var cankao = arr[0];
+				
+				//3: 将数组分割成两个部分。
+				var samll = [];
+				var big = [];
+				for( var i=1; i<len; ++i ){
+					if( arr[i]>cankao ){
+						big.push(arr[i]);
+					} else {
+						samll.push( arr[i] );
+					}
+				}
+				
+				// 4, 递归对分割的两个部分进行 分别排序
+				var sort_small = quickSort(samll);
+				var sort_bin = quickSort(big);
+				
+				//5, 将 小于 与 参考元  与 大于   三个部分合并起来
+				return sort_small.concat([cankao],sort_bin);
+			}
+			
+			console.log( quickSort(arr) );
+			
+			
+		</script>
+
+	</body>
+
+</html>

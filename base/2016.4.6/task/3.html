@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+		//用户输入一个年份，判断这个年是否是闰年。
+		
+		/*判断闰年条件：
+		① 非整百年数除以4，无余为闰，有余不闰；
+		② 整百年数除以400，无余为闰，有余不闰。*/
+
+		var year = parseInt(prompt('请输入年份:'));
+
+		if( year%10==0 ){
+			if( year%400==0 ){
+				alert('整百为闰');
+			} else {
+				alert('整百非闰');	
+			}
+		} else {
+			if( year%4==0 ){
+				alert('非百为闰');
+			} else {
+				alert('非百非闰');
+			}
+		}
+
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script>
+/*
+	function outer(){
+		var b = 1;
+		function inner(){
+			console.log(b);
+		}
+		return inner;
+	}
+
+	var inn = outer();
+	inn();
+
+*/
+
+	/*function outer(){
+		var a = 1;
+		return function(){
+			alert(a);
+		}
+	}	
+
+	outer()();*/
+
+
+	(function outer(){
+		var a = 123;
+		return function(){
+			alert(a);
+		}
+	})()()
+
+
+
+	</script>
+
+</body>
+</html>

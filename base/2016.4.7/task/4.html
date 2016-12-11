@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+
+	<script>
+
+	/**
+	 * 用户输入一个数字，在控制台中列出它的所有约数。
+	 */
+	
+	var num = parseInt(prompt('请输入一个整数')); 
+
+	var count = 0;
+	for( var i=0; i<=num; ++i ){
+
+		if( num%i == 0 ){
+			console.log('%c当前整数的约数为:' + i,'fount-size: 18px');
+			count++;	
+		}
+
+	}
+	console.log('总共约数有：' + count + '个');
+
+	</script>
+
+</body>
+</html>

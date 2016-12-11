@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+      // 4 实现trim(str)方法，过滤字符串首位空白
+
+      /**
+       * 去首尾空白符
+       * @param {String} 待去前后空白的字符串
+       * @return {String} 新处理过后的字符串
+       */
+      function ltrim( str ){
+          var reg = /^[\s]*(.+)$/g;
+          // console.log( reg.exec(str) );
+          return str.replace(reg,function( $1,$2 ){ return $2 });
+      }
+
+      var newStr = ltrim('  asdf   ');
+      console.log( '('+newStr+')' );
+
+      function rtrim( str ){
+        var reg = /^.+$/g;
+      }
+      function trim( str ){
+        var reg = /(^\s)|\s$/g;
+        console.log( reg.exec(str) );
+        // return str.replace(reg,function( $1 ){ return $2 });
+      }
+      trim( ' asdf ' );
+
+      
+    </script>
+
+  </body>
+</html>

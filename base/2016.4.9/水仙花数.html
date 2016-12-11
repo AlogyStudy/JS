@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 水仙花数是一种特殊的四位数，它的特点就是，每个数位的四次方和，等于它本身。
+					1000~9999之内，水仙花数，请编程找出来。
+			 */
+			
+			/**
+			 * 计算水仙花数
+			 * @param {Number} 开始水仙花的值
+			 * @param {Number} 结束水仙花的值
+			 */
+			
+			function shui( a,b ){
+			
+				for( var i=a; i<=b; ++i ){
+					
+					chaishu(i);
+					
+				}
+			
+			}
+//			shui( 100,200 );
+			/**
+			 * 拆数位
+			 * @param {Number} num
+			 * @return {Array} 拆完之后结果
+			 */
+			chaishu(123);
+			function chaishu( num,weiShu ){
+				
+//				var len = num.toString().length;
+				var arr = [];
+				for( var i=0; i<weiShu; ++i ){
+					var gewei = num%10;
+					var shiwei = parseInt(num/10%10);
+					var baiwei = parseInt(num/100);
+					var wanwei = parseInt();
+					/*if( len==1 ) {
+						return arr.push(num%10);
+					}
+					
+					debugger;
+//					arr.push( parseInt( num/parseInt(BuZero(len)%10 )) );
+					arr.push( parseInt( num/parseInt((1+BuZero(len))/10) %10 ) );
+					if( len == weiShu ){
+						
+					}*/
+				}
+				return arr;
+			}
+			/**
+			 * 补0
+			 * @param num 位数
+			 * @return {String} 补完0 之后的 0
+			 */
+			function BuZero( num ){
+				var zero = '';
+				for( var i=0; i<parseInt(num); ++i ){
+					zero += 0;
+				}
+				return zero;
+			}
+		</script>
+		
+	</body>
+</html>

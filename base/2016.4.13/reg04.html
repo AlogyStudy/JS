@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+    //查找所有中间含有hi的单词
+
+    var reg = /\Bhi\B/gi;
+    var str = 'shit,hi,this,thit,THIS';
+    console.log( str.match(reg) );  //["hi", "hi", "hi", "HI"]
+
+    //正则找到js标签
+    //<script src="aa.js"></scirpt>
+    //确定边界是什么，那些东西必须有，那些东西可能有可能没有。配合+，*
+    var reg = /<script.*<\/script>/;
+    var str = '<head><script type="text/javascript"></scirpt></head>';
+    console.log( str.replace(reg,'') );
+
+    //把链接换成 #
+    //<a href="http://www.baidu.com"></a>  --> <a href="#"></a>
+    //1,不能保留链接的文字(反向引用)
+    //2,不能跨行(贪婪模式)
+    // var reg = /<a[\s]+.*<\/a>/g;
+    var reg = /\<a[\s][\s\S]+<\/a>/g;
+    var str = '<a href="http://www.baidu.com">'+
+    '</a>';
+    console.log( str.replace(reg,'<a href="#">文字</a>') );
+
+
+    console.log('-------------');
+    //把每一行的结尾的数字换成 #
+    //车牌号
+    //Cx003
+    //A0008
+    //B3456
+    var str = 'Cx003'+
+    'A0008'+
+    'B3456';
+    var reg = /\d+$/gm;
+    console.log( str.replace(reg,'#') );
+
+    
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+    <script type="text/javascript">
+
+      var reg = /\bhi\b/;
+      // this, hi, his
+      // 匹配单词hi ，
+      // \bhi\b   从单词的开头开始匹配， hi一完之后， 立刻结束
+      console.log( reg.exec('this,hi,his') );//hi  exec 返回对象，没找到返回null //["hi", index: 5, input: "this,hi,his"]
+      console.log(typeof reg.exec('this,hi,his') );// object  //
+      console.log( reg.exec('this') ); // null
+
+      //匹配进行时的结尾
+      var reg = /\b[a-zA-Z]+ing\b/;
+      console.log( reg.exec('going') );//["going", index: 0, input: "going"]
+      console.log( reg.exec('1ting.com') );//null
+      console.log( reg.exec('ing') );//null   //2 -> to  4->for  0->zero
+
+      //匹配un前缀的反义词
+      //unhappy  happy,hungry,sun,unhappy
+      var reg = /\bun[\w]+\b/;
+      console.log( reg.exec('happy,hungry,sun,unhappy') ); //["unhappy", index: 17, input: "happy,hungry,sun,unhappy"]
+
+      console.log('--------------');
+
+      // 把单词中间的某一个部分取出来。
+        // 把中间含有hi的单词取出，即hi不能在两端。
+      var reg = /\Bhi\B/;
+      console.log( reg.exec('this') ); //["hi", index: 1, input: "this"]
+      console.log( reg.exec('hi') ); //null
+
+      //匹配输入的是否是 “李四”
+      var reg = /^lisi$/;
+      console.log( reg.exec('lisinihao') );
+      console.log( reg.exec('lisi') );
+
+
+    </script>
+
+
+  </body>
+</html>

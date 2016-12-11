@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="box1"></div>
+		
+		<script type="text/javascript">
+
+			var oBox1 = document.getElementById("box1");
+			
+			oBox1.onmousedown = function( ev ){
+				if( !ev ) ev = window.event;
+				var deltaX = ev.clientX - oBox1.offsetLeft;
+				var deltaY = ev.clientY - oBox1.offsetTop;
+				
+				document.onmousemove = function( ev ){
+					if( !ev ) ev = window.event;
+					
+					var l = ev.clientX - deltaX;
+					var t = ev.clientY - deltaY; 
+					
+					oBox1.style.left = l + 'px';
+					oBox1.style.top = t + 'px';
+				}
+				oBox1.onmouseup = function(){
+					document.onmousemove = null;
+				}
+			}
+
+		</script>
+		
+	</body>
+</html>

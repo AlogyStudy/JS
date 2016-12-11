@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		img{
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+	</style>
+</head>
+<body>
+	<img src="images/1.jpg" alt="" id="tutu"/>
+
+	<table>
+		<tr>
+			<td><input type="button" value="↖" id="btn1"/></td>
+			<td><input type="button" value="↑" id="btn2"/></td>
+			<td><input type="button" value="↗" id="btn3"/></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="←" id="btn4"/></td>
+			<td></td>
+			<td><input type="button" value="→" id="btn5"/></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="↙" id="btn6"/></td>
+			<td><input type="button" value="↓" id="btn7"/></td>
+			<td><input type="button" value="↘" id="btn8"/></td>
+		</tr>
+	</table>
+
+
+	<script type="text/javascript">
+
+		//获取 所有 元素
+		var oBtn1 = document.getElementById('btn1');
+		var oBtn2 = document.getElementById('btn2');
+		var oBtn3 = document.getElementById('btn3');
+		var oBtn4 = document.getElementById('btn4');
+		var oBtn5 = document.getElementById('btn5');
+		var oBtn6 = document.getElementById('btn6');
+		var oBtn7 = document.getElementById('btn7');
+		var oBtn8 = document.getElementById('btn8');
+		var oImg = document.getElementById('tutu');
+
+		var nowLeft = 100;
+		var nowTop = 100;
+
+		oBtn1.onclick = function(){
+			nowLeft -= 10;
+			nowTop -= 10;
+			move();
+		}
+
+		oBtn2.onclick = function(){
+			nowTop -= 10;
+			move();
+		}
+
+		oBtn3.onclick = function(){
+		  nowLeft += 10;
+			nowTop -= 10;
+			if( nowTop<0 ){
+				nowTop=0;
+			}
+			move();
+		}
+		oBtn4.onclick = function(){
+			nowLeft -= 10;
+			move();
+		}
+		oBtn5.onclick = function(){
+			nowLeft += 10;
+			move();
+		}
+		oBtn6.onclick = function(){
+			nowLeft -= 10;
+			nowTop += 10;
+			move();
+		}
+		oBtn7.onclick = function(){
+			nowTop += 10;
+			move();
+		}
+		oBtn8.onclick = function(){
+			nowLeft += 10;
+			nowTop += 10;
+			move();
+		}
+
+		function move(){
+			oImg.style.left = nowLeft + 'px';
+			oImg.style.top = nowTop + 'px';
+		}
+
+
+
+	</script>
+</body>
+</html>

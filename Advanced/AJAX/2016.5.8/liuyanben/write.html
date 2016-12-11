@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	
+	<h1>欢迎给我留言</h1>
+	<div>
+		<p>姓名：<input type="text" id="xingming" /></p> 
+		<p>QQ号码：<input type="text" id="qqhao" /></p>
+		<p>内容：
+			<textarea id="neirong" cols="30" rows="10"></textarea>
+		</p>
+		<p>
+			<input type="button" value="提交留言" id="submitbtn"/>
+		</p>
+	</div>
+	
+	<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript">
+		
+		
+		
+		$('#submitbtn').on('click',function(){
+			
+			$nameVal = $('#xingming').val();
+			$qqhaoVal = $('#qqhao').val();
+			$contentVal = $('#neirong').val();
+			
+			$.post('contorl/write.php',{
+				'name': $nameVal,
+				'qqhao': $qqhaoVal,
+				'content': $contentVal
+			},function( data ){
+				
+				if ( data == 'ok' ) {
+					alert('插入成功');
+				} else if ( data == 'wroing' ) {
+					alert('插入失败');
+				}
+				
+			});
+		});
+		
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div {
+				padding: 10px 20px 10px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="box"></div>
+		<script type="text/javascript">
+			
+			var oDiv = document.getElementById('box');
+			
+			/**
+			 * 得到css 样式
+			 * @param {Object} obj  //需要得到样式的对象
+			 * @param {String} prototy  //获取的属性
+			 */
+			function fetchComputedStyle( obj,prototy ){
+				
+//				alert( getComputedStyle ); 
+//				getComputedStyle //作为条件 ， 在 ie低版本没有提供这个API。  为undefined 报错。
+				if( window.getComputedStyle ){
+					//getComputedStyle(obj)['padding-left']
+					//getComputedStyle(obj)['paddingLeft'];
+					prototy = prototy.replace(/([A-Z])/g,function( match,$1 ){
+						return '-'+ $1.toLowerCase();
+					});
+					return getComputedStyle(obj)[prototy];
+					
+				} else {
+//					alert(1);
+					//oDiv.currentStyle[padingLeft];
+					prototy = prototy.replace(/\-([a-z])/g,function( match,$1 ){
+						return $1.toUpperCase();
+					});
+					
+					return obj.currentStyle[prototy];
+				}
+				
+			}
+			
+			alert( fetchComputedStyle( oDiv,'padding-left' ) );
+			
+		</script>
+		
+	</body>
+</html>

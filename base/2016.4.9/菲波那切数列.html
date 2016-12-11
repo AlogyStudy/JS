@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 斐波那契数列就是经典的递归算法：
+					1、1、2、3、5、8、13、21、34、55、89、144、233……
+					输出斐波那契数列
+			 */
+			
+			/**
+			 * @param {Number} n  所求的项数
+			 */
+			function fb( n ){
+				if( n==1 || n==2 ){
+					return 1;
+				} 
+				return fb(n-1)+fb(n-2);
+			}
+			fb(10); //55
+			
+		</script>
+		
+	</body>
+</html>

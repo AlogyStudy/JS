@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			$.ajax({
+				'dataType': 'jsonp',
+				'url': 'a.txt',
+				'jsonpCallback': '',
+				'success': function( data ){
+					console.log( data );
+				}
+			});
+			
+		</script>
+		
+	</body>
+</html>

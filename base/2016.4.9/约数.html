@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 用户输入一个数字，在控制台中列出它的所有约数。
+			 */
+			
+			var num = parseInt(prompt('请输入一个整数'));
+			
+			/**
+			 * @param {Number} 整数
+			 */
+			
+			function YS( num ){
+				
+				for( var i=1; i<=num; ++i ){
+					if( !(num%i) ){
+						console.log(i);
+					}
+				}
+				
+			}
+			YS(num);
+			
+		</script>
+		
+	</body>
+</html>

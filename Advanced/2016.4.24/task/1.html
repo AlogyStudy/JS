@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.spot {
+				/*width: 228px;*/
+				/*height: 365px;*/
+				width: 40px;
+				padding-top: 40px;
+				background: url(imags/bg.png);
+				position: fixed;
+				right: 0;
+				bottom: 0;
+			}
+			#plus {
+				width: 40px;
+				height: 40px;
+				background: url(imags/jia.png);
+				position: absolute;
+				left: 0;
+				top: 0;
+				cursor: pointer;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="spot" id="spot">
+			<div id="plus"></div>
+		</div>
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//width -> height
+			var $plus = $('#plus');
+			var $spot = $('#spot');
+			
+			
+			//信号量
+			var Btrue = true;  //height 状态 true(展开) false(缩)
+			var a = 1; //1 ,0  width 1 宽度 展开  0 宽度缩小
+			
+			
+			$plus.click(function(){
+				if( Btrue ){
+					if( a==1 ){
+						$spot.animate({'width': 228},600);
+						$plus.css('background','url(imags/jian.png)');
+						a = 0;
+					} else {
+						$spot.animate({'height': 365},600);
+						a = 1;
+						Btrue = false;
+					}
+					
+				} else {
+					
+					if( a==1 ){
+						$spot.animate({'height': 0},600);
+						a = 0;
+					} else {
+						$spot.animate({'width': 40},600);
+						$plus.css('background','url(imags/jia.png)');
+						a = 1;
+						Btrue = true;
+					}
+				}
+			});
+			
+		</script>
+		
+	</body>
+</html>

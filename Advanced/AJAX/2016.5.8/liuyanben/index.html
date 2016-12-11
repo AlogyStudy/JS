@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			table,tr,td{
+				border-collapse: collapse;
+				border: 1px solid #ccc;
+			}
+			td{
+				line-height: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<h1>小小留言本</h1>
+		<a href="write.html">添加留言</a>
+		<table id="biaoge">
+			<tr>
+				<td>id</td>
+				<td>姓名</td>
+				<td>时间</td>
+				<td>qq号</td>
+				<td>内容</td>
+				<td>是否删除</td>
+			</tr>
+		</table>
+		
+		
+		<script type="text/template" id="temp">
+			<tr mm="<%= mess_id %>">
+				<td><%= mess_id %></td>
+				<td><%= name %></td>
+				<td><%= time %></td>
+				<td><%= qqhao %></td>
+				<td class="content"><%= content %></td>
+				<td class="del">删除</td>
+			</tr>
+		</script>
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/underscore.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			//数据
+			var complie = _.template($('#temp').html()); 
+			
+			//返回数据
+			$.get('contorl/select.php',{},function( data ){
+				$.each(data.jieguo,function( i,val ){
+					var o = JSON.parse( val );
+					var m = complie(o);
+					
+					//插入数据
+					$('#biaoge').append( m );
+				});
+				
+				//删除数据
+				$('.del').click(function(){
+					var mess_id = $(this).parent('tr').attr('mm');
+					var _this = $(this);
+					
+					if ( !confirm("你真的要删除id为" + mess_id + "的条目么？") ) {
+						return false;
+					}	
+					
+					$.get('contorl/delete.php', {'mess_id': mess_id},function( data ){
+						_this.parents("tr").remove();
+					});
+					
+				});
+				
+				//删除事件
+				$('.content').click(function(){
+					var num = $(this).parents("tr").attr("mm");
+					
+					//自己消失
+					$(this).hide();
+					
+					$(this).after("<input type='text' class='kk' />");
+					
+					$(this).siblings(".kk").val( $(this).html() );
+					$(this).siblings(".kk")[0].focus();
+					var _this = $(this);
+					
+					//添加监听
+					$(this).siblings('.kk').keydown(function( ev ){
+						var _this = $(this);
+						if ( ev.keyCode == 13 ) {
+							update.call( $(this) );
+						}
+					});
+					
+					$(this).siblings('.kk').blur(function(){
+						update.call( $(this) );
+					});
+					
+					function update(){
+						var _this = this;
+						$.get('contorl/update.php',{'mess_id': num,'content':_this.val() },function( data ){
+							console.log( _this );
+							if ( data == 'ok' ) {
+								_this.hide();
+								_this.siblings('.content').html(_this.val()).fadeIn();
+							}
+						});
+					}
+					
+				});
+				
+				
+			});
+			
+			
+			
+		</script>
+			
+	</body>
+</html>

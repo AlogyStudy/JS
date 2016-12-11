@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	
+	<script>
+		
+		/**
+		 * !1 + !2 + ... +!10
+		 * @param {Number} 当前数的阶乘
+		 * @return {Number} 运行之后的结果 
+		 */
+		
+		function JC( n ){
+			var res = 1;
+			for( var i=1; i<=n; ++i ){
+				res *= i;
+			}
+			return res;
+		}
+		
+		var reslut = 0;
+		for( var i=1; i<=10; ++i ){
+			reslut += JC(i);
+		}
+		
+		console.log(reslut);  //4037913
+		
+	</script>
+	
+</body>
+</html>

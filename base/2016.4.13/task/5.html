@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+    <script type="text/javascript">
+
+    //获取<p class='demo'>hello icketang</p>内部文案
+    var str = '<p class="demo" id="demo">hello icketang</p>';
+    var reg = /<p[\s]+[^>]+>([\s\S]*)<\/p>/;
+    console.log( reg.exec(str) );
+    str.replace(reg,function( $1,$2 ){
+      console.log( $2 );
+    });
+
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.rolling {
+				width: 800px;
+				height: 130px;
+				border: 10px solid firebrick;
+				margin: 100px auto;
+				position: relative;
+				overflow: hidden;
+			}
+			.rolling .m_unit {
+				position: absolute;
+				left: 0;
+				top: 0;
+				/* 这是运动单元 */
+				width: 5000px;
+			}
+			.rolling .m_unit ul {
+				list-style: none;
+			}
+			.rolling .m_unit ul li {
+				float: left;
+				margin-right: 10px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="rolling" id="rolling">
+			<div class="m_unit" id="m_unit"> <!-- 运动单元 -->
+				<ul>
+					<li><a href="#"><img src="images/shuzi/0.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/1.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/2.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/3.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/pangzi.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/5.png"/></a></li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript">
+			
+			var oRolling = document.getElementById("rolling");
+			var m_unit = document.getElementById("m_unit");  //运动单元
+			var m_unitUl = document.getElementById("m_unit").getElementsByTagName('ul')[0]; //复制一份
+			var aLis = m_unit.getElementsByTagName('li');
+			var lisLength = aLis.length;
+			//img 
+			var aImg = document.getElementsByTagName('img');
+			
+			//信号量
+			var nowLeft = 0;
+			var trunBP;
+			var timer = null;
+			//复制一份
+			m_unitUl.innerHTML += m_unitUl.innerHTML;
+			
+			//折返点
+			for ( var i=0,count=0; i<aLis.length; ++i ) {
+				
+				aImg[i].onload = function(){
+					count++;
+					if( count==aLis.length ){  //折返点
+						trunBP = 	aLis[lisLength].offsetLeft;
+						move();
+					}
+				}
+			}
+			
+//			end
+
+			//控制器
+			function move(){
+				
+				clearInterval(timer);
+				timer = setInterval(function(){
+					nowLeft += -6;
+					if( nowLeft<-trunBP ){
+						nowLeft = 0;
+					}
+					m_unit.style.left = nowLeft + 'px';
+				},20);
+			}
+			
+			//添加监听
+			oRolling.onmouseover = function(){
+				clearInterval(timer);
+			}
+			oRolling.onmouseout = function(){
+				move();
+			}
+			
+		</script>
+		
+	</body>
+</html>

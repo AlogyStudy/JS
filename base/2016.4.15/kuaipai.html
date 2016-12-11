@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+
+		var arr = [6,4,5,7,8,2,2,7,9];
+		/**
+		 * 排序
+		 * @param {[Array]} 待排序的数组
+		 * @return {[Array]} 排序完成的数组
+		 */
+		function querySort( arr ){
+			var len = arr.length;
+			if( len<=1 ){
+				return arr;
+			}
+			var cankao = arr[0];
+			var small,big;
+			small = big = [];
+			for( var i=1; i<len; ++i ){
+				if( arr[i]>cankao ){
+					big.push(arr[i]);
+				} else {
+					small.push(arr[i]);
+				}
+			}
+
+  		sort_samll = querySort(small);
+  		sort_bing = querySort(big);
+  		return sort_samll.concat(arr[cankao],sort_bing);
+		}
+	console.log( querySort(arr) );
+	</script>
+
+</body>
+</html>

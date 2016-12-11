@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.rolling {
+				width: 800px;
+				height: 130px;
+				border: 10px solid firebrick;
+				margin: 100px auto;
+				position: relative;
+				overflow: hidden;
+			}
+			.rolling .m_unit {
+				position: absolute;
+				left: 0;
+				top: 0;
+				/* 这是运动单元 */
+				width: 5000px;
+			}
+			.rolling .m_unit ul {
+				list-style: none;
+			}
+			.rolling .m_unit ul li {
+				float: left;
+				margin-right: 10px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="rolling" id="rolling">
+			<div class="m_unit" id="m_unit"> <!-- 运动单元 -->
+				<ul>
+					<li><a href="#"><img src="images/shuzi/0.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/1.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/2.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/3.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/4.png"/></a></li>
+					<li><a href="#"><img src="images/shuzi/5.png"/></a></li>
+				</ul>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		
+			var oRolling = document.getElementById("rolling");
+			//得到运动单元
+			var oMUnit = document.getElementById("m_unit");
+			var oMuintListUl =oMUnit.getElementsByTagName('ul')[0];
+			
+			var lisLength = oMUnit.getElementsByTagName('li').length;
+			
+			//设置信号量
+			var nowLeft = 0;
+			var timer = null;
+			//复制
+			oMuintListUl.innerHTML += oMuintListUl.innerHTML;
+			
+			move();
+			function move(){
+			//开启定时器	
+				clearInterval(timer);
+				timer = setInterval(function(){
+					
+					nowLeft += -6;  //信号量    变化量
+					if( nowLeft<-210*lisLength ){//拉回   //折返点
+						nowLeft = 0;
+					}
+					//设置
+					oMUnit.style.left = nowLeft + 'px';
+				},20);
+				
+			}
+			
+			//添加事件监听
+			oRolling.onmouseover = function(){
+				clearInterval(timer)
+			}
+			oRolling.onmouseout = function(){
+				move();
+			}
+			
+		</script>
+		
+	</body>
+</html>

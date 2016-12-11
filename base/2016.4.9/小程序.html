@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 程序一开始就要随机生成一个地雷数
+			 * 地雷就是1~100
+			 */
+			var dilei = parseInt( Math.random()*100 )+1;
+			//上限
+			var xiaxian = 1;
+			//下限
+			var shangxian = 100;
+			
+			while( 1 ){
+				var a = parseInt(prompt('请输入一个整数,范围'+ xiaxian+ '到'+ shangxian));
+				
+				if( a>xiaxian && a<shangxian ){  //检验值 是否存在 输入的范围。
+					if( a>dilei ){
+						shangxian = a;
+					} else if( a<dilei ){
+						xiaxian = a; 
+					} else if( a==dilei ){} {
+						alert('bingbo,中奖');
+						break;
+					}
+				}
+			}
+			
+		</script>
+		
+	</body>
+</html>

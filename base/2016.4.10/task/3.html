@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 编写函数rev(char) 实现将字符串char倒置
+				比如rev("spring") 返回"gnirps"
+			 */
+			
+			
+			/**
+			 *  将字符串颠倒
+			 * @param {String} char  需要颠倒的字符串
+			 * @return {String}
+			 */
+			/*function rev( char ){   //string   方法1
+				
+				var res = '';
+				for( var i=char.length; i>0; --i ){
+					res += char[i-1];
+				}
+				return res;
+				
+			}
+			console.log( rev('spring') );
+			*/
+			
+			/**
+			 *  将字符串颠倒
+			 * @param {String} char  需要颠倒的字符串
+			 * @return {String}
+			 */
+			//spring --> ["s", "p", "r", "i", "n", "g"]; -->  reverse  --> join 
+			/*var arr = [];
+			function rev( char ){ //array   方法2
+				for( var i=0,len=char.length; i<len; ++i ){
+					arr.push(char.charAt(i));
+				}
+				return arr.reverse().join('');
+			}
+		
+			console.log( rev('spring') );*/
+			
+			/**
+			 *  将字符串颠倒
+			 * @param {String} char  需要颠倒的字符串
+			 * @return {String}
+			 */
+			/*function rev( char ){  //方法3
+				var str = '';
+				for( var i=0,len=char.length,j=len-1; i<len; ++i,--j ){
+					str += char[j];
+				}
+				return str;
+			}
+			
+			console.log( rev('spring') );*/
+
+
+			/**
+			 *  将字符串颠倒
+			 * @param {String} char  需要颠倒的字符串
+			 * @return {String}
+			 */
+			/*function rev( char ){  //方法4
+				return char.split('').reverse().join('');
+			}
+
+			console.log( rev('spring') );*/	
+
+
+			/**
+			 *  将字符串颠倒
+			 * @param {String} char  需要颠倒的字符串
+			 * @return {String}
+			 */
+			// charAt(str.length-1);
+			// 
+			/*function rev( char ){  //方法5
+				var str = '';
+				for( var i=char.length-1; i=>0; --i ){
+					str += char.charAt(i);
+				}
+				return str;
+			}
+
+			console.log( rev('spring') );*/
+
+			/* 
+				for循环从最后一位开始取源字符串的字符，然后拼接到新的串中。
+				str.charAt(str.length - 1); 就是最后一位
+				str.charAt(str.length - 2) ;就是倒数第二位
+			 */
+			function rev( char ){
+				var str = '';
+				for( var i=char.length-1; i>=0; --i ){
+					str += char[i];
+				}
+				return str;
+			}	
+			console.log( rev('spring') );
+			
+		</script>
+		
+	</body>
+</html>

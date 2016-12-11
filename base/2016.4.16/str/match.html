@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			
+			var str = 'ABCDEFG1234567abcdefg';
+			var reg = /[A-Z]/;
+			console.log(str.match(reg));  //["A", index: 0, input: "ABCDEFG1234567abcdefg"]
+			console.log(reg.exec(str)); //["A", index: 0, input: "ABCDEFG1234567abcdefg"]
+			//匹配到第一个 就不再寻找
+			var reg = /[A-Z]/g;
+			console.log(str.match(reg)); //["A", "B", "C", "D", "E", "F", "G"]
+			
+			
+			//() 分组捕获，  \1 在正则中表示 第一个捕获.
+			var str = '188-546-123-123-123-964-986-534';
+			var reg = /(\d{3})\-\1+/g;  
+			console.log(str.match(reg)); //["123-123"]
+			
+			//寻找最大子串
+			var str = 'AAACCCCBBBBDDDDDDDDDDDDD';
+			var reg = /([A-Z]+)\1/g;
+			
+			var maxLength = 0;
+			var maxLetter = '';
+			var arr = str.match(reg);
+			
+			for( var i=0; i<arr.length; ++i ){
+				if( arr[i].length>maxLength ){
+					maxLength = arr[i].length;
+					maxLetter = arr[i];
+				}
+			}
+			console.log(maxLetter);
+			
+			var str = '今年工资1000,涨工资10,剩余-1';
+			var reg = /-?\d+\.?\d*/g;
+			console.log(str.match(reg));
+			
+			
+			
+		</script>	
+		
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+		/**
+		 * !1 + !2 + ... +!10
+		 * @param {Number} 当前数的阶乘
+		 * @return {Number} 运行之后的结果 
+		 */
+		
+		function JC( n ){
+			var res = 1;
+			for( var i=1; i<=n; ++i ){
+				res *= i;
+			}
+			return res;
+		}
+		
+		for( var i=0; i<10000; ++i ){
+			var gewei = i%10;
+			var shiwei = parseInt(i/10%10);
+			var baiwei = parseInt(i/100);
+			
+			if( JC(gewei)+JC(shiwei)+JC(baiwei) == i ){
+				alert(i);
+			}
+		}
+			
+		</script>
+		
+	</body>
+</html>

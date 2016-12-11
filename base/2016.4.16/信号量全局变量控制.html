@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			div {
+				width: 100px;
+				height: 100px;
+				background: deeppink;
+				position: absolute;
+				left: 100px;
+				top: 138px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id="box"></div>
+		<input type="button" name="" id="btn" value="->" />
+		<script type="text/javascript">
+		
+			//信号量编程
+			var oDiv = document.getElementById("box");
+			var oBtn = document.getElementById("btn");
+			
+			var nowLeft = 100; //信号量，初始值要根据信号量来设置。
+			
+			oBtn.onclick = function(){
+				nowLeft += 10;
+				oDiv.style.left = nowLeft + 'px';
+			}
+			
+		</script>
+		
+	</body>
+</html>

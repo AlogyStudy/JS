@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 求1! + 2! + 3! + 4! + …… + 10!的和
+				叹号表示阶乘，如4! = 1 * 2 * 3 * 4
+			 */
+			
+			var res = 0;
+			for( var i=1; i<=10; ++i ){
+				res += JC(i);
+			}
+			alert( '1~10之间的阶乘为：'+ res );  //4037913
+			
+			/**
+			 * 阶乘
+			 * @param {Number} m 需要求的阶乘数字
+			 * @return {Number} 当前计算阶乘的结果
+			 */
+			function JC( m ){
+				var res = 1;	
+				for( var i=1; i<=m; ++i ){
+					res *= i;
+				}
+				return res;	
+			}
+			
+		</script>
+		
+	</body>
+</html>

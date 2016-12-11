@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+    <script type="text/javascript">
+
+    //把链接换成空连接，保持文字信息。
+    var str = '<a href="http://www.baidu.com">阴天快乐</a>';
+    var reg = /<a[\s]+[^>]+>([^<>]+)<\/a>/;  //超链接的表达式
+    console.log( reg.exec(str) );  //["<a href="http://www.baidu.com">阴天快乐</a>", "阴天快乐", index: 0, input: "<a href="http://www.baidu.com">阴天快乐</a>"]  //能够把子表达式的东西匹配出来。
+
+    // console.log( str.replace(reg,'#') );
+    /**
+      <a[\s]+[^>]>([^<>]+)<\/a>    主要目的是想要中间那一块
+      除了>之外的都可行 ， 取> 的补集 [^>]
+      中间部分纯文字，不含大于号，和小于号。 取小于号和大于号的补集 [^<>]+   / [\s\S]+
+    */
+    //一般是整个表达式， 但是中间的部分 有特殊做了描述。 需要的部分特殊处理。使用分组，叫做子表达式。
+
+    //匹配html
+    //   /<\s*(\S+)(\s[^>]*)?>[\s\S]*<\s*\/\1\s*>/
+
+    /*exec为例：
+      匹配到的数组，第0个单元，代表"整个正则表达式的匹配结果"
+      1,2,3,4....N,则代表第N个子表达式匹配的结果。  //js顶多有9个子表达式。 // ["<a href="http://www.baidu.com">阴天快乐</a>", "阴天快乐", index: 0, input: "<a href="http://www.baidu.com">阴天快乐</a>"]
+    */
+
+    console.log( str.replace(reg,'<a href="#">$1</a>') ); //<a href="#">阴天快乐</a>
+    var str = '<html></html>';
+    var reg = /<\s*(\S+)(\s[^>]*)?>[\s\S]*<\s*\/\1\s*>/;
+    console.log( reg.exec(str) );
+    str.replace(reg,function( $1,$2 ){
+      console.dirxml($2); //html
+    });
+
+    </script>
+
+  </body>
+</html>

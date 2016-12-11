@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div data-i="1" id="box"></div>
+
+		<script>
+		    var oBox = document.getElementById('box');
+		    alert(oBox.dataI); //undefiend
+		    alert(oBox.getAttribute('data-i')); //1
+		</script>
+		
+	</body>
+</html>

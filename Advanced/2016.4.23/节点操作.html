@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="box1">
+			<ul>
+				<li id="n123">123</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			
+			/*//孤儿节点
+			var oLi = document.createElement('li');
+			
+			oLi.innerHTML = '123';
+			//追加节点
+			var oBox = document.getElementById("box1");
+			oBox.appendChild(oLi);*/
+			
+			
+			//insertBofore
+			var oBox1 = document.getElementById("box1");
+			var oUl = document.getElementsByTagName('ul')[0];
+			var n123 = document.getElementById("n123");
+			var oLi = document.createElement('li');
+			oLi.innerHTML = Math.random();
+			
+			oUl.insertBefore(oLi,n123);
+			//parent.insertBefore(newChild,oldChild);
+			//父级.insertBoefre(新节点,标杆节点);			
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>看你能坚持多久</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style>
+			#msg {
+				display: block;
+				background-color: yellow;
+				width: 0px;
+				height: 20px;
+			}
+		</style>
+		<script>
+			/*之前做的兼容性不好，2012.8.28日重新改造*/
+			var intTotal = 0;
+			var fLastTime = 0.0;
+			var docWidth = 0;
+			var docHeight = 0;
+
+			function newStar() {
+				var obj2 = document.createElement("img"); //创建img对象
+				obj2.src = "img/xingxing.gif";
+				var intWidth = parseInt(Math.random() * 100 + 40);
+				obj2.style.width = intWidth + "px";
+				obj2.style.height = intWidth + "px";
+				obj2.style.position = "absolute";
+				obj2.style.left = parseInt(Math.random() * (docWidth - 140)) + "px";
+				obj2.style.top = parseInt(40 + Math.random() * (docHeight - 140)) + "px";
+				obj2.onclick = removeObj;
+				document.body.appendChild(obj2); //附加一个对象
+				intTotal++;
+				fLastTime += 0.5
+				showStep()
+			}
+
+			function removeObj(evnt) {
+				var evt, obj;
+				if (window.event) {
+					obj = event.srcElement;
+				} else {
+					obj = evnt.target;
+				}
+				document.body.removeChild(obj);
+				intTotal--;
+				showStep()
+			}
+			var interval1 = null;
+
+			function xingxingdiandian() {
+				init();
+				window.clearInterval(interval1);
+				interval1 = window.setInterval("newStar()", 400);
+			}
+
+			function init() {
+				//清除图片
+				var imgs = document.images;
+				for (var i = imgs.length - 1; i >= 0; i--) {
+					document.body.removeChild(imgs[i]);
+				}
+				//初始化数据
+				document.getElementById("lastTime").innerHTML = "0秒"
+				document.getElementById("msg").innerHTML = "0";
+				document.getElementById("msg").style.width = "0px";
+				intTotal = 0;
+				fLastTime = 0.0;
+				//获取页面宽高
+				docWidth = document.documentElement.clientWidth;
+				docHeight = document.documentElement.clientHeight;
+				//alert(docWidth + "," + docHeight);
+			}
+
+			function stopGame() {
+				alert("休息一下。。。");
+				//window.clearInterval(interval1);
+			}
+
+			function showStep() {
+				document.getElementById("lastTime").innerHTML = Math.ceil(fLastTime) + "秒";
+				var myMsg = document.getElementById("msg")
+				myMsg.innerHTML = intTotal;
+				myMsg.style.width = parseInt(intTotal * 100 / 20) + "px";
+				if (intTotal >= 20) {
+					window.clearInterval(interval1);
+					var msg = "game over。";
+					var jianchiFLastTimeNo1 = 0;
+					if (window.localStorage.jianchiFLastTimeNo1) {
+						jianchiFLastTimeNo1 = window.localStorage.jianchiFLastTimeNo1
+					}
+					if (fLastTime > jianchiFLastTimeNo1) {
+						msg += "\n恭喜你打破本游戏记录，请输入你的名字：";
+						prompt(msg, "");
+						window.localStorage.jianchiFLastTimeNo1 = fLastTime;
+					} else {
+						alert(msg);
+					}
+					//myMsg.style.width = "0px";
+					//removeAllObj();
+				}
+			}
+
+			function removeAllObj() {
+				var allObj = document.body.getElementsByTagName("img");
+				for (var i = allObj.length - 1; i >= 0; i--) {
+					document.body.removeChild(allObj[i]);
+				}
+			}
+		</script>
+	</head>
+
+	<body oncontextmenu="return false">
+		<div style="width:150px;float:left;">
+			<input type="button" name="button1" value="开始" onclick="xingxingdiandian()" />
+			<input type="button" name="button1" value="暂停" onclick="stopGame()" />
+			<span id="lastTime"></span>
+		</div>
+		<div style="width:100px;height:20px;float:left;border:solid 1px red;background-color:#cccccc;">
+			<div id="msg"></div>
+		</div>
+
+	</body>
+
+</html>
+<script>
+</script>

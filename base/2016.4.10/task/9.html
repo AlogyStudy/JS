@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script>
+
+	/**
+	 * 范围整数
+	 * @return {[String]} n 范围整数
+	 */
+	/*console.time('mm');
+	function pf( n ){  //方法1
+		for( var a=1; a<=n; ++a ){
+			for( var b=1; b<=n; ++b ){
+				for( var c=1; c<=n; ++c ){
+					if( a*a+b*b == c*c ){
+						console.log( a,b,c );
+					}
+				}
+			}
+		}
+	}
+	console.timeEnd('mm');  //mm: 0.019ms  mm: 0.031ms  mm: 0.035ms*/
+	/**
+	 * 范围整数
+	 * @return {[String]} n 范围整数
+	 */
+	console.time('mm');
+	function pf( n ){ //定甲试乙
+		for( var a=1; a<=n; ++a ){
+			for( var b=1; b<=n; ++b ){
+				var c2 = Math.pow(a,2)+Math.pow(b,2);  //通过已知条件,确定值.
+				var c = Math.sqrt(c2);
+				//判断c2的平方根是不是整数，就是判断c是不是整数
+				if( c == parseInt(c) && c<=n ){
+					console.log(a,b,c);	
+				}
+			}
+		}
+	}
+	console.timeEnd('mm'); //mm: 0.031ms  //mm: 0.016ms mm: 0.020ms mm: 0.039ms  mm: 0.018ms
+	pf(1000);
+
+	</script>
+
+</body>
+</html>

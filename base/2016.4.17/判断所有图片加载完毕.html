@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<img src="images/shuzi/0.png"/>
+		<img src="images/shuzi/2.png"/>
+		<img src="images/shuzi/3.png"/>
+		<img src="images/shuzi/4.png"/>
+		
+		<script type="text/javascript">
+			
+			var aImg = document.getElementsByTagName('img');
+			
+			var count = 0;
+			for ( var i=0,len=aImg.length; i<len; ++i ) {
+				
+				aImg[i].onload = function(){
+					count++;
+					if( count==len ){
+						alert('所有图片加载完毕');
+					}
+				}
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

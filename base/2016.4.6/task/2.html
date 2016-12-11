@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+	//用户输入一个数字，然后再输入一个数字。然后弹出警告框：
+	// 比如用户输入3、147，都是奇数
+		//人的思维带着机器走。	
+		var num1 = parseInt(prompt('请输入第一个整数'));
+		var num2 = parseInt(prompt('请输入第二个整数'));
+
+		if( num1%2==0 && num2%2==0 || num1%2==1 && num2%2==1 ){
+			alert('您好，您输入的两个整数奇偶性相同');
+		} else {
+			alert('您好，您输入的两个整数奇偶性不同');
+		}
+
+	</script>
+
+</body>
+</html>

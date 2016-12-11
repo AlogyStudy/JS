@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			div {
+				width: 100px;
+				height: 100px;
+				background: firebrick;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id="box"></div>
+		
+		<script type="text/javascript">
+			
+			var oBox = document.getElementById("box");
+			
+			function aa(){
+				alert(this);
+			}
+			oBox.onclick = aa;
+			
+//			oBox.onclick = function(){
+//				window.aa();
+//				window.setTimeout(aa,1000);
+//				
+//			}
+			
+		</script>
+		
+	</body>
+</html>

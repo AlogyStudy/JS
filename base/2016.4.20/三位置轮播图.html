@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.carousel{
+			width: 560px;
+			height: 300px;
+			margin: 100px auto;
+			border: 1px solid #000;
+			position: relative;
+			overflow: hidden;
+		}
+		.carousel .imageList ul{
+			list-style: none;
+			position: relative;
+		}
+		.carousel .imageList ul li{
+			position: absolute;
+			top: 0;
+			left: 560px;
+			width: 560px;
+			height: 300px;
+		}
+		.carousel .imageList ul li.first{
+			left: 0;
+		}
+		.btns a{
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			top: 50%;
+			margin-top: -20px;
+			background-color: yellow;
+			z-index: 999;
+		}
+		.btns a.leftBtn{
+			left: 10px;
+		}
+		.btns a.rightBtn{
+			right: 10px;
+		}
+		.circles{
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			width: 150px;
+			height: 18px;
+		}
+		.circles ol{
+			list-style: none;
+		}
+		.circles ol li{
+			float: left;
+			width: 18px;
+			height: 18px;
+			margin-right: 10px;
+			border-radius: 50%;
+			background-color: pink;
+			cursor: pointer;
+		}
+		.circles ol li.cur{
+			background-color: purple;
+		}
+	</style>
+</head>
+<body>
+	<div class="carousel" id="carousel">
+		<div class="btns">
+			<a href="javascript:;" class="leftBtn" id="leftBtn"></a>
+			<a href="javascript:;" class="rightBtn" id="rightBtn"></a>
+		</div>
+		<div class="imageList" id="imageList">
+			<ul>
+				<li class="first"><a href="#"><img src="images/0.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/2.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/3.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/4.jpg" alt="" /></a></li>
+			</ul>
+		</div>
+		<div class="circles" id="circles">
+			<ol>
+				<li class="cur"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/animate-2.0.1.js"></script>
+	<script type="text/javascript">
+		
+		var rightBtn = document.getElementById("rightBtn");
+		var leftBtn = document.getElementById("leftBtn");
+		
+		var imageList = document.getElementById("imageList");
+		var imageListLis = imageList.getElementsByTagName('li');
+		
+		var imgLength = imageList.getElementsByTagName('img').length;
+		var circles = document.getElementById("circles");
+		var circlesLis = circles.getElementsByTagName('li');
+		var idx = 0;
+		
+		//end
+		//添加监听
+		rightBtn.onclick = function(){
+			if( imageListLis[idx].isanimated ) return false;
+			
+			animate(imageListLis[idx],{"left": -560},800); //0
+			idx++;
+			if( idx>4 ){
+				idx = 0; 
+			}
+			//就位
+			imageListLis[idx].style.left = '560px'; //1
+			animate(imageListLis[idx],{"left": 0},800);
+			changeCircles();
+		}
+		
+		leftBtn.onclick = function(){
+			if( imageListLis[idx].isanimated ) return false;
+			
+			animate(imageListLis[idx],{"left": 560},800); 
+			idx--;
+			if( idx<0 ){
+				idx = 4; 
+			}
+			//就位
+			imageListLis[idx].style.left = '-560px'; //
+			animate(imageListLis[idx],{"left": 0},800);
+			changeCircles();
+		}
+	
+		//小圆点监听
+		for ( var i=0; i<circlesLis.length; ++i ) {
+			
+			circlesLis[i].index = i;
+			circlesLis[i].onclick = function(){
+//				console.log(this.index);  //4
+//				console.log(idx);   //0
+				if( this.index>idx ){
+					// <--
+					animate(imageListLis[idx],{"left": -560},800); 
+					idx = this.index;
+					//就位
+					imageListLis[idx].style.left = '560px'; 
+					animate(imageListLis[idx],{"left": 0},800);
+
+					
+				} else if( this.index<idx ){
+					// -->
+					animate(imageListLis[idx],{"left": 560},800); 
+					idx = this.index;
+					//就位
+					imageListLis[idx].style.left = '0'; 
+					animate(imageListLis[idx],{"left": 0},800);
+					
+				} else {
+					console.log('您点击的是同一张图片');
+				}
+				changeCircles();
+			}
+			
+		}
+	
+		//小圆点颜色变化
+		function changeCircles(){
+			
+			for ( var i=0; i<imgLength; ++i ) {
+				circlesLis[i].className = '';
+			}
+			circlesLis[idx].className = 'cur';
+			
+		}
+		
+	</script>
+
+</body>
+</html>

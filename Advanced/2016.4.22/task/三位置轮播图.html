@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.carousel{
+			width: 560px;
+			height: 300px;
+			margin: 100px auto;
+			border: 1px solid #000;
+			position: relative;
+			overflow: hidden;
+		}
+		.carousel .imageList ul{
+			list-style: none;
+			position: relative;
+		}
+		.carousel .imageList ul li{
+			position: absolute;
+			top: 0;
+			left: 560px;
+			width: 560px;
+			height: 300px;
+		}
+		.carousel .imageList ul li.first{
+			left: 0;
+		}
+		.btns a{
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			top: 50%;
+			margin-top: -20px;
+			background-color: yellow;
+			z-index: 999;
+		}
+		.btns a.leftBtn{
+			left: 10px;
+		}
+		.btns a.rightBtn{
+			right: 10px;
+		}
+		.circles{
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			width: 150px;
+			height: 18px;
+		}
+		.circles ol{
+			list-style: none;
+		}
+		.circles ol li{
+			float: left;
+			width: 18px;
+			height: 18px;
+			margin-right: 10px;
+			border-radius: 50%;
+			background-color: pink;
+			cursor: pointer;
+		}
+		.circles ol li.cur{
+			background-color: purple;
+		}
+	</style>
+</head>
+<body>
+	<div class="carousel" id="carousel">
+		<div class="btns">
+			<a href="javascript:;" class="leftBtn" id="leftBtn"></a>
+			<a href="javascript:;" class="rightBtn" id="rightBtn"></a>
+		</div>
+		<div class="imageList" id="imageList">
+			<ul>
+				<li class="first"><a href="#"><img src="images/0.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/2.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/3.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/4.jpg" alt="" /></a></li>
+			</ul>
+		</div>
+		<div class="circles" id="circles">
+			<ol>
+				<li class="cur"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+	</div>
+
+
+	<script src="jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript">
+		
+		var idx = 0;
+		var lis = $('#imageList li');
+		var lisWidth = lis.width();
+		var lisLength = lis.length;
+		
+		
+		//自动轮播
+		var timer = setInterval(rightBtnHandler,2000);
+		$('#carousel').mouseenter(function(){
+			clearInterval(timer);
+		});
+		$('#carousel').mouseenter(function(){
+			timer = setInterval(rightBtnHandler,2000);
+		});
+		
+		$('#rightBtn').click(rightBtnHandler);
+		
+		function rightBtnHandler(){
+			
+			//函数节流
+			if( lis.is(':animated') ) return false;
+			
+			lis.eq(idx).animate({'left': -lisWidth},800);
+			idx++;
+			if( idx>4 ){
+				idx = 0;
+			}
+			//就位
+			lis.eq(idx).css('left',560);
+			lis.eq(idx).animate({'left': 0},800);
+			changeCircles();
+			
+		}
+		
+		$('#leftBtn').click(function(){
+			//函数节流
+			if( lis.is(':animated') ) return false;
+			
+			lis.eq(idx).animate({'left': lisWidth},800);
+			idx--;
+			if( idx<0 ) idx = lisLength-1;
+			lis.eq(idx).css('left',-lisWidth);
+			lis.eq(idx).animate({'left': 0},800);
+			changeCircles();
+			
+		});
+		
+		//小圆点监听
+		$('#circles li').click(function(){
+			//函数节流
+			if( lis.is(':animated') ) return false;
+			if( $(this).index()>idx ){
+				
+				lis.eq(idx).animate({'left': -lisWidth});
+				idx = $(this).index();
+				//拉回
+				lis.eq(idx).css('left',560);
+				lis.eq(idx).animate({'left': 0});
+				changeCircles();
+				
+			} else if( $(this).index()<idx ){
+				
+				lis.eq(idx).animate({'left': lisWidth});
+				idx = $(this).index();
+				//拉回
+				lis.eq(idx).css('left',0);
+				lis.eq(idx).animate({'left': 0});
+				changeCircles();
+				
+			} else {
+				alert('点击相同');
+			}
+			
+		});
+		
+		function changeCircles(){
+			$('#circles li').eq(idx).addClass('cur').siblings().removeClass('cur');
+		}
+		
+		
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+        //8 检测昵称是否是有汉字字母数字下划线组成，6-8位
+        var str = '中_12345';
+        var reg = /^[\w\u4e00-\u9fa0]{6,8}$/g;
+        console.log( reg.exec(str) );
+
+    </script>
+
+
+  </body>
+</html>

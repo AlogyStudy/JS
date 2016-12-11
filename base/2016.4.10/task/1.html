@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+
+			/*
+				结果串 str = '';
+				临时字符串 cahr = '@';
+				var n;
+				n奇数，那么结果串+临时串。
+				n偶数，结果串不变。 (奇变偶不变)
+				n = parseInt(n/2); //n越除越小
+				char = char + char
+
+				循环直到n为1 截至。
+
+				function repeat( char,n ){
+					var str = '';
+					n = parseInt(n/2);
+					while( true ){
+						if( n==1 || n==0 ) break;
+
+						if( n%2==1 ) str += char;
+						char = char + char;
+						n = parseInt(n/2);
+					}
+
+				}
+
+				repeat('★',13)
+
+				13
+				str = '★';
+				char = '★★';
+				n=6
+
+				6
+				str = '★'
+				char = '★★★★';
+				n = 3
+
+
+				3 
+				str = '★★★★★';
+				cahr = '★★★★★★★★';
+				n = 1
+
+				1
+				str = '★★★★★★★★★★★★★'
+				char = '★★★★★★★★★★★★★★★★';
+				n = 0
+			 */
+
+			/**
+			 * 编写函数repeat(char,n) 实现重复char字符串n次
+					比如repeat("★",6) 返回"★★★★★★"
+			 */
+
+				/**
+				 * @param {String} char 循环的字符串
+				 * @param {Number} n 循环的次数 n
+				 * @return {String}
+				 */
+
+				/*function repeat( char,n ){  //方法1  str相加
+					var str = '';
+					for( var i=0; i<=n; ++i ){
+						str += char;
+					}
+					return str || n;
+				}
+
+				var str = repeat('@',6);
+				console.log( str );*/
+
+
+
+				/*function repeat( char,n ){  //方法2  数组
+					var arr = [];
+					for( var i=0; i<=n; ++i ){
+						arr.push(char);
+					}
+					return arr.join('') || n;
+				}
+
+				var str = repeat('@',6);
+				console.log( str );	*/
+
+				/*function repeat( char,n ){  //方法3  二分法
+					var str = '';
+					while( true ){
+						if( n%2==1 ) str += char;
+						if( n==1 || n==0 ) break;
+						char = char + char;
+						n = parseInt(n/2);
+					}
+					return str;
+					var str = repeat('@',6);
+				}
+				console.log( str );*/
+				var str = '';
+				function repeat( char,n ){
+					if( n==1 || n==0 ) return;  //递归出口
+					// debugger;
+					if( n%2==1 ) str +=char;
+					n = parseInt(n/2);
+					char += char;
+					return repeat(char,n);	//递归点
+				}
+				console.log( repeat('@',3) );
+
+				/*function repeat( char,n ){ //
+					var res = [];
+					// var charTemp = [].concat(char);
+					while( true ){
+						if( n%2==1 ) res.push(char);
+						if( n==1 || n==0 ) break;
+
+						// char += char;
+						res = res.concat(char);
+						n = parseInt(n/2);
+					}
+					return res.join('');
+				}*/
+				
+				function repeat( char,n ){
+					
+					var str = '';
+					while( true ){
+						
+						if( n%2==1 ) str += char;
+						if( n==1 || n==0 ) break;
+						
+						char += char;
+						n = parseInt(n/2);
+						
+					}
+					return str;
+				}
+				
+				
+		</script>
+
+	</body>
+</html>

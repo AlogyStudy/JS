@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>印象仙剑模拟</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background-color: #ccc;
+		}
+		.waterfall{
+			width: 730px;
+			position: relative;
+			margin: 0 auto;
+		}
+		.waterfall .gird{
+			position: absolute;	
+			width: 230px;
+			background-color: white;
+			border-radius: 15px;
+		}
+		.waterfall p{
+			line-height: 150%;
+			font-size: 16px;
+		}
+		.waterfall .share{
+			padding: 10px;
+			line-height: 150%;
+			font-size: 	14px;
+		}
+	</style>
+</head>
+<body>
+	<div class="waterfall" id="waterfall">
+
+	</div>
+ 
+	<script type="text/template" id="template">
+		<div class="gird">
+			<a href="">
+				<img src="<%=url%>" alt="" />
+			</a>
+			<div class="share">
+				<p><%=subject%></p>
+				<a class="like">❤<%=like%></a>
+				<a class="ping">○<%=comment%></a>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	
+	<script type="text/javascript">
+	
+		var $waterfall = $('#waterfall');
+		
+		//获得模板
+		var fnCompile = _.template( $('#template').html() );
+		
+		//瀑布流高度数组
+		var colHeight = [0,0,0];
+		
+		//信号量
+		var page = 1;
+		getJsonHeader( page );
+		
+		function getJsonHeader( page ){
+			
+			//开启ajax
+			$.ajax({
+				'dataType': 'jsonp',
+				'jsonpCallback': 'jsonp79', 
+				'url': 'http://yx.xianjian.com/p/api.php?method=wf&api_key=nimakdkeiLdkfen2lidkdlDLLEKd&page='+ page +'&per_page=10&tag=&type=5&order=2&_ksTS=1462898147367_78&jsoncallback=jsonp79',
+				'success': function( data ){
+					//处理请求不到数据或者请求出错
+					if ( data.stat == 'wrong' ) return false;
+					
+					var aPhoto = data.photos.photo;
+					
+					// 加载完毕
+					if ( aPhoto.length <= 0 ) {
+						return false;
+					}
+					//开锁
+					lock = true;
+					
+					//循环遍历
+					$.each(aPhoto,function( i,dict ){
+							//竞速加载
+							var oImg = new Image();
+							
+							//dict修正
+							if ( dict.type == 1 ) {
+								oImg.src = 'http://files.haohaowan.com/yxxj/li_' + dict.url;   
+							} else if ( dict.type == 3 ) {
+								oImg.src = 'http://files.haohaowan.com/yxxj/sp_' + dict.url + '.jpg';
+							}
+							dict.url = oImg.src;
+							
+							$(oImg).load(function(){
+								var strDom = fnCompile( dict ); 
+								var $strDom = $(strDom);
+								
+								$waterfall.append( $strDom );
+								
+								//瀑布流算法
+								var minVal = _.min( colHeight );
+								var minIndex = _.indexOf( colHeight,minVal );
+								
+								$strDom.css({
+									'left': minIndex * 250,
+									'top': minVal,
+								});
+								//改变数组
+								colHeight[minIndex] += $strDom.outerHeight() + 20;
+								
+								var maxVal = _.max( colHeight );
+								//$waterfall 高度
+								$waterfall.css({
+									'height': maxVal, 
+								});
+							});
+					});
+				}
+			});
+		}
+		
+		var lock = true;
+		
+		//监听事件
+		$(window).scroll(function(){
+			//比率
+			var reac = $(window).scrollTop() / ( $(document).height()-$(window).height() );
+			if ( reac>0.7 ) {
+				page++;
+				getJsonHeader( page );
+				lock = false;
+			}
+		});
+		
+	</script>
+
+</body>
+</html>

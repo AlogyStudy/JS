@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			var _this = $(this);
+			var _window = $(window);
+			var _document = $(document);
+			
+			console.log(  _this, _window, _document );
+			var _thi = Object.prototype.toString.call( _this );
+			var _win = Object.prototype.toString.call( _window );
+			var _doc = Object.prototype.toString.call( _document );
+			
+			console.log( _thi,_win,_doc );
+			var win = Object.prototype.toString.call( window );
+			console.log( win );
+			
+			
+		</script>
+		
+	</body>
+	
+</html>

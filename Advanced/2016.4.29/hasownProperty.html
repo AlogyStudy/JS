@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			var obj = {
+				'a': 1,
+				'b': 2,
+				'c': 3
+			}
+			
+			obj.__proto__ = {
+				'd': 4
+			}
+			
+			console.log( obj.hasOwnProperty('a') ); //true
+			console.log( obj.hasOwnProperty('b') );  //true
+			console.log( obj.hasOwnProperty('c') ); //true
+			console.log( obj.hasOwnProperty('d') ); //false
+			console.log( obj.hasOwnProperty('e') ); //false
+					
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

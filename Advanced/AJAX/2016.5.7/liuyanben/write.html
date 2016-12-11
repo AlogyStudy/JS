@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	
+	<h1>欢迎给我留言</h1>
+	<div>
+		<p>姓名：<input type="text" id="xingming" /></p> 
+		<p>QQ号码：<input type="text" id="qqhao" /></p>
+		<p>内容：
+			<textarea id="neirong" cols="30" rows="10"></textarea>
+		</p>
+		<p>
+			<input type="button" value="提交留言" id="submitbtn"/>
+		</p>
+	</div>
+	
+	<script type="text/javascript" src="js/myajax.js"></script>
+	
+	<script type="text/javascript">
+		var xingming = document.getElementById("xingming");
+		var qqhao = document.getElementById("qqhao");
+		var neirong = document.getElementById("neirong");
+		var submitbtn = document.getElementById("submitbtn");
+		
+		submitbtn.onclick = function(){
+			
+			var xinmingVal = xingming.value;
+			var qqhaoVal = qqhao.value;
+			var neirongVal = neirong.value;
+			
+			myajax.post('php/write.php',{
+				'name': xinmingVal,
+				'qqhao': qqhaoVal,
+				'content': neirongVal
+			},function( err,data ){
+				if ( err ) return false;
+				console.log( data );
+				
+				if ( data == 'ok' ) {
+					alert('插入成功');
+				} else if( data == 'wroing' ) {
+					alert('数据插入失败');
+				}
+				
+			});
+			
+		}
+		
+	</script>
+	
+	
+</body>
+</html>

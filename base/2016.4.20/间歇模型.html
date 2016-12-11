@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		div{
+			width: 600px;
+			height: 40px;
+			line-height: 40px;
+			border: 1px solid red;
+			margin: 100px;
+			position: relative;
+			overflow: hidden;
+		}
+		div ul{
+			position: absolute;
+			top: 0;
+			left: 0;
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<ul>
+			<li>通知：1111111111111111 </li>
+			<li>通知：2222222222222222 </li>
+			<li>通知：3333333333333333 </li>
+		</ul>
+	</div>
+
+	
+	<script type="text/javascript" src="animate-2.0.1.js"></script>
+	
+	<script type="text/javascript">
+		
+		var oUl = document.getElementsByTagName('ul')[0];
+		var lis = oUl.getElementsByTagName('li');
+		var lisLength = lis.length;
+		
+		var idx = 0;
+		
+		oUl.appendChild( lis[0].cloneNode(true) );
+		
+		function move(){
+			idx++;
+			animate(oUl,{'top':-40*idx },800,function(){
+				if( idx>lisLength-1 ){
+					idx = 0;
+					this.style.top = '0px';
+				}
+			});
+		}
+		
+		setInterval( move,1200 );
+		
+	</script>
+	
+</body>
+</html>

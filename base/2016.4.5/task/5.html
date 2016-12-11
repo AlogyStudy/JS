@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+      var ts = prompt('请输入天数：');
+
+      var ji = 1000%7;
+      var aTs = ts % 7;
+
+      // alert('1000天后是星期' + ji);
+      switch ( ji ) {
+        case 1:
+            alert('1000天后是:星期三');
+            // alert('星期三');
+            break;
+        case 2:
+            alert('1000天后是:星期四');
+            break;
+        case 3:
+            alert('1000天后是:星期五');
+            break;
+        case 4:
+            alert('1000天后是:星期六');
+            break;
+        case 5:
+            alert('1000天后是:星期天');
+            break;
+        case 6:
+            alert('1000天后是:星期一');
+            break;
+        case 7:
+            alert('1000天后是:星期二');
+            break;
+      }
+
+      // alert('任意天数是星期' + parseFloat(aTs));
+      switch ( aTs ) {
+        case 1:
+            alert('任意天数是:星期三');
+            // alert('星期三');
+            break;
+        case 2:
+            alert('任意天数是:星期四');
+            break;
+        case 3:
+            alert('任意天数是:星期五');
+            break;
+        case 4:
+            alert('任意天数是:星期六');
+            break;
+        case 5:
+            alert('任意天数是:星期天');
+            break;
+        case 6:
+            alert('任意天数是:星期一');
+            break;
+        case 7:
+            alert('任意天数是:星期二');
+            break;
+      }
+
+      // 1 -> 星期三
+      //2  -> 星期四
+      //3  -> 星期五
+      // 4 -> 星期六
+      // 5 -> 星期天
+      // 6 -> 星期一
+      // 7 -> 星期二
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 在控制台输出1~1000之中，所有能被5整除，或者被6整除的数字。
+			 */
+			
+			/**
+			 * @param 需要求出的范围数
+			 */
+			function A56( endNum ){
+				
+				for( var i=1; i<=endNum; ++i ){
+					if( !(i%5) || !(i%6) ){
+						console.log(i);
+					}
+				}
+				
+			}
+			
+			A56(1000);
+			
+		</script>
+		
+		
+	</body>
+</html>

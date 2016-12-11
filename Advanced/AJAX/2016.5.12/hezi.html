@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div {
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="box"></div>
+		
+		<input type="button" name="" id="btn" value="点击变色" />
+		
+		<script type="text/javascript">
+			
+			function Hezi( objDom ){
+				
+				this.dom = objDom;
+				
+			}
+			
+			Hezi.prototype.bianse = function( color ){
+				
+				this.dom.style.background = color;
+				
+			}
+			
+			var btn = document.getElementById("btn");
+			var box = document.getElementById("box");
+			
+			var hezi = new Hezi(box);
+			
+			btn.onclick = function(){
+			
+				hezi.bianse('tan');
+				
+			}
+			
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script>
+
+	/**
+	 * 苹果3元一个，鸭梨2元一个，桃子1元一个。现在想用200元买100个水果，在控制台中列出所有可能性。  //51种
+	 * //鸡兔同笼  
+	 */
+	
+	/*console.time('mm');
+	var count = 0;
+	for( var i=0; i<67; ++i ){  //苹果 最多的数
+		for( j=0; j<=100; ++j ){  //(100/3)  //鸭梨 最多的数
+			for( m=0; m<=200; ++m ){ //(200/2)  //桃子 最多的数
+				if( (3*i+2*j+1*m)==200 && (i+j+m)==100 ){
+					console.log('3元苹果可以买：'+ i +'个','2元鸭梨可以买：'+ j +'个','1元桃子可以买：'+ m +'个');
+					console.log('-------------');
+					count++;
+				}
+			}
+		}
+	}		
+	console.log('可能性有：'+ count + '种');  //17种 //51种 
+	console.timeEnd('mm');*/
+	//mm: 19.791ms
+	//mm: 35.859ms
+	
+	//
+	/*console.time('mm');
+	var count = 0;
+	for( var i=0; i<100; ++i ){  //苹果 最多的数
+		for( j=0; j<=100; ++j ){  //(100/3)  //鸭梨 最多的数
+			for( m=0; m<=100; ++m ){ //(200/2)  //桃子 最多的数
+				if( (3*i+2*j+1*m)==200 && (i+j+m)==100 ){
+					console.log('3元苹果可以买：'+ i +'个','2元鸭梨可以买：'+ j +'个','1元桃子可以买：'+ m +'个');
+					console.log('-------------');
+					count++;
+				}
+			}
+		}
+	}		
+	console.log('可能性有：'+ count + '种');  //17种 //51种 
+	console.timeEnd('mm'); */ 
+	//mm: 40.153ms
+
+	console.time('mm');
+	var count = 0;
+	for( var i=0; i<=100; i++ ){
+		for( var j=0; j<=100-i; j++ ){
+			var k = 100 - i - j;
+			if( i*3+j*2+k == 200 ){
+				console.log('3元苹果可以买：'+ i +'个','2元鸭梨可以买：'+ j +'个','1元桃子可以买：'+ k +'个');
+				count++;
+			} 
+			
+		}
+	}
+	console.log('可能性有：'+ count + '种');   //51种 
+	console.timeEnd('mm');  //mm: 9.929ms
+
+	</script>
+
+</body>
+</html>

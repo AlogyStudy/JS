@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> search </title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			var str = 'ABCDEFG122234567abcdefg';
+			var reg = /(\w)\1+/g;//重复的字母， 数字。
+			
+			console.log(str.search(reg));  //返回正则表达式的第一个位置， 可以使用分组捕获
+			
+			
+		</script>
+		
+	</body>
+</html>

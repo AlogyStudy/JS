@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			#div1 {
+				width: 100px;
+				height: 100px;
+				background: tan;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		
+		<div id="div1" ></div>
+		
+		<script type="text/javascript">
+			
+			var oDiv = document.getElementById("div1");
+			var _this = 1;
+			oDiv.onmouseenter = function(){
+//				console.log( this );  //oDiv
+				var _this = this;
+				var box = (function(){
+					console.log( this ); //window
+					console.log( _this ); //oDiv
+				})();
+			}
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 在控制台输出图形
+							    *
+							   ***
+							  *****
+							 *******
+							*********
+			 */
+			
+			/**
+			 * @param {Number} n  行数
+			 */
+			
+			/*function triangle( n ){
+				for( var i=0; i<=n; ++i ){
+					document.write('<br/>');
+					for( var j=0; j<=i-1; ++j ){
+						document.write('*');
+					}
+				}
+			}
+			
+			triangle(6);*/
+
+			/**
+			 * @param {Number} n  行数
+			 * 每行 5-i 个空格 , 2i-1个星星
+			 */
+			
+			function triangle( n ){
+				var str1,str2,str;
+				for( var i=0; i<=n; ++i ){
+					str1 = repeat(' ',n-i);
+					str2 = repeat('*',2*i-1);
+					str = str1 + str2;
+					console.log( str );
+				}
+				// return str;
+			}
+			triangle(10);
+
+			//方法2，二分法，“1248拆分法”
+			function repeat(char,n){
+				var str = "";
+				while(true){
+					if(n % 2 == 1){
+						//奇变偶不变
+						str += char;
+					}
+					//终点验证
+					if(n == 1 || n == 0){
+						break;
+					}
+					//改变n的值
+					n = parseInt(n / 2);
+					//每次循环，char都要倍增
+					char = char + char;
+				}
+				return str;
+			}
+
+		</script>
+		
+	</body>
+</html>

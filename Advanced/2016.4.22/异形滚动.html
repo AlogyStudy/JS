@@ -1,0 +1,150 @@
+<!DOCTYPE html>	
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.yixing{
+			width: 670px;
+			height: 221px;
+			background: url(images/pic_bg.gif);
+			margin: 100px auto;
+			border: 1px solid #000;
+			position: relative;
+			overflow: hidden;
+		}
+		.yixing ul{
+			list-style: none;
+		}
+		.yixing ul li{
+			position: absolute;
+			opacity: 1;
+			filter:alpha(opacity=100);
+		}
+		/*img这个元素不会根据父亲来设置宽度、高度，所以我们就要写：*/
+		.yixing ul li img{
+			width: 100%;
+			height: 100%;
+		}
+		.yixing ul li.stateA{width: 55px;height: 37px;left:-55px;top: 84px; /*opacity: 0; filter:alpha(opacity=0);*/}
+		.yixing ul li.stateB{width: 71px;height: 54px;left:16px;top: 67px;}
+		.yixing ul li.stateC{width: 122px;height: 86px;left:104px;top: 35px;}
+		.yixing ul li.stateD{width: 161px;height: 112px;left:247px;top: 16px;}
+		.yixing ul li.stateE{width: 122px;height: 86px;left:436px;top: 35px;}
+		.yixing ul li.stateF{width: 71px;height: 54px;left:583px;top: 67px;}
+		.yixing ul li.stateG{width: 55px;height: 37px;left:678px;top: 84px;/* opacity: 1;filter:alpha(opacity=0);*/}
+	
+		.rightBtn{
+			position: absolute;
+			top: 151px;
+			right: 20px;
+			width: 40px;
+			height: 40px;
+			background-color: red;
+		}
+		.leftBtn{
+			position: absolute;
+			top: 151px;
+			left: 20px;
+			width: 40px;
+			height: 40px;
+			background-color: red;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="yixing" id="yixing">
+		<ul>
+			<li class="stateA"><img src="images/number/0.png" alt="" /></li>
+			<li class="stateB"><img src="images/number/1.png" alt="" /></li>
+			<li class="stateC"><img src="images/number/2.png" alt="" /></li>
+			<li class="stateD"><img src="images/number/3.png" alt="" /></li>
+			<li class="stateE"><img src="images/number/4.png" alt="" /></li>
+			<li class="stateF"><img src="images/number/5.png" alt="" /></li>
+			<li class="stateG"><img src="images/number/6.png" alt="" /></li>
+		</ul>
+		<div class="btns">
+			<a href="javascript:;" id="leftBtn" class="leftBtn"></a>
+			<a href="javascript:;" id="rightBtn" class="rightBtn"></a>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="animate-2.0.1.js"></script>
+	<script type="text/javascript" src="fetchComputedStyle.js"></script>
+	
+	<script type="text/javascript">
+		
+		
+		var yixing = document.getElementById("yixing");
+		var yixingLis = yixing.getElementsByTagName('li');
+		
+		var rightBtn = document.getElementById("rightBtn");
+		var leftBtn = document.getElementById("leftBtn");
+		
+		//收集数据
+		var JSONarr = []; //放定位，宽高 数据
+		var lisArr = [];
+		for ( var i=0; i<yixingLis.length; ++i ) {
+			JSONarr.push({
+				'width': parseFloat( fetchComputedStyle(yixingLis[i],'width') ),
+				'height': parseFloat( fetchComputedStyle(yixingLis[i],'height') ),
+				'top': parseFloat( fetchComputedStyle(yixingLis[i],'top') ),
+				'left': parseFloat( fetchComputedStyle(yixingLis[i],'left') )
+			});
+			lisArr.push(yixingLis[i]);
+		}
+		
+//		var timer = setInterval(rightBtnHandler,800);
+		yixing.onmouseover = function(){
+//			clearInterval(timer);
+		}
+		yixing.onmouseleave = function(){
+//			timer = setInterval(rightBtnHandler,800);
+		}
+		
+//		监听
+		rightBtn.onclick = rightBtnHandler;
+		
+		function rightBtnHandler(){
+			
+			//节流
+			if( lisArr[1].isanimated ) return false;
+			
+			//让1、2、3、4、5、6元素都分别变为数组中的0、1、2、3、4、5的状态
+			for( var i=1; i<JSONarr.length; ++i ){
+				animate(lisArr[i],JSONarr[i-1],800);
+			}
+			
+			//让0号元素瞬移
+			for ( var k in JSONarr[6] ) {
+				lisArr[0].style[k] = JSONarr[6][k] + 'px';
+			}
+			
+			//交换位置
+			lisArr.push( lisArr.shift() );
+			
+		}
+		leftBtn.onclick = function(){
+			
+			//节流
+			if( lisArr[1].isanimated ) return false;
+			//让1、2、3、4、5、6元素都分别变为数组中的0、1、2、3、4、5的状态
+			for( var i=0; i<JSONarr.length-1; ++i ){
+				animate(lisArr[i],JSONarr[i+1],800);
+			}
+			//让length-1号元素瞬移
+			for ( var k in JSONarr[0] ) {
+				lisArr[6].style[k] = JSONarr[0][k] + 'px';
+			}
+			//交换位置
+			lisArr.unshift( lisArr.pop() );
+		}
+		
+	</script>
+</body>
+</html>

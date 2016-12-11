@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.carousel{
+			width: 672px;
+			height: 350px;
+			margin: 50px auto;
+			position: relative;
+			overflow: hidden;
+		}
+		.carousel ul{
+			list-style: none;
+		}
+		.carousel ul li{
+			display: none;
+		}
+		.carousel ul li.current{
+			display: block;
+		}
+		.carousel span{
+			position: absolute;	
+			width: 55px;
+			height: 55px;
+			top: 130px;
+			cursor: pointer;
+		}
+		.carousel .leftBtn{
+			left: 10px;
+			background: url(images/sohu/slide-btnL.png);
+		}
+		.carousel .rightBtn{
+			right: 10px;
+			background: url(images/sohu/slide-btnR.png);
+		}
+		.carousel .circles{
+			position: absolute;
+			bottom: 0px;
+			width: 200px;
+			height: 17px;
+			left: 50%;
+			margin-left: -50px;
+		}
+		.carousel .circles ol{
+			list-style: none;
+		}
+		.carousel .circles ol li{
+			float: left;
+			width: 17px;
+			height: 17px;
+			margin-right: 13px;
+			background: gold;
+			border-radius: 50%;
+			cursor: pointer;
+			/*background: url(images/sohu/ico.png) no-repeat -138px -133px;*/
+		}
+		.carousel .circles ol li.current{
+			/*background-position: -125px -133px;*/
+			background: purple;
+		}
+		.carousel .blackmask{
+			position: absolute;
+			bottom: 30px;
+			width: 100%;
+			height: 60px;
+			background-color: black;
+			opacity: 0.6;
+			filter:alpha(opacity=60);
+		}
+		.carousel h3{
+			position: absolute;
+			bottom: 30px;
+			height: 60px;
+			line-height: 60px;
+			padding-left: 10px;
+			color:white;
+			font-size:18px;
+		}
+	</style>
+</head>
+<body>
+	<div class="carousel">
+		<div class="imagesList" id="imagesList">
+			<ul>
+				<li class="current">
+					<a href="">
+						<img src="images/sohu/aaa.jpg" alt="" />
+					</a>
+					
+					<div class="blackmask"></div>
+					<h3>一周美图|谁的眼色撩人？高圆圆媚，汤唯暖，宋仲基帅炸</h3>
+				</li>
+				<li>
+					<a href="">
+						<img src="images/sohu/bbb.jpg" alt="" />
+					</a>
+
+					<div class="blackmask"></div>
+					<h3>男星中规中矩，女星小心机尽显！华</h3>
+				</li>
+				<li>
+					<a href="">
+						<img src="images/sohu/ccc.jpg" alt="" />
+					</a>
+
+					<div class="blackmask"></div>
+					<h3>8岁的小公主美美哒田亮为女儿范冰冰庆生晒礼物美照</h3>
+				</li>
+				<li>
+					<a href="">
+						<img src="images/sohu/ddd.jpg" alt="" />
+					</a>
+
+					<div class="blackmask"></div>
+					<h3>有爱心的女人最美！黄奕捐赠获澳夫人见证…</h3>
+				</li>
+				<li>
+					<a href="">
+						<img src="images/sohu/eee.jpg" alt="" />
+					</a>
+
+					<div class="blackmask"></div>
+					<h3>活泼搞怪不像妈！黄奕女儿森碟走秀呆萌可爱</h3>
+				</li>
+			</ul>
+		</div>
+		<div class="btns">
+			<span class="leftBtn" id="carousel_leftBtn"></span>
+			<span class="rightBtn" id="carousel_rightBtn"></span>
+		</div>
+		<div class="circles" id="circles">
+			<ol>
+				<li class="current"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		
+		var oImagesList = document.getElementById("imagesList");
+		var oCircles = document.getElementById("circles");
+		var oCarouselLeftBtn = document.getElementById("carousel_leftBtn");
+		var oCarouselRightBtn = document.getElementById("carousel_rightBtn");
+		
+		var aImagesListLi = oImagesList.getElementsByTagName('li');
+		var aCircles = oCircles.getElementsByTagName('li');
+		
+		//1.建立标识 ,信号量
+		var idx = 0;  //合理值 0,1,2,3,4
+		
+		//2.处理 rightBtn
+		oCarouselRightBtn.onclick = function(){
+			//预先处理信号量
+			
+			idx++;
+			
+			if( idx>4 ){  //滞后判断
+				idx=0;
+			}
+			changePic();  //多次使用。
+			
+		}
+		
+		//3.处理 leftBtn
+		oCarouselLeftBtn.onclick = function(){
+			
+			//预先处理信号量
+			idx--;
+			if( idx<0 ){
+				idx=4;
+			}
+			changePic();
+		}
+		
+		//4.处理小圆点, 批量添加监听
+		for ( var i=0; i<aCircles.length; ++i ) {
+			aCircles[i].index = i; //添加标识
+			//监听
+			aCircles[i].onmouseover = function(){
+				idx = this.index;
+				changePic();
+			}
+			
+		}
+		
+		//业务和 逻辑分开。 
+		//具体业务.
+		function changePic(){
+			
+			//① : 处理内容 Img, 去掉所有current.  //排它模型
+			for( var i=0; i<aImagesListLi.length; ++i ){
+				aImagesListLi[i].className = '';
+			}
+			//当前信号量的  Img 加上current
+			aImagesListLi[idx].className = 'current';
+			 
+			//②: 处理小圆点  //排它模型
+			for( var i=0; i<aCircles.length; ++i ){
+				aCircles[i].className = '';
+			}
+			aCircles[idx].className = 'current';
+			
+		}
+		
+	</script>
+	
+
+</body>
+</html>

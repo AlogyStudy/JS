@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 将一个整数前后倒置
+			 * @param {Number} num 需要翻转的整数
+			 * @param {Number} 翻转完之后的结果
+			 */
+			
+			// 思路： 输入的整数 按10倍数 递减 ，整数减到0.  res 按照10倍递增 加上 余数 。  
+			function rev ( num ){  //数学方法
+				var res = 0;
+				while( num ){
+					res = res*10 + num%10;
+					num = parseInt(num/10);
+				}
+				return res;
+			}
+			var num = parseInt(prompt('请输入需要翻转的整数'));
+			alert( rev(num) );
+			
+			
+			/**
+			 * 编写一个函数rev用于将一个整数前后倒置。
+				例如rev(12345)将返回54321，rev(123)将返回321
+				整数位数不限制，多少位都行。
+			 */
+			
+			/**
+			 * @param {Number} num 需要翻转的整数
+			 * @param {Number} 翻转完之后的结果
+			 */
+			
+			/*function rev( num ){  //字符串方法
+				var res = '';
+				var temp = res+num;
+				for( var i=temp.length; i>0; --i ){
+					res += temp[i-1];
+				}
+				return res;
+			}
+			
+			console.log( rev(123456789) );*/
+			
+		</script>
+		
+	</body>
+</html>

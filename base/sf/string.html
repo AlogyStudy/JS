@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+		//	判断一个字符（比如”a”）是否出现
+        //在另一个字符（比如”2340sadfj2affa2”）中，如果出现，并求出现了几次。
+        //
+        
+        var str = prompt('请输入字符：');	
+        var count = 0;
+        for( var i=0; i<str.length; ++i ){
+
+        	if( str.indexOf('a') ){
+        		count++;
+        	}
+        }
+        
+        console.log( count );
+        count && console.log( '存在a，个数为：' + count );
+
+	</script>
+
+</body>
+</html>

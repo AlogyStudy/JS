@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<style type="text/css">
+			p {
+				width: 60px;
+				height: 60px;
+				background: tan;
+				float: left;
+				margin-right: 10px;
+			}
+		</style>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+
+		<script type="text/javascript">
+			
+			var aP = document.getElementsByTagName('p');
+			
+			//第一种形式  IIFE
+			/*for( var i=0; i<aP.length; ++i ){
+				aP[i].onclick = (function( m ){
+					return function(){
+						alert( '第' + m + '个' );
+					}
+				})( i )
+			}*/
+			
+//			第二种形式  IIFE
+			/*for( var i=0; i<aP.length; ++i ){
+				(function( m ){
+					aP[m].onclick = function(){
+						alert( '第' + m + '个' );
+					}
+				})( i );
+			}*/
+			
+			for( var i=0; i<aP.length; ++i ){
+				aP[i].idx = i;
+				aP[i].onclick = function(){
+					aP[this.idx].style.background = 'red';
+				}
+			}
+			
+		</script>	
+		
+	</body>
+</html>

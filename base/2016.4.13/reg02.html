@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+      //  () [] {} \ ^ $ | ? * + .
+      //匹配 \\ 反斜杆
+      var re = /\\\\/;
+
+      console.log( re.test('asdf\\\\sfasdfasdf') );
+      console.log( re.exec('asdf\\\\sfasdfasdf') );
+
+      var reg = /\^a/;
+      console.log(reg.test('asdf^a'));
+      console.log(reg.exec('asdf^a'));
+
+      var reg = /\\m/;
+      console.log( reg.test('asdf\\masdf') );
+      console.log( reg.exec('asdf\\masdf') );
+
+      var str = `as
+      df`;
+      console.log( /\n/.test(str) );
+      console.log( /\n/.exec(str) );
+
+
+    </script>
+
+  </body>
+</html>

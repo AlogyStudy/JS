@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			//控制台中每20毫秒输出一个星星，一共输出300个星星，全部输出完之后，alert();
+			
+			var count = 0;
+			var timer = setInterval(function(){
+				
+				console.log('★');
+				count++;
+				if( count==300 ){
+					clearInterval(timer);
+//					alert('ok');
+						callback();
+				} 
+				
+			},20);
+			
+			function callback(){
+				alert('ok');
+			}
+			
+		</script>
+		
+	</body>
+</html>

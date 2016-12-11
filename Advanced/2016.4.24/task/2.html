@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			img {
+				vertical-align: middle;
+				border: none;
+			}
+			ul {
+				list-style: none;
+			}
+			.focus {
+				width: 380px;
+				height: 280px;
+				border: 1px solid firebrick;
+				margin: 100px auto;
+				position: relative;
+			}
+			
+			.focus .focus_hd li {
+				display: none;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.focus .focus_hd li.first {
+				display: block;
+			}
+			
+			.focus .focus_icon {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				background: #171717;
+				width: 380px;
+				height: 50px;
+			}
+			.focus .focus_icon li {
+				float: left;
+				height: 40px;
+				width: 66px;
+				cursor: pointer;
+				border: 5px solid #171717;
+			}
+			.focus .focus_icon li.cur {
+				border: 5px solid goldenrod;
+			}
+			.focus .focus_icon li img {
+				/*width: 100%;*/
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="focus" id="focus">
+			<div class="focus_hd">
+				<ul>
+					<li class="first"><a href="#"><img src="imags/1.jpg"/></a></li>
+					<li><a href="#"><img src="imags/2.jpg"/></a></li>
+					<li><a href="#"><img src="imags/3.jpg"/></a></li>
+					<li><a href="#"><img src="imags/4.jpg"/></a></li>
+					<li><a href="#"><img src="imags/5.jpg"/></a></li>
+				</ul>
+			</div>
+			<div class="focus_icon">
+				<ul></ul>
+			</div>
+		</div>
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var $lis = $('.focus_hd li');
+			var lisLength = $lis.length;
+			var focusIconUl = $('.focus_icon ul');
+			
+			//创建
+			for ( var i=0; i<lisLength; ++i ) {
+				$('<li><img /></li>').appendTo( focusIconUl );
+			}
+			
+			focusIconUl.children('li').eq(0).addClass('cur');
+			
+			focusIconUl.children('li').each(function( i,val ){
+				$(this).find('img').attr('src',$lis.find('img').eq(i).attr('src'));
+			});
+			
+			//事件监听
+			focusIconUl.find('li').mouseenter(function(){
+				$(this).addClass('cur').siblings().removeClass('cur');
+				$lis.eq($(this).index()).stop(true).fadeIn().siblings().fadeOut();
+			});
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background-color: #ccc;
+		}
+		.waterfall{
+			width: 790px;
+			margin: 0 auto;
+			position: relative;
+		}
+		.grid{
+			position: absolute;
+			width: 230px;
+			background-color: white;
+			padding: 10px;
+			border-radius: 15px;
+		}
+		.grid img{
+			width: 230px;
+		}
+		.grid .title{
+			font-weight: bold;
+			font-size: 18px;
+			line-height: 32px;
+		}
+		.grid .neirong{
+			line-height: 150%;
+			font-size: 14px;
+			margin-bottom: 20px;
+		}
+		.grid .zuozhe{
+			float: right;
+			color:orange;
+			font-size: 12px;
+		}
+		.loading{
+			margin: 0 auto;
+			width: 400px;
+			line-height: 30px;
+			text-align: center;
+			font-size: 14px;
+			background-color: gold;
+			color:white;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="waterfall" id="waterfall">
+		
+	</div>
+	<div class="loading">
+		正在加载...
+	</div>
+
+	<script type="text/template" id="grid_template">
+		<div class="grid">
+			<img src="<%=imgurl%>" alt="" />
+			<p class="title"><%=title%></p>
+			<p class="neirong"><%=content%></p>
+			<p class="zuozhe"><%=author%></p>
+		</div>
+	</script>
+
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript">
+		
+		var $waterfall = $('#waterfall');
+		var $loading = $('.loading');
+		
+		//获得数据模板
+		var complieFun = _.template( $('#grid_template').html() );
+		var colHeight = [0,0,0];
+		
+		
+		var page = 1;
+		getJsonRender( page );
+		
+		function getJsonRender( page ){
+			$loading.show();
+			
+			//请求数据
+			$.get('json/json'+ page +'.txt',{},function( data ){
+				var ObjData = JSON.parse(data);
+				if ( ObjData.news.length <= 0 ) {
+					//更改load文字
+					$loading.show().html('文件已经加载完毕');
+					return false;
+				}
+				
+				//竞速规则
+				var newArr = ObjData.news;
+				$.each( newArr,function( i,DataVal ){
+						var oImg = new Image();
+						oImg.src = DataVal.imgurl;
+						
+						var strDom = complieFun(DataVal);
+						var $strDom = $(strDom);
+						//添加DOM
+						$waterfall.append($strDom);
+						
+						//添加瀑布流算法
+						$strDom.each(function( i,val ){
+							
+							var minHeight = _.min(colHeight);
+							var minIndex = _.indexOf( colHeight,minHeight );
+							
+							//设置样式
+							$(this).css({
+								'left': minIndex * 270,
+								'top': minHeight
+							});
+							
+							//更改数组
+							colHeight[minIndex] += $(this).outerHeight() + 20;   
+											
+							//设置wrap高度
+							$waterfall.css('height',_.max(colHeight));
+							
+							//隐藏
+							$loading.hide();
+						});
+						
+						//开锁
+						lock = true;
+				} );
+							
+			});
+		
+		}
+		
+		var lock = true;
+		//监听滚轮事件
+		$(window).scroll(function(){
+			//节流
+			if ( !lock ) return false;
+			
+			//比率
+			var race = $(window).scrollTop() / ( $(document).height()-$(window).height() );
+			if ( race>0.7 ) {
+				page++;
+				getJsonRender( page );
+				lock = false;
+			}
+		});
+		
+		
+	</script>
+	
+</body>
+</html>

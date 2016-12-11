@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div {
+				width: 79px;
+				height: 108px;
+				background: url(images/girl.png) no-repeat;
+				background-position: 0px -216px;
+				position: absolute;
+				left: 0;
+				top: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 创建小女孩动画
+			 * @param {Number} top  创建对象top值
+			 * @param {Number} left  创建对象left值 
+			 */
+			function Mm( top,left ){
+				this.top = top;
+				this.left = left;
+				this.timer = null;
+				this.buzi = 0;
+				
+				/**
+				 * 初始化 创建 容器
+				 */
+				this.init = function(){
+					this.dom = document.createElement('div');
+					document.body.appendChild(this.dom);
+					
+					this.dom.style.top = this.top + 'px';
+					this.dom.style.left = this.left + 'px';
+				}
+				
+				/**
+				 * 动画开启
+				 */
+				this.xz = function(){
+					var _this = this;
+					this.timer = setInterval(function(){
+						_this.left++;
+						_this.buzi++;
+						if( _this.buzi>7 ){
+							_this.buzi = 0;
+						}
+						if( _this.left>1000 ){
+							_this.die();
+						}
+						_this.dom.style.left = _this.left + 'px';
+						_this.dom.style.backgroundPosition = -79*_this.buzi + 'px -216px';
+					},50);
+				}
+				/**
+				 * 清除定时器
+				 */
+				this.die = function(){
+					clearInterval(this.timer);
+					document.body.removeChild(this.dom);
+				}
+				this.init();
+				this.xz();
+			}
+			
+			setInterval(function(){
+				new Mm( Math.random()*300,100 );
+			},1000);
+		
+		</script>
+		
+		
+	</body>
+</html>

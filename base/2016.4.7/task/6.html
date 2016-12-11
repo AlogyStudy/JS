@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+
+	<script>
+
+	/**
+	 * 水仙花数是一种特殊的三位数，它的特点就是，每个数位的立方和，等于它本身。
+		比如153就是水仙花数。因为：
+		1^3+5^3+3^3 = 153
+		100~999之内，只有4个水仙花数，请编程找出来。
+	 */
+	
+	var count = 0; 
+	for( var i=100; i<=999; ++i ){
+		var gewei = i%10;
+		var shiwei = parseInt(i/10%10);
+		var baiwei = parseInt(i/100);
+
+		if( Math.pow(baiwei,3)+Math.pow(shiwei,3)+Math.pow(gewei,3) == i ){
+			console.log('100~999之内的水仙花数有：' + i);
+			count++;
+		}
+	} 
+	console.log('100~999之内的水仙花数个数有:' + count + '个');
+
+
+	</script>
+
+</body>
+</html>

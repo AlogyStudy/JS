@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>间歇模型轮播</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			img {
+				border: none;
+			}
+			.carousel {
+				width: 290px;
+				height: 115px;
+				border: 1px solid firebrick;
+				margin: 100px auto;
+				position: relative;
+				overflow: hidden;
+			}
+			.carousel ul {
+				list-style: none;
+				width: 290px;
+				clear: both;
+				overflow: hidden;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.carousel ul li {
+				float: left;
+				width: 330px;
+			}
+			.carousel ul li a {
+				width: 90px;
+				margin-right: 10px;
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="carousel">
+				<ul id="m_unit">
+					<li>
+						<a href="#"><img src="img/0.png" /></a>
+						<a href="#"><img src="img/1.png" /></a>
+						<a href="#"><img src="img/2.png" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/3.png" /></a>
+						<a href="#"><img src="img/4.png" /></a>
+						<a href="#"><img src="img/5.png" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/6.png" /></a>
+						<a href="#"><img src="img/7.png" /></a>
+					</li>
+				</ul>
+		</div>
+		
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var $lis = $('#m_unit li');
+			var lisHeight = $lis.height();
+			var lisLength = $lis.length;
+			var timer = null;
+			
+			//复制
+			$('#m_unit').append($lis.eq(0).clone());
+			
+			//信号量
+			var idx = 0;
+			
+			//鼠标监听
+			$('.carousel').mouseenter(function(){
+				clearInterval(timer);
+			});
+			$('.carousel').mouseleave(function(){
+				timer = setInterval(move,1200);
+			});
+			
+			function move(){
+				idx++;
+				
+				//运动
+				$('#m_unit').stop(true).animate({'top': - idx *lisHeight},800,function(){
+					//后置判断
+					if( idx>lisLength-1 ){
+						idx = 0;
+						//拉回
+						$('#m_unit').css({'top': 0});
+					}
+				});
+			}
+			
+			timer = setInterval(move,1200);
+			
+		</script>
+		
+	</body>
+</html>

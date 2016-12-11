@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			#box {
+				width: 600px;
+				height: 400px;
+				margin: 100px;
+				border: 1px solid tan;
+				position: relative;
+			}
+			
+			p {
+				position: absolute;
+				left: 100px;
+				top: 0;
+				width: 30px;
+				height: 30px;
+				background-color: magenta;
+				border-radius: 50%;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<!--<p></p>-->
+		</div>
+		
+		
+		<script type="text/javascript">
+			
+			//构造函数
+				// left
+				// top
+				//deltaX
+				//deltaY
+				
+			//render
+			
+			//move
+			// 	碰边检测
+			
+			var oBox = document.getElementById("box");
+			
+			
+			//小球构造函数
+			function Ball( left,top ){
+				
+				this.left = left || 100;
+				this.top = top || 100;
+				this.d = 30;
+				
+				//x,y  -5~5随机数
+/*				this.deltaX = parseInt( Math.random() * 11 ) - 5;
+				this.deltaY = parseInt( Math.random() * 11 ) - 5
+*/
+				//角度
+				this.angle = 30;
+				//速度
+				this.speed = 5;
+				//1° = π/180 
+				//x ， y增量
+				this.deltaX = Math.cos( 30*Math.PI/180 ) * this.speed;
+				this.deltaY = Math.sin( 30*Math.PI/180 ) * this.speed; 
+
+				this.init();
+				
+				this.move();
+			}
+			
+			//初始化
+			Ball.prototype.init = function(){
+				
+				this.dom = document.createElement('p');
+				oBox.appendChild(this.dom);
+			}
+			
+			//渲染 
+			Ball.prototype.render = function(){
+				
+				this.dom.style.left = this.left + 'px';
+				this.dom.style.top = this.top + 'px';
+				
+			}
+			
+			//移动
+			Ball.prototype.move = function(){
+				
+				var _this = this;
+				this.timer = setInterval(function(){
+					
+					_this.left += _this.deltaX;
+					_this.top += _this.deltaY;
+					
+					//碰边检测
+					if ( _this.top >= oBox.clientHeight-_this.d || _this.top <= 0 ) {
+						
+						_this.deltaY = -_this.deltaY;
+						
+					}
+					
+					if ( _this.left >= oBox.clientWidth-_this.d || _this.left <= 0 ) {
+						
+						_this.deltaX = -_this.deltaX;
+						
+					}
+					
+					_this.render();
+					
+				},30);
+				
+			}
+				
+			new Ball();	
+			
+		</script>
+		
+	</body>
+</html>

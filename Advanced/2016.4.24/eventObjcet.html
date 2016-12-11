@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			#box1 {
+				width: 100px;
+				height: 100px;
+				background: firebrick;
+			}
+			#box2 {
+				width: 50px;
+				height: 50px;
+				background: tan;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<p>111</p>
+		<p>111</p>
+		<p>111</p>
+		<p>111</p>
+		<p>111</p>
+		<p>111</p>
+		<div id="box1">
+			<div id="box2"></div>
+		</div>
+		
+		
+		<script type="text/javascript">
+			
+			var oBox1 = document.getElementById("box1");
+			
+/*			oBox1.onclick = function( event ){
+				
+				console.log( event.target );
+				
+			}
+*/
+
+			/*oBox1.onmouseenter = function( ev ){
+				console.log( ev.bubbles ); //false
+			}*/
+			
+			oBox1.onmouseover = function( ev ){
+				console.log( ev.bubbles );  //true
+//				ev.stopPropagation();
+//					ev.preventDefault();
+
+//				ev.clientX;
+				console.log( ev.clientY );
+//				ev.clientY;
+//				ev.screenX;
+//				ev.screenY;
+			}
+
+		</script>
+		
+	</body>
+</html>

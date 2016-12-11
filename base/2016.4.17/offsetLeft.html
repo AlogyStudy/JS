@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box1{
+			margin: 0 auto;
+			width: 500px;
+			height: 300px;
+			padding: 50px;
+			border: 10px solid red;
+		}
+		.box2{
+			width: 380px;
+			height: 180px;
+			padding: 50px;
+			border: 10px solid deepskyblue;
+			background-color: yellow;
+			/*position: relative;*/
+		}
+		.box3{
+			width: 260px;
+			height: 60px;
+			padding: 50px; 
+			border: 10px solid green;
+		}
+		p{
+			width: 40px;
+			height: 40px;
+			background: gold;
+			border: 10px solid purple;
+			/*position: relative;*/
+		}
+	</style>
+	<script type="text/javascript">
+		/**
+			 * 得到css 样式
+			 * @param {Object} obj  //需要得到样式的对象
+			 * @param {String} prototy  //获取的属性
+			 */
+			function fetchComputedStyle( obj,prototy ){
+				
+//				alert( getComputedStyle ); 
+//				getComputedStyle //作为条件 ， 在 ie低版本没有提供这个API。  为undefined 报错。
+				if( window.getComputedStyle ){
+					//getComputedStyle(obj)['padding-left']
+					//getComputedStyle(obj)['paddingLeft'];
+					prototy = prototy.replace(/([A-Z])/g,function( match,$1 ){
+						return '-'+ $1.toLowerCase();
+					});
+					return getComputedStyle(obj)[prototy];
+					
+				} else {
+//					alert(1);
+					//oDiv.currentStyle[padingLeft];
+					prototy = prototy.replace(/\-([a-z])/g,function( match,$1 ){
+						return $1.toUpperCase();
+					});
+					
+					return obj.currentStyle[prototy];
+				}
+				
+			}
+	</script>
+</head>
+<body class="body">
+	<div class="box1">
+		<div class="box2">
+			<div class="box3">
+				<p></p>
+			</div>
+		</div>
+	</div>
+	
+
+	<script type="text/javascript">
+		var op = document.getElementsByTagName("p")[0];
+
+		//alert(op.offsetParent.className);
+		
+		alert(op.offsetLeft);
+		alert( fetchComputedStyle(op,'left') );
+		
+	</script>
+</body>
+</html>

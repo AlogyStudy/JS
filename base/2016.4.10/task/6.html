@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 编写函数maxr(char) 返回字符串char中最长的连续重复字母
+					比如maxr("mmmiijjjjkkkkkkssptr") 返回"kkkkkk"
+			 */
+			
+			/**
+			 * 最长的连续重复字母
+			 * @param {String} char 寻找的字符串
+			 * @return {String}  
+			 */
+			
+
+
+				/**
+				 *  string -> split('') -> array -> for -> 记住相同的标量 -->寻找最多的.  
+				 */
+				//A 指针 到最后停止。
+				//双指针法，  返回字符串char中最长的连续重复字母
+				
+				function maxr( char ){
+					//两个指针，两个标量。
+					var a = 0;
+					var b = 1;  //b的初始位置就是a的右边1位
+					var maxLength = 0; //重复的最大数量
+					var maxLetter = ''; //重复数量最多的字母
+					
+					//一直循环，直到a 到最后字母.
+					while( a!=char.length-1 ){	 //A 指针 到最后停止。
+						//判断两个指针指向的字母是否一样。
+						if( char.charAt(a)==char.charAt(b) ){  //指针位置相同
+							//两个指针指向相同的位置，b 指针右移动.
+							b++;
+						}	else {
+							//两个指针指向的位置不同，a 指针右移动
+										
+							//统计两个指针 不同的位置,间距
+							//和当前最大的进行比较
+							if( b-a>=maxLength ){  //两个指针之间的距离 
+								maxLength = b-a;  //两个指针之间的距离比最大的还大，当前就是最大的距离
+								maxLetter = char.charAt(a); //a指针指向的就是这个字母
+							}
+
+							// maxLength = char.charAt(b)-char.charAt(a);
+
+							//b 指针也要跟着复位，就是a+1的位置
+							a++;
+							b = a+1;
+						}
+
+					}	
+					return maxLetter;
+				}
+
+
+/*				function maxr( char ){
+					var arr = char.split('');
+					
+					var temp = [];
+					var tempArray = [];		
+						
+					console.log( arr );					
+
+					for( var i=0; i<arr.length; ++i ){
+						// debugger;
+						temp[arr[i]] = true;
+					}
+					console.log( temp[arr[i]] );
+					
+				}
+*/			
+			
+/*				function maxr( char ){
+					var arr = char.split('');
+					var len = arr.length;
+					var count = 0;
+					for( var i=0; i<len; ++i ){
+						var mm = char.charAt(i);
+//						debugger;
+						for( var j=0; j<len; ++j ){
+							if( mm == char.charAt(j) ) count++;
+						}
+					}
+						console.log(count);
+				}*/	
+					/*var arr = char.split('').sort();
+					while( true ){
+						arr.pop()
+					}
+					var a = [];
+					for( var i=0,len=arr.length; i<len; ++i ){
+						/*while( arr[i]==arr[i+1] ){
+							a.push( arr.pop() );
+						}*/
+						/*if( arr[i] ){
+							;
+						}
+					}
+					console.log( a );
+					console.log( arr );*/
+					
+/*					var s = char.split(''), o =[], a=[];
+					
+					for(var i = 0; i < s.length; i++){
+						o[s[i]] ? o[s[i]]++ : o[s[i]]=1;  //记录数目
+					} 
+					for(var i = 0; i < a.length; i++){
+						a[o[i]] ? a[o[i]].push(i) : a[o[i]] = [i]; //取出
+					}
+					
+					return a.length + ': ' + a.pop();*/
+
+//				}
+			/*function maxr( char ){
+				
+//				var arr = [].concat(char).split();
+				var arr = char.split('').sort();				
+				var str = '';
+				for( var i=0,len=arr.length; i<len; ++i ){ 
+					//["i", "i", "j", "j", "j", "j", "k", "k", "k", "k", "k", "k",
+					//"m", "m", "m", "p", "r", "s", "s", "t"];
+					if( arr[i]==arr[i+1] ){
+						console.log('重复的数：'+arr[i]);
+					}
+				}
+				console.log(str);
+			}*/
+			
+				// maxr("mmmiijjjjkkkkkkssptr");
+			console.log( maxr("mmmiijjjjkkkkkkssptr") );
+			
+		</script>
+		
+	</body>
+</html>

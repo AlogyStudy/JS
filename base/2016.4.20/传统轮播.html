@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.carousel{
+			width: 560px;
+			height: 300px;
+			margin: 100px auto;
+			border: 1px solid #000;
+			position: relative;
+			/*overflow: hidden;*/
+		}
+		.carousel .m_unit{
+			width: 9000px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.carousel .m_unit ul{
+			list-style: none;
+		}
+		.carousel .m_unit ul li{
+			float: left;
+			width: 560px;
+			height: 300px;
+			overflow: hidden;
+		}
+		.btns a{
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			top: 50%;
+			margin-top: -20px;
+			background-color: yellow;
+			z-index: 999;
+		}
+		.btns a.leftBtn{
+			left: 10px;
+		}
+		.btns a.rightBtn{
+			right: 10px;
+		}
+		.circles{
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			width: 150px;
+			height: 18px;
+		}
+		.circles ol{
+			list-style: none;
+		}
+		.circles ol li{
+			float: left;
+			width: 18px;
+			height: 18px;
+			margin-right: 10px;
+			border-radius: 50%;
+			background-color: pink;
+			cursor: pointer;
+		}
+		.circles ol li.cur{
+			background-color: purple;
+		}
+	</style>
+</head>
+<body>
+	<div class="carousel" id="carousel">
+		<div class="btns">
+			<a href="javascript:;" class="leftBtn" id="leftBtn"></a>
+			<a href="javascript:;" class="rightBtn" id="rightBtn"></a>
+		</div>
+		<div class="m_unit" id="m_unit">
+			<ul>
+				<li><a href="#"><img src="images/0.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/2.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/3.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/4.jpg" alt="" /></a></li>
+			</ul>
+		</div>
+		<div class="circles" id="circles">
+			<ol>
+				<li class="cur"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/animate-2.0.1.js"></script>
+	
+	<script type="text/javascript">
+		
+		var carousel = document.getElementById("carousel");
+		
+		var m_unit = document.getElementById("m_unit");
+		
+		var m_unitUl = m_unit.getElementsByTagName('ul')[0];
+		var m_unitUlLs = m_unit.getElementsByTagName('li');
+		
+		var leftBtn = document.getElementById("leftBtn");
+		var rightBtn = document.getElementById("rightBtn");
+		
+		var circles = document.getElementById("circles");
+		var circlesLis = circles.getElementsByTagName('li');
+		
+		var lengthLi = circlesLis.length;
+		
+		var options = {
+			'animatedTime': 500,
+			'width': 560,
+			'tween': 'Linear',
+			'interval': 2000,
+		};
+		
+		//信号量
+		var idx = 0;
+		//复制
+		m_unitUl.appendChild( m_unitUlLs[0].cloneNode(true) );
+		
+		//自动轮播
+		var timer = setInterval(rightBtnHandler,options.interval);
+		carousel.onmouseover = function(){
+			clearInterval(timer);
+		}
+		carousel.onmouseout = function(){
+			timer = setInterval(rightBtnHandler,options.interval);
+		}
+		
+//		end
+//		添加监听
+		//右边
+		rightBtn.onclick = rightBtnHandler; 
+		
+		function rightBtnHandler(){
+			//函数节流
+			if( m_unit.isanimated ) return false;
+			//信号量
+			idx++;
+			
+			changeCircles();
+			animate(m_unit,{"left": -options.width * idx},options.animatedTime,options.tween,function(){
+				if( idx>lengthLi-1 ){
+					idx = 0;
+					m_unit.style.left = '0px';
+				}
+			});
+			
+		}
+		
+		leftBtn.onclick = function(){
+			
+			//函数节流
+			if( m_unit.isanimated ) return false;
+			idx--;
+			if( idx<0 ){
+				idx = lengthLi-1;
+				m_unit.style.left = -options.width * lengthLi + 'px';
+			}
+			changeCircles();
+			animate(m_unit,{"left": -options.width*idx},options.animatedTime,options.tween);
+			
+		}
+		
+		//小圆点监听
+		for ( var i=0; i<circlesLis.length; ++i ) {
+			
+			circlesLis[i].index = i;
+			circlesLis[i].onclick = function(){
+				idx = this.index;
+				animate(m_unit,{"left": -options.width*idx},options.animatedTime,options.tween);
+				changeCircles();
+			}
+		}
+		
+		//小圆点
+		function changeCircles(){
+			
+			var n = idx;  //需要和idx 避免重复
+			if( n>lengthLi-1 ){
+				n=0;
+			}
+			
+			for ( var i=0; i<circlesLis.length; ++i ) {
+				circlesLis[i].className = '';
+			}
+			circlesLis[n].className = 'cur';
+		}
+		
+	</script>
+	
+</body>
+</html>

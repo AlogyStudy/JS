@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			
+		/*	var arr = [];
+			for( var i=0; i<10; ++i ){
+				arr[i] = (function( m ){
+					return function( m ){
+//						console.log( arguments );
+						console.log( m );
+					}
+				})( i );
+			}
+			
+			arr[3]();
+			arr[4]();*/
+			
+			/*var arr = [];
+			for( var i=0; i<10; ++i ){
+				arr[i] = function(){
+					console.log(i);
+				}
+			}
+			
+			
+			arr[3]();
+			arr[4]();	*/
+			
+			/*var arr = [];
+			for( var i=0; i<10; ++i ){
+				(function( m ){
+					arr[m] = function(){
+						console.log(m);
+					}
+				})( i );
+			}
+			arr[3]();
+			arr[4]();
+			*/
+		
+
+			/*(function(){
+				for( var i=0; i<5; ++i ){
+					console.log(i);
+				}
+			})();
+
+			console.log(i);*/
+
+		/*	var arr = [];
+			for( var i=0; i<10; ++i ){
+				arr[i] = (function( m ){
+					return function(){
+						console.log( m );
+					}
+				})( i );
+			}
+
+			arr[0]();
+			arr[1]();
+			arr[2]();
+			arr[3]();
+			arr[4]();
+			arr[5]();*/
+
+			var arr = [];
+
+			for( var i=0; i<=10; ++i ){
+				arr[i] = (function( m ){
+					return function(){
+						console.log(m);
+					}	
+				})( i );
+			} 
+			arr[0](); //0
+			arr[1](); //1
+			arr[2](); //2
+
+			
+		</script>
+	</body>
+</html>

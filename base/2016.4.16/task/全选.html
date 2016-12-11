@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box">
+		<p><input type="checkbox" /> 吃饭</p>
+		<p><input type="checkbox" /> 吃饭</p>
+		<p><input type="checkbox" /> 吃饭</p>
+		<p><input type="checkbox" /> 吃饭</p>
+		<p><input type="checkbox" /> 吃饭</p>
+		<p><input type="checkbox" /> 吃饭</p>
+	</div>
+
+	<input type="button"  value="选择" id="btn" />
+
+	<script type="text/javascript">
+	
+		var oBox = document.getElementById("box");
+		var oBtn = document.getElementById("btn");
+		var aInput = oBox.getElementsByTagName('input');		
+		
+		var TrueBtn = 0;  //1 未选中  0 选中
+		
+		oBtn.onclick = function(){
+			
+			TrueBtn = TrueBtn==0 ? 1 : 0;
+			var str = TrueBtn==0 ? '' : 'checked';
+			
+			this.value = TrueBtn==0 ? '未选中' : '选中';
+			
+			for( var i=0; i<aInput.length; ++i ){
+				aInput[i].checked = str;
+			}
+			
+		}
+		//先处理 信号量.  if ， 三目 。 滞后判断。
+		
+		
+	</script>
+</body>
+</html>

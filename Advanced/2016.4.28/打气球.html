@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>打气球</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html{
+			height: 100%;
+		}
+		body{
+			height: 100%;
+			background: url(images/bg.jpg);
+			background-size: cover;
+			overflow: hidden;
+		}
+		.ballon{
+			width: 81px;
+			height: 119px;
+			background: url(images/ballon.png) no-repeat;
+			position: absolute;
+			cursor: crosshair;
+		}
+		h1{
+			color: white;
+			font-size: 60px;
+		}
+	</style>
+</head>
+<body>
+	<h1 id="fenshu">0</h1>
+	<h1 id="daojishi">50</h1>
+
+	<!--<audio src="images/c.wav" id="yinyue"></audio>
+	<audio src="images/bgm.mp3" autoplay></audio>
+-->
+
+	
+	<script type="text/javascript">
+		
+		var oFenshu = document.getElementById("fenshu");
+		var oDaojishi = document.getElementById("daojishi");
+		var fenshu = 0;
+		var daojishi = 50;
+
+		/**
+		 * 创建气球 构造函数
+		 */
+		function Ballon(){
+			this.top = 600;
+			this.left = Math.random()*1200;
+			this.scroe = parseInt(Math.random()*7)+1;
+			
+			//初始化
+			this.init();
+			//气球运动
+			this.fly();
+		}
+		
+		/**
+		 * 初始化 气球
+		 */
+		Ballon.prototype.init = function(){
+			var _this = this;
+			
+			this.dom = document.createElement('div');
+			
+			document.body.appendChild(this.dom);
+			this.dom.className = 'ballon';
+			
+			this.dom.style.top = this.top + 'px';
+			this.dom.style.left = this.left + 'px';
+			
+			var x = (this.scroe-1)%4 * 96;
+			var y = parseInt( (this.scroe-1) /4 ) * 120;
+			this.dom.style.backgroundPosition = -x+'px '+ -y +'px';
+			
+			this.dom.onclick = function(){
+				_this.biubiu();
+				fenshu += _this.scroe;
+				oFenshu.innerHTML = fenshu;
+			}
+			
+		}
+		/**
+		 *  定时器 , 运动  
+		 */
+		Ballon.prototype.fly = function(){
+			
+			var _this = this;
+			this.timer = setInterval(function(){
+				_this.top -= 2*_this.scroe;
+								
+				if( _this.top<-100 ){
+					_this.biubiu();
+				}
+				_this.dom.style.top = _this.top + 'px'; 				
+				
+			},20);
+			
+		}
+		/**
+		 * 消除定时器
+		 */
+		Ballon.prototype.biubiu = function(){
+			clearInterval(this.timer);
+			//清除当前的容器
+			document.body.removeChild(this.dom);
+		}
+			
+		
+		var frameCount = 0;
+		// 600ms 一个气球
+		var timer = setInterval(function(){
+			frameCount++;
+			if( frameCount%2 == 0 ){ //
+				daojishi--;
+				oDaojishi.innerHTML = daojishi;
+			}
+			
+			if( dadojishi == 0 ){
+				alert('game over,您的分数是：'+ fenshu );
+				window.location.reload();
+			}
+			new Ballon();
+				
+		},600);
+		
+	</script>
+
+
+</body>
+</html>

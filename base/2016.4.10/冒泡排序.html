@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			//冒泡排序
+			var arr = [123,234,45,456,7,3,27,45,7567];
+			/*for ( var i=0; i<arr.length; i++ ) {
+				for( var j=arr.length-1; j>i; j-- ){
+					if( arr[j]<arr[j-1] ){
+						//交换两个数字
+						var temp = arr[j-1];
+						arr[j-1] = arr[j];
+						arr[j] = temp;
+					}
+				}
+			}
+			console.log(arr);*/
+			
+			for( var i=0; i<arr.length; ++i ){
+				for( var j=0; j<arr.length-i; ++j ){  //n-1 趟
+					if( arr[j]<arr[j-1] ){
+						var temp = arr[j-1];
+						arr[j-1] = arr[j];
+						arr[j] = temp;
+					}
+				}
+			}
+			
+			console.log(arr);
+			
+		</script>	
+		
+	</body>
+</html>

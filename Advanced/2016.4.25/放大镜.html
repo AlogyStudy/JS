@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.smallPic {
+				position: relative;
+				width: 350px;
+				height: 350px;
+				margin: 100px;
+				border: 1px solid firebrick;
+			}
+			
+			.smallPic .zoom {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 175px;
+				height: 175px;
+				background: khaki;
+				opacity: 0.5;
+				cursor: pointer;
+			}
+			.bigPic {
+				width: 400px;
+				height: 400px;
+				background: url(image/da.jpg);
+				position: absolute;
+				top: 100px;
+				left: 500px;
+				border: 1px solid mediumaquamarine;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="smallPic" id="smallPic">
+			<img src="image/xiao.jpg"  />
+			<div class="zoom" id="zoom"></div>
+		</div>
+		<div class="bigPic" id="bigPic"></div>
+		
+		
+		<script type="text/javascript">
+			
+			var smallPic = document.getElementById("smallPic");
+			var zoom = document.getElementById("zoom");
+			var bigPic = document.getElementById("bigPic");
+			
+			var bigPicWidth = bigPic.clientWidth;
+			
+			var zoomWidth = zoom.clientWidth;
+			var zoomHeight = zoom.clientHeight;
+			var smallPicWidth = smallPic.clientWidth;
+			var smallPicHeight = smallPic.clientHeight;
+			
+//			var rate = 400/175
+			var rate = bigPicWidth/zoomWidth;
+			
+			smallPic.onmousemove = function( ev ){
+				if( !ev ) ev = window.event;
+				
+				var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+				var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+				
+				var t = ev.clientY - (getAllTop(smallPic) - scrollTop) - zoomHeight/2;
+				var l = ev.clientX - (getAllLeft(smallPic) - scrollLeft) - zoomWidth/2; 
+				
+				if( t<0 ){
+					t = 0;
+				} else if( t>smallPicWidth-zoomWidth ){
+					t = smallPicWidth-zoomWidth;
+				}
+				
+				if( l<0 ){
+					l = 0;
+				} else if( l>smallPicHeight-zoomHeight ){
+					l = smallPicHeight-zoomHeight;
+				}
+				
+				zoom.style.left = l + 'px';
+				zoom.style.top = t + 'px';
+				
+				bigPic.style.backgroundPosition = -l*rate+'px '+ -t*rate +'px';
+				
+			}
+			
+			
+						/**
+			 * 元素在页面中的净位置 ，所有offsetTop和
+			 * @param {Object} obj 
+			 * @return {Number} 返回当前元素的 净位置值
+			 */
+			
+			function getAllTop( obj ){
+				var allTop = obj.offsetTop;
+				var currentObj = obj;
+				while( currentObj = currentObj.offsetParent ){  //小心while循环少算一次。
+					allTop += currentObj.offsetTop;
+				}
+				return allTop;
+			}
+			
+			/**
+			 * 元素在页面中的净位置 ，所有的offsetLeft和
+			 * @param {Object} obj
+			 * @return {Number} 返回当前元素的 净位置值
+			 */
+			function getAllLeft( obj ){
+				
+				var allLeft = obj.offsetLeft;
+				var currentObj = obj;
+				while( currentObj = currentObj.offsetParent ){
+					allLeft += currentObj.offsetLeft;
+				}
+				return allLeft;
+			}
+			
+		</script>
+		
+	</body>
+</html>

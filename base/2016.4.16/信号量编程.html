@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			div {
+				width: 100px;
+				height: 100px;
+				background: deeppink;
+				position: absolute;
+				/*left: 100px;*/
+				top: 138px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div id="box" style="left: 100px"></div>
+		<input type="button" name="" id="btn" value="->" />
+		<script type="text/javascript">
+		
+			//这种方法，毛病多，没有统一通信，没有协同作业，在共同操作一个元素。 涉及行内样式。
+			var oDiv = document.getElementById("box");
+			var oBtn = document.getElementById("btn");
+			oBtn.onclick = function(){
+				var nowLeft = parseInt(oDiv.style.left); 
+				nowLeft += 10;
+				oDiv.style.left = nowLeft + 'px';
+			}
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>百度招聘</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				background-color: #ccc;
+			}
+			a {
+				color: #111;
+				text-decoration: none;
+			}
+			
+			.content {
+				background-color: white;
+				width: 980px;
+				margin: 0 auto;
+				font-size: 12px;
+				padding: 20px;
+			}
+			
+			.content .row {
+				overflow: hidden;
+				line-height: 40px;
+				position: relative;
+			}
+			
+			.content .hd {
+				font-weight: bold;
+			}
+			
+			.content .row .cols {
+				overflow: hidden;
+				position: relative;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.content .row .col {
+				float: left;
+			}
+			
+			.content .row .col1 {
+				width: 30%;
+			}
+			
+			.content .row .col2 {
+				width: 15%;
+			}
+			
+			.content .row .col3 {
+				width: 20%;
+			}
+			
+			.content .row .col4 {
+				width: 20%;
+			}
+			
+			.content .row .col3 {
+				width: 15%;
+			}
+			
+			.content .info {
+				overflow: hidden;
+				font-size: 16px;
+				line-height: 32px;
+			}
+			
+			.content .info h3 {
+				float: left;
+			}
+			
+			.content .info p {
+				float: right;
+			}
+			
+			.content .row_btn {
+				position: absolute;
+				width: 21px;
+				height: 10px;
+				background-color: red;
+				right: 10px;
+				top: 50%;
+				margin-top: -5px;
+				background: url(images/banner-icon.png) -28px -146px;
+				cursor: pointer;
+			}
+			
+			.content .row_btn.up {
+				background-position: -2px -145px;
+			}
+			
+			.content .detail {
+				display: none;
+				border-bottom: 1px solid #ccc;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="info">
+				<h3>职位信息</h3>
+				<p>一共有444个职位</p>
+			</div>
+			<div class="jobtable" id="jobtable">
+				<div class="row hd">
+					<div class="cols">
+						<div class="col col1">职位名称</div>
+						<div class="col col2">职位类别</div>
+						<div class="col col3">工作地点</div>
+						<div class="col col4">招聘人数</div>
+						<div class="col col5">更新时间</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<script type="text/template" id="row_template">
+			<div class="row">
+				<div class="cols">
+					<div class="col col1">
+						<a href='<%=link%>'>
+							<%=name%>
+						</a>
+					</div>
+					<div class="col col2">
+						<%=postType%>
+					</div>
+					<div class="col col3">
+						<%=workPlace%>
+					</div>
+					<div class="col col4">
+						<%=recruitNum%>
+					</div>
+					<div class="col col5">
+						<%=publishDate%>
+					</div>
+					<div class="row_btn"></div>
+				</div>
+				<div class="detail">
+					<div className="serviceCondition">
+						<h5>入职资格： </h5>
+						<%=serviceCondition%>
+					</div>
+					<div className="workContent">
+						<h5>工作内容： </h5>
+						<%=workContent%>
+					</div>
+				</div> 
+			</div>
+		</script>
+
+		<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+		<script type="text/javascript" src="js/underscore.js"></script>
+		
+		<script type="text/javascript">
+			
+			var funComplice = _.template( $('#row_template').html() );
+			
+			var $jobtable = $('#jobtable'); 
+			
+			/**
+			 * row 类
+			 * @param {Array} dict 需要的字典
+			 */
+			
+			function JobRow( dict ){
+				
+				this.dict = dict;
+				this.dict.link = 'http://www.bing.com';
+				
+				this.strDom = funComplice( dict );
+				
+				//创建DOM
+				this.$strDom = $(this.strDom);
+				this.$rowBtn = this.$strDom.find('.row_btn');
+				this.$detail = this.$strDom.find('.detail');
+				
+				// btn状态  0,1
+				this.state = 0; //0 向下滑动， 1向上滑动
+				
+				//渲染
+				this.render();
+				
+				//绑定事件
+				this.bindEvent();
+				
+				//观察者模式 ,  jobTable 实例 建立联系
+				jobTable.addElement(this);
+			}
+			
+			//添加到document
+			JobRow.prototype.render = function(){
+				jobTable.$dom.append(this.$strDom);
+			}
+			
+			//添加事件绑定
+			JobRow.prototype.bindEvent = function(){
+				var _this = this;
+				this.$rowBtn.click(function(){
+					if ( _this.state == 0 ) {
+						_this.$detail.stop(true).slideDown();
+						$(this).addClass('up');
+						_this.state = 1; 
+					} else {
+						_this.$detail.stop(true).slideUp();
+						$(this).removeClass('up');
+						_this.state = 0;
+					}
+				});
+			}
+			
+			//删除自身
+			JobRow.prototype.fillMySelf = function(){
+				this.$strDom.remove();
+			}
+			
+			/**
+			 * JobTable 类
+			 */
+			function JobTable(){
+				this.$dom = $('#jobtable');
+				
+				//把new的东西添加到 数组中
+				this.jobRows = [];
+			}
+			JobTable.prototype.addElement = function( ele ){
+				this.jobRows.push(ele);
+			}
+			
+			JobTable.prototype.gotoPage = function( pageNum ){
+					var _this = this;
+					$.get('JSON/getPostList'+pageNum,function( iData ){
+						
+						var objData = JSON.parse(iData);
+						//自身删除
+						$.each(_this.jobRows,function( i,jobRows ){
+							jobRows.fillMySelf();
+						});
+						
+						$.each( objData.postList,function( i,dict ){
+							new JobRow(dict);
+						} );
+						
+					});
+			}
+			
+			var jobTable = new JobTable();
+			jobTable.gotoPage(2);
+			
+		</script>
+	</body>
+</html>

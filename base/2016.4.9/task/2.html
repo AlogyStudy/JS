@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 求一个三位数，该三位数等与其每位数字的阶乘之和。
+			 */
+			
+			for( var i=100; i<=999; ++i ){
+				if( JCSun(i) == i ){
+					console.log('三位数等与其每位数字的阶乘之和为：'+i);  //145
+				}
+			}
+			
+			/**
+			 * 三位数阶乘之和
+			 * @param {Number} m 需要求的数字
+			 * @return {Number} 阶乘之和。
+			 */
+			function JCSun( m ){
+				
+				var gewei = m%10;
+				var shiwei = parseInt(m/10%10);
+				var baiwei = parseInt(m/100);
+				
+				return JC(gewei)+JC(shiwei)+JC(baiwei);
+				
+			}
+			
+			/**
+			 * 阶乘
+			 * @param {Number} m 需要求的阶乘数字
+			 * @return {Number} 当前计算阶乘的结果
+			 */
+			function JC( m ){
+				var res = 1;	
+				for( var i=1; i<=m; ++i ){
+					res *= i;
+				}
+				return res;	
+			}
+			
+		</script>
+		
+	</body>
+</html>

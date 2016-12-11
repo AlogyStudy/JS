@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+      var str = 'bbaacaaaadddaeeeeeaaf';
+
+      console.log(str.split(/[a]+/));  //["bb", "c", "ddd", "eeeee", "f"]
+      console.log( str );
+      console.log('----------------');
+
+
+      var str2 = 'aaaa o  o bbb aaa';
+      console.log(str2.search(/o\s+o/)); //5
+      // console.log(str2.search(/[o\s+o]/));
+      // console.log(str2.search(/[b]+/));
+      // console.log(str2.lastIndexOf('o'));
+      console.log(str2.indexOf('o  o'));  //5
+      console.log( str2 );
+      console.log('-----------------');
+
+      var str3 = 'aaaa o  o bbb o     o  aaa';
+      console.log(str3.match(/o\s+o/g));  //["o  o", "o     o"]
+      console.dirxml( str3 );
+      console.log('-----------------');
+
+      var str4 = 'aa   b    c  d e    f   ';
+      console.log(str4.replace(/\s+/g,'')); //aabcdef
+      console.log(str4.replace(/\s+/g,function(){ return '' }));
+      // console.log(str4);
+      /*在'ooooo  0 0  ooooooooooo'字符串中匹配["o  0 0  o"]*/
+      var str5 = 'ooooo  0 0  ooooooooooo';
+      var reg = new RegExp('o\\s+0\\s+0\\s+o','g');
+      console.log( reg.exec(str5) );
+      console.log(/o\s+0\s+0\s+o/g.exec(str5));
+
+      var str6 = 'abc d';
+      var str7 = 'abcd';
+      console.log( /\s/g.test(str6) );
+      console.log( /\s/g.test(str7) );
+
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			function wheelHadler( obj,fn ){
+				
+				function wheel( ev ){
+					if( !ev ) ev = window.event;
+					
+					var direc = null;
+					//down -> 1 
+					//up -> -1
+					if( ev.wheelDelta ){
+						direc = ev.wheelDelta > 0 ? 1 : -1; 
+					} else if( ev.detail ){
+						direc = ev.detail > 0 ? -1 : 1;
+					}
+					
+					//阻止默认事件
+					if( ev.preventDefault ) {
+						ev.preventDefault();
+					} else {
+						ev.returnValue = false;
+					}
+					
+					fn && fn(); 
+				}
+				
+				obj.onmousewheel = wheel;
+				try{
+					obj.addEventListener('DOMMouseScroll',wheel,false);
+				}catch( err ){}
+				
+			}
+			
+		</script>
+		
+	</body>
+</html>

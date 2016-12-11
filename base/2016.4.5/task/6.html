@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+
+      var sws = parseInt( prompt('请输入一个三整数') );
+
+      var baiwei = parseInt(sws/100);
+      var a = sws%100;
+      var shiwei = parseInt( a / 10 );
+      var gewei = a%10;
+
+      var res = baiwei + shiwei + gewei;
+      // 1 1 1  = 3
+      alert('计算结果为：'+res);
+
+    </script>
+
+  </body>
+</html>

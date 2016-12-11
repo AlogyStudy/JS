@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+	<script>
+
+/*		var str = 'ABCDEFG1234567abcdefg';
+		var reg = /[\d]/g;
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+		console.log( reg.exec( str ) );
+*/
+
+
+		var str = 'ABCDEFG1234567abcdefg';
+		var reg = /[a-z]/g;
+		console.log( a=/[a-z]/g.exec(str) );
+		var a;
+		while( a=reg.exec(str) ){  //这边 null 为 fasle。 exec() 会保持对前面一次的引用。 需要使用 值来赋值。
+			console.log( a );
+		}
+
+		//最大子串
+		var str = 'AAABBBCCCCCCCDDDD';
+		var reg = /(\w)\1+/g;
+
+		var maxLength = 0;
+		var maxLetter = '';
+		var a;
+		while( a=reg.exec(str) ){
+			if( a[0].length>maxLength ){
+				maxLength = a[0].length;
+				maxLetter = a[0];
+			}
+		}
+		console.log( maxLetter );
+
+	</script>
+	
+</body>
+</html>

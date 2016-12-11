@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>碰撞检测 </title>
+		<style type="text/css">
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: pink;
+				position: absolute;
+				z-index: 2;
+			}
+			#img1{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 250px;
+				left: 500px;
+				border: 4px solid #111;
+			}
+			
+		</style>
+		
+		<script type="text/javascript">
+			window.onload = function() {
+				
+				var oDiv=document.getElementById("div1");
+				var oImg=document.getElementById("img1");
+				
+				drag( oDiv );
+				function drag(obj) {
+					obj.onmousedown = function(ev) {
+						var ev = ev || window.event;
+						var disX = ev.clientX - this.offsetLeft;
+						var disY = ev.clientY - this.offsetTop;
+						if (obj.setCapture) obj.setCapture();
+						document.onmousemove = function(ev) {
+							var ev = ev || window.event;
+							
+							var L = ev.clientX - disX;  //采用数据滞后判断  ，  处理完整 后在完全赋值。
+							var T = ev.clientY - disY;
+							
+							var L1 = L;
+							var R1 = L1 + obj.offsetWidth;
+							var T1 = T;
+							var B1 = T1 + obj.offsetHeight;
+							
+							var L2 = oImg.offsetLeft;
+							var R2 = L2 + oImg.offsetWidth;
+							var T2 = oImg.offsetTop;
+							var B2 = T2 + oImg.offsetHeight;
+							
+							if( R1 < L2 || L1 > R2 || B1 < T2 || T1 > B2 ){   
+								oImg.style.border = '4px solid #111';		
+							} else {
+								oImg.style.border = '4px solid red';
+							}
+							
+							obj.style.left = L + 'px';
+							obj.style.top = T + 'px';
+							
+						}
+						document.onmouseup = function() {
+							document.onmousemove = document.onmouseup = null;
+							if (obj.releaseCapture) obj.releaseCapture();
+						}
+						return false;
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+	
+		<div id="div1"></div>
+		<span id="img1"></span>
+	</body>
+
+</html>

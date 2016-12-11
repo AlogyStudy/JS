@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 有10个学生的成绩存在数组中，请统计最高分，最低分，并将最高分和最低分学生的下标输出到控制台
+			 */
+			
+			var arr = [94,45,4,40,56,45,50,65,20,30];
+			
+			var max = 0;
+			var min = 100000000000;
+
+			var maxIndex = 0;
+			var minIndex = 0;
+			for( var i=0,len=arr.length; i<len; ++i ){
+				if( arr[i]>max ){
+					max = arr[i];
+					maxIndex = i;
+				} 
+				if( arr[i]<min ) {
+					min = arr[i];	
+					minIndex = i;
+				}
+			}
+
+			console.log( '最高分：'+max,'最低分：'+min,'最高分下标：'+maxIndex,'最低分下标：'+minIndex );
+			
+		</script>
+		
+	</body>
+</html>
