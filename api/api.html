@@ -6,9 +6,25 @@
 	</head>
 	<body>
 		
-		
+		<div id="test">123</div>
+				
 		<script src="$api.js" type="text/javascript" charset="utf-8"></script>
 		
+		<script type="text/javascript">
+			
+			var oT = document.getElementById("test");
+			
+			
+			var listener = function (event) {
+				alert(123);
+			};
+			
+			$api.addEvt(oT, 'click', listener);
+			
+			$api.rmEvt(oT, 'click', listener);
+			
+		</script>
 		
 	</body>
 </html>
+ 
