@@ -95,7 +95,7 @@
 	 * @return 
 	 */
 	t.isEmptyObject = function (obj) {
-		return JSON.stringify(obj) == '{}' ? true : false; 
+		return JSON.stringify(obj) === '{}' ? true : false; 
 	}
 	
 	/**
@@ -146,12 +146,84 @@
 	 * @param {Object} useCaptrue
 	 */
 	t.oneEvt = function (el, name, fn, useCaptrue) {
+		debugger;
 		if (!t.isElement(el)) {
 			console.log('el 参数必须是DOM Element');
 			return;
 		}
-		
+		useCaptrue = useCaptrue || false;
+		var me = this;
+		var cb = function() {
+			fn && fn();
+			me.rmEvt(el, name, cb, useCaptrue);
+		}
+		me.addEvt(el, name, cb, useCaptrue); 
 	}
+	
+	/**
+	 * 选择dom 
+	 * @param {Object} el
+	 * @param {Object} selector
+	 */
+	t.dom = function(el, selector) {
+		debugger;
+		if (arguments.length === 1 && typeof(arguments[0]) == 'string') {
+			if (document.querySelector) {
+				return document.querySelector(arguments[0]);
+			}
+		} else if (arguments.length === 2) {
+			if (el.querySelector) {
+				return el.querySelector(selector);
+			}
+		}
+	}
+	
+	/**
+	 * 选择多个dom 
+	 * @param {Object} el
+	 * @param {Object} selector 选择器
+	 */
+	t.domAll = function (el, selector) {
+		if (arguments.length === 1 && typeof(arguments[0]) == 'string') {
+			if (document.querySelectorAll) {
+				return document.querySelectorAll(arguments[0]);
+			}
+		} else if (arguments.length === 2) {
+			if (el.querySelectorAll) {
+				return el.querySelectorAll(selector);
+			}
+		}
+	}
+	
+	/**
+	 * 获取id，DOM元素
+	 * @param {Object} id
+	 * @return 
+	 */
+	t.byId = function (id) {
+		return document.getElementById(id);	
+	}
+	
+	/**
+	 * 获取第一个元素
+	 * @param {Object} el
+	 * @param {Object} selector
+	 * @return 
+	 */
+	t.first = function (el, selector) {
+		if (arguments.length === 1) {
+			if (!t.isElement(el)) {
+				console.warn('$api.first 第一个参数是 el， el是 DOM Element');
+				return;
+			}
+			return el.children[0]; 
+		}
+		if (arguments.length === 2) {
+			return this.dom(el,selector);
+		}
+	}
+	
+	
 	
 	window.$api = t;
 })(window);
