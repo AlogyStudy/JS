@@ -53,7 +53,6 @@
 	 * @return 
 	 */
 	t.trim = function trim(str) {
-		debugger;
 		if (String.prototype.trim) {
 			return str == null ? '' : String.prototype.trim.call(str);
 		} else {
@@ -146,7 +145,6 @@
 	 * @param {Object} useCaptrue
 	 */
 	t.oneEvt = function (el, name, fn, useCaptrue) {
-		debugger;
 		if (!t.isElement(el)) {
 			console.log('el 参数必须是DOM Element');
 			return;
@@ -166,7 +164,6 @@
 	 * @param {Object} selector
 	 */
 	t.dom = function(el, selector) {
-		debugger;
 		if (arguments.length === 1 && typeof(arguments[0]) == 'string') {
 			if (document.querySelector) {
 				return document.querySelector(arguments[0]);
@@ -223,7 +220,93 @@
 		}
 	}
 	
+	/**
+	 * 获取最后一个元素
+	 * @param {Object} el
+	 * @param {Object} selector
+	 * @return 
+	 */
+	t.last = function (el, selector) {
+		if (arguments.length === 1) {
+			if (!t.isElement(el)) {
+				console.warn('$api.last 第一次参数是el，el是DOM Element');
+				return;
+			}
+			var children = el.children;
+			return children[children.length - 1];
+		}
+		if (arguments.length == 2) {
+			return this.dom(el, selector+':last-child');
+		}
+	}
 	
+	/**
+	 * 获取index个的元素  
+	 * @param {Object} el
+	 * @param {Object} index
+	 * @return 
+	 */
+	t.eq = function (el, index) {
+		return this.dom(el, ':nth-child('+ index +')');
+	}
+	
+	/**
+	 * 不获取传入元素 
+	 * @param {Object} el
+	 * @param {Object} selector
+	 * @return 
+	 */
+	t.not = function (el, selector) {
+		return this.domAll(el, ':not('+ selector +')');
+	}
+	
+	/**
+	 * 获取上一个元素
+	 * @param {Object} el
+	 * @return
+	 */
+	t.prev = function (el) {
+		if (t.isElement(el)) {
+			console.warn('$api.prev 函数的el参数，el参数是 DOM Element');
+			return;
+		}
+		var node = el.previousSibling;
+		if (node.nodeType && node.nodeType === 3) {
+			node = node.previousSibling;
+			return node;
+		}
+	}
+	
+	/**
+	 * 获取后一个元素
+	 * @param {Object} el
+	 */
+	t.next = function(el) {
+		if (t.isElement(el)) {
+			console.warn('$api.next 函数的el参数，el参数是DOM Element');
+			return;
+		}
+		var node = el.nextSibling;
+		debugger;
+		if (node.nodeType && node.nodeType === 3) {
+			node = node.nextSibling;
+			return node;
+		}
+	}
+	
+	/**
+	 * 获取最近的元素 
+	 * @param {Object} el
+	 * @param {Object} selector
+	 */
+	t.closest = function(el, selector) {
+		if (t.isElement(el)) {
+			console.warn('$api.closest 函数的el参数，el参数是DOM Element');
+			return;
+		}
+		
+		
+	}
 	
 	window.$api = t;
 })(window);
