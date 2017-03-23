@@ -266,7 +266,7 @@
 	 * @return
 	 */
 	t.prev = function (el) {
-		if (t.isElement(el)) {
+		if (!t.isElement(el)) {
 			console.warn('$api.prev 函数的el参数，el参数是 DOM Element');
 			return;
 		}
@@ -282,7 +282,7 @@
 	 * @param {Object} el
 	 */
 	t.next = function(el) {
-		if (t.isElement(el)) {
+		if (!t.isElement(el)) {
 			console.warn('$api.next 函数的el参数，el参数是DOM Element');
 			return;
 		}
@@ -300,13 +300,107 @@
 	 * @param {Object} selector
 	 */
 	t.closest = function(el, selector) {
-		if (t.isElement(el)) {
+		if (!t.isElement(el)) {
 			console.warn('$api.closest 函数的el参数，el参数是DOM Element');
 			return;
 		}
 		
+		var doms,targetDom;
+		// 是否相同节点
+		var isSame = function(doms, el) {
+			var i = 0, len = doms.length;
+			for(i, i<len; i++) {
+				if (doms[i].isEqualNode(el)) {
+					return doms[i];
+				}
+			}
+			return false;
+		}
 		
+		// 遍历
+		var traversal = function(el, selector) {
+			doms = t.domAll(el.parentNode, selector);
+			targetDom = isSame(doms, el);
+			while(!targetDom) {
+				el = el.parentNode;
+				if (el != null && el.nodeType == el.DOCUMENT_NODE) { 
+					return false;
+				}
+				traversal(el, selector);
+			}
+			return targetDom;
+		}
+		return traversal(el, selector);
+	}
+	
+	/**
+	 * 是否包含子元素
+	 * @param {Object} parent
+	 * @param {Object} el
+	 * @return 
+	 */
+	t.contains = function(parent, el) {
+		var mark = false;
+		if (el === parent) {
+			mark = true;
+			return mark;
+		} else {
+			do {
+				el = el.parentNode;
+				if (el === parent) {
+					mark = true;
+					return mark;
+				}
+			} while(el === document.body || el === document.documentElement);
+			return mark;
+		}
+	}
+	
+	/**
+	 * 移除元素
+	 * @param {Object} el
+	 */
+	t.remove = function(el) {
+		if (el && el.parentNode) {
+			el.parentNode.removeChild(el);
+		}
+	}
+	
+	/**
+	 * 获取和设置 属性
+	 * @param {Object} el
+	 * @param {Object} name
+	 * @param {Object} value
+	 * @return {}
+	 */
+	t.attr = function(el, name, value) {
+		if (!t.isElement(el)) {
+			console.warn('$api.attr 函数参数el，el参数是DOM Element');
+			return;
+		}
+		if (arguments.length == 2) {
+			return el.getAttribute(name);	
+		} else if (arguments.length == 3) {
+			el.setAttribute(name, value);
+			return el;
+		}
+	}
+	
+	
+	/**
+	 * 移除属性
+	 * @param {Object} el
+	 * @param {Object} name
+	 */
+	t.removeAttr = function(el, name) {
+		if (!t.isElement(el)) {
+			console.warn('$api.removeAttr 函数参数el，el参数是DOM Element');
+			return;
+		}
+		if (arguments.length === 2) {
+			el.removeAttribute(name);
+		}
 	}
 	
 	window.$api = t;
-})(window);
+})(window); 
