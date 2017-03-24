@@ -309,7 +309,7 @@
 		// 是否相同节点
 		var isSame = function(doms, el) {
 			var i = 0, len = doms.length;
-			for(i, i<len; i++) {
+			for(i; i<len; i++) {
 				if (doms[i].isEqualNode(el)) {
 					return doms[i];
 				}
@@ -400,6 +400,187 @@
 		if (arguments.length === 2) {
 			el.removeAttribute(name);
 		}
+	}
+	
+	/**
+	 * 判断存在类名
+	 * @param {Object} el
+	 * @param {Object} cls
+	 * @return 
+	 */
+	t.hasCls = function(el, cls) {
+		if (!t.isElement(el)) {
+			console.warn('$api.hasCls 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if (el.className.indexOf(cls) > -1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 添加类名
+	 * @param {Object} el
+	 * @param {Object} cls
+	 */
+	t.addCls = function(el, cls) {
+		if (!t.isElement(el)) {
+			console.warn('$api.addCls 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if ('classList' in el) {
+			el.classList.add(cls);
+		} else {
+			var preCls = el.className;
+			var newCls = preCls + ' ' + cls;
+			el.className = newCls;
+		}
+		return el;
+	}
+	
+	/**
+	 * 移除类名
+	 * @param {Object} el
+	 * @param {Object} cls
+	 */
+	t.removeCls = function(el, cls) {
+		if (!t.isElement(el)) {
+			console.warn('$api.removeCls 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if ('classList' in el) {
+			el.classList.remove(cls);
+		} else {
+			var preCls = el.className;
+			var newCls = preCls.replace(cls, '');
+			el.className = newCls;
+		}
+		return el;
+	}
+	
+	
+	/**
+	 * 切换类名
+	 * @param {Object} el
+	 * @param {Object} cls
+	 */
+	t.toggleCls = function(el, cls) {
+		if (!t.isElement(el)) {
+			console.warn('$api.toggleCls 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if ('classList' in el) {
+			el.classList.toggle(cls);
+		} else {
+			if (t.hasCls(el, cls)) {
+				t.removeCls(el, cls);
+			} else {
+				t.addCls(el, cls);
+			}
+		}
+		return el;
+	}
+	
+	/**
+	 * 获取或设置val
+	 * @param {Object} el
+	 * @param {Object} val
+	 */
+	t.val = function(el, val){
+		if (!t.isElement(el)) {
+			console.warn('$api.val 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if (arguments.length == 1) {
+			// 获取
+			switch(el.tagName) {
+				case 'SELECT':
+					var value = el.options[el.selectedIndex].value;
+					return value;
+				break;
+				case 'INPUT':
+					return el.value;
+				break;
+				case 'TEXTAREA':
+					return el.value;
+				break;
+			}
+		} 
+		if (arguments.length == 2) {
+			// 设置
+			switch (el.tagName){
+				case 'SELECT':
+					el = el.options[el.selectedIndex].value = val;
+					return el;
+				break;
+				case 'INPUT':
+					el.value = val;
+					return el;
+				break;
+				case 'TEXTAREA':
+					el.value = val;
+					return el;
+				break;	
+			}
+		}
+	}
+	
+	/**
+	 * 标签之外之前插入
+	 * @param {Object} el
+	 * @param {Object} html
+	 */
+	t.prepend = function(el, html) {
+		if (!t.isElement(el)) {
+			console.warn('$api.prepend 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		el.insertAdjacentHTML('afterbegin', html);
+		return el;
+	}
+	
+	/**
+	 * 标签之外之后插入
+	 * @param {Object} el
+	 * @param {Object} html
+	 */
+	t.append = function(el, html) {
+		if (!t.isElement(el)) {
+			console.warn('$api.append 函数参数是el，el参数是DOM Elelemnt');
+			return;
+		}
+		el.insertAdjacentHTML('beforeend', html);
+		return el;
+	}
+	
+	/**
+	 * 标签之内之前插入
+	 * @param {Object} el
+	 * @param {Object} html
+	 */
+	t.before = function(el, html) {
+		if (!t.isElement(el)) {
+			console.warn('$api.before 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		el.insertAdjacentHTML('beforebegin', html);
+		return el;
+	}
+	
+	/**
+	 * 标签之内之后插入
+	 * @param {Object} el
+	 * @param {Object} html
+	 */
+	t.after = function(el, html) {
+		if (!t.isElement(el)) {
+			console.warn('$api.after 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		el.insertAdjacentHTML('afterend', html);
+		return el;
 	}
 	
 	window.$api = t;
