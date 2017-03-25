@@ -583,5 +583,65 @@
 		return el;
 	}
 	
+	/**
+	 * 获取和设置html
+	 * @param {Object} el
+	 * @param {Object} html
+	 */
+	t.html = function(el, html) {
+		if (!t.isElement(el)) {
+			console.warn('$api.html 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if (arguments.length === 1) {
+		// 获取html
+			return el.innerHTML;
+		} else if (arguments.length == 2) {
+		// 设置html
+			el.innerHTML = html;
+			return el;
+		}
+	}
+	
+	/**
+	 * 获取和设置 文本
+	 * @param {Object} el
+	 * @param {Object} txt
+	 */
+	t.text = function(el, txt) {
+		if (!t.isElement(el)) {
+			console.warn('$api.text 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if (arguments.length === 1) {
+			return el.textContent;
+		} else if (arguments.length === 2) {
+			el.textContent = txt;
+			return el;
+		}
+	}
+	
+	/**
+	 * 获取位置
+	 * @param {Object} el
+	 */
+	t.offset = function(el) {
+		if (!t.isElement(el)) {
+			console.warn('$api.offset 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		
+		var sl = Math.max(document.documentElement.scrollLeft, document.body.scrollLeft);
+		var st = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+		
+		var rect = el.getBoundingClientRect();
+		return {
+			l: rect.left + sl,
+			t: rect.top + st,
+			w: el.offsetWidth,
+			h: el.offsetHeight
+		}
+	}
+	
 	window.$api = t;
 })(window); 
