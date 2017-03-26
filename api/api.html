@@ -13,18 +13,23 @@
 			<p>1111111111141</p>
 		</div>
 		<div>1111</div>
+		<div class="box" style="font-size: 20px;">123123</div>
+		
+		<style>
+			.box {
+				background: deeppink;
+			}
+		</style>
 				
 		<script src="$api.js" type="text/javascript" charset="utf-8"></script>
 		
 		<script type="text/javascript">
 			
-//			console.log($api.domAll('div'));
-//			console.log($api.eq(document.querySelector('div'), 3));
-//			
-//			console.log($api.next(document.querySelector('div')));
-			alert(document.querySelector('div').textContent);
-			console.log(document.querySelector('div'), 'classList');
+			var t = document.querySelector('.box');
+			$api.css(t, 'color: tan;');
+			console.log($api.cssVal(t, 'color'));
 			
+						
 		</script>
 		
 		<style>

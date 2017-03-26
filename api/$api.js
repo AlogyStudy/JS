@@ -20,10 +20,10 @@
 	
 	/**
 	 * 处理ajax传入参数
-	 * @param {Object} url   url
+	 * @param {String} url   url
 	 * @param {Object} data  携带数据
-	 * @param {Object} fnSuc 回调
-	 * @param {Object} dataType 类型： `get`, `post`
+	 * @param {Function} fnSuc 回调
+	 * @param {String} dataType 类型： `get`, `post`
 	 * @return 
 	 */
 	function parseArguments(url, data, fnSuc, dataType) {
@@ -49,7 +49,7 @@
 	
 	/**
 	 * 删除出前后端空格 
-	 * @param {Object} str 字符串
+	 * @param {String} str 字符串
 	 * @return 
 	 */
 	t.trim = function trim(str) {
@@ -62,7 +62,7 @@
 	
 	/**
 	 * 替换所有空格
-	 * @param {Object} str
+	 * @param {String} str
 	 * @return 
 	 */
 	t.trimAll = function trimAll(str) {
@@ -100,9 +100,9 @@
 	/**
 	 * 添加事件 
 	 * @param {Object} el 元素
-	 * @param {Object} name 事件名 
-	 * @param {Object} fn 回调
-	 * @param {Object} useCaptrue 捕获 或者 冒泡
+	 * @param {String} name 事件名 
+	 * @param {Function} fn 回调
+	 * @param {Boolean} useCaptrue 捕获 或者 冒泡
 	 */
 	t.addEvt = function (el, name, fn, useCaptrue) {
 		// 判断是否元素
@@ -120,9 +120,9 @@
 	/**
 	 * 移除事件
 	 * @param {Object} el 元素
-	 * @param {Object} name 事件名
-	 * @param {Object} fn 回调
-	 * @param {Object} useCaptrue 捕获 或者 冒泡
+	 * @param {String} name 事件名
+	 * @param {Function} fn 回调
+	 * @param {Boolean} useCaptrue 捕获 或者 冒泡
 	 */
 	t.rmEvt = function (el, name, fn, useCaptrue) {
 		// 判断是否有元素
@@ -140,9 +140,9 @@
 	/**
 	 * 绑定一次事件
 	 * @param {Object} el
-	 * @param {Object} name
-	 * @param {Object} fn
-	 * @param {Object} useCaptrue
+	 * @param {String} name
+	 * @param {Function} fn
+	 * @param {Boolean} useCaptrue
 	 */
 	t.oneEvt = function (el, name, fn, useCaptrue) {
 		if (!t.isElement(el)) {
@@ -161,7 +161,7 @@
 	/**
 	 * 选择dom 
 	 * @param {Object} el
-	 * @param {Object} selector
+	 * @param {String} selector
 	 */
 	t.dom = function(el, selector) {
 		if (arguments.length === 1 && typeof(arguments[0]) == 'string') {
@@ -178,7 +178,7 @@
 	/**
 	 * 选择多个dom 
 	 * @param {Object} el
-	 * @param {Object} selector 选择器
+	 * @param {String} selector 选择器
 	 */
 	t.domAll = function (el, selector) {
 		if (arguments.length === 1 && typeof(arguments[0]) == 'string') {
@@ -194,7 +194,7 @@
 	
 	/**
 	 * 获取id，DOM元素
-	 * @param {Object} id
+	 * @param {String} id
 	 * @return 
 	 */
 	t.byId = function (id) {
@@ -204,7 +204,7 @@
 	/**
 	 * 获取第一个元素
 	 * @param {Object} el
-	 * @param {Object} selector
+	 * @param {String} selector
 	 * @return 
 	 */
 	t.first = function (el, selector) {
@@ -223,7 +223,7 @@
 	/**
 	 * 获取最后一个元素
 	 * @param {Object} el
-	 * @param {Object} selector
+	 * @param {String} selector
 	 * @return 
 	 */
 	t.last = function (el, selector) {
@@ -243,7 +243,7 @@
 	/**
 	 * 获取index个的元素  
 	 * @param {Object} el
-	 * @param {Object} index
+	 * @param {Number} index
 	 * @return 
 	 */
 	t.eq = function (el, index) {
@@ -253,7 +253,7 @@
 	/**
 	 * 不获取传入元素 
 	 * @param {Object} el
-	 * @param {Object} selector
+	 * @param {String} selector
 	 * @return 
 	 */
 	t.not = function (el, selector) {
@@ -297,7 +297,7 @@
 	/**
 	 * 获取最近的元素 
 	 * @param {Object} el
-	 * @param {Object} selector
+	 * @param {String} selector
 	 */
 	t.closest = function(el, selector) {
 		if (!t.isElement(el)) {
@@ -369,8 +369,8 @@
 	/**
 	 * 获取和设置 属性
 	 * @param {Object} el
-	 * @param {Object} name
-	 * @param {Object} value
+	 * @param {String} name
+	 * @param {String} value
 	 * @return {}
 	 */
 	t.attr = function(el, name, value) {
@@ -390,7 +390,7 @@
 	/**
 	 * 移除属性
 	 * @param {Object} el
-	 * @param {Object} name
+	 * @param {String} name
 	 */
 	t.removeAttr = function(el, name) {
 		if (!t.isElement(el)) {
@@ -405,7 +405,7 @@
 	/**
 	 * 判断存在类名
 	 * @param {Object} el
-	 * @param {Object} cls
+	 * @param {String} cls
 	 * @return 
 	 */
 	t.hasCls = function(el, cls) {
@@ -423,7 +423,7 @@
 	/**
 	 * 添加类名
 	 * @param {Object} el
-	 * @param {Object} cls
+	 * @param {String} cls
 	 */
 	t.addCls = function(el, cls) {
 		if (!t.isElement(el)) {
@@ -443,7 +443,7 @@
 	/**
 	 * 移除类名
 	 * @param {Object} el
-	 * @param {Object} cls
+	 * @param {String} cls
 	 */
 	t.removeCls = function(el, cls) {
 		if (!t.isElement(el)) {
@@ -464,7 +464,7 @@
 	/**
 	 * 切换类名
 	 * @param {Object} el
-	 * @param {Object} cls
+	 * @param {String} cls
 	 */
 	t.toggleCls = function(el, cls) {
 		if (!t.isElement(el)) {
@@ -486,7 +486,7 @@
 	/**
 	 * 获取或设置val
 	 * @param {Object} el
-	 * @param {Object} val
+	 * @param {String} val
 	 */
 	t.val = function(el, val){
 		if (!t.isElement(el)) {
@@ -530,7 +530,7 @@
 	/**
 	 * 标签之外之前插入
 	 * @param {Object} el
-	 * @param {Object} html
+	 * @param {String} html
 	 */
 	t.prepend = function(el, html) {
 		if (!t.isElement(el)) {
@@ -544,7 +544,7 @@
 	/**
 	 * 标签之外之后插入
 	 * @param {Object} el
-	 * @param {Object} html
+	 * @param {String} html
 	 */
 	t.append = function(el, html) {
 		if (!t.isElement(el)) {
@@ -558,7 +558,7 @@
 	/**
 	 * 标签之内之前插入
 	 * @param {Object} el
-	 * @param {Object} html
+	 * @param {String} html
 	 */
 	t.before = function(el, html) {
 		if (!t.isElement(el)) {
@@ -572,7 +572,7 @@
 	/**
 	 * 标签之内之后插入
 	 * @param {Object} el
-	 * @param {Object} html
+	 * @param {String} html
 	 */
 	t.after = function(el, html) {
 		if (!t.isElement(el)) {
@@ -586,7 +586,7 @@
 	/**
 	 * 获取和设置html
 	 * @param {Object} el
-	 * @param {Object} html
+	 * @param {String} html
 	 */
 	t.html = function(el, html) {
 		if (!t.isElement(el)) {
@@ -606,7 +606,7 @@
 	/**
 	 * 获取和设置 文本
 	 * @param {Object} el
-	 * @param {Object} txt
+	 * @param {String} txt
 	 */
 	t.text = function(el, txt) {
 		if (!t.isElement(el)) {
@@ -641,6 +641,221 @@
 			w: el.offsetWidth,
 			h: el.offsetHeight
 		}
+	}
+	
+	/**
+	 * 设置行内样式
+	 * @param {Object} el
+	 * @param {String} css
+	 */
+	t.css = function(el, css) {
+		if (!t.isElement(el)) {
+			console.warn('$api.css 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if (typeof css == 'string' && css.indexOf(':') > 0) {
+			el.style && (el.style.cssText += ';' + css);
+		}
+	}
+	
+	/**
+	 * 获取样式 
+	 * @param {Object} el
+	 * @param {String} prop
+	 */
+	t.cssVal = function(el, prop) {
+		if (!t.isElement(el)) {
+			console.warn('$api.cssVal 函数参数是el，el参数是DOM Element');
+			return;
+		}
+		if (arguments.length === 2) {
+			var computedStyle = window.getComputedStyle(el, null);
+			return computedStyle.getPropertyValue(prop);
+		}
+	}
+	
+	
+	/**
+	 * JSON转换为String
+	 * @param {Object} json
+	 */
+	t.jsonToStr = function(json) {
+		if (typeof json === 'object') {
+			return JSON && JSON.stringify(json);
+		}
+	}
+	
+	/**
+	 * String转为JSON
+	 * @param {String} str
+	 */
+	t.strToJson = function(str) {
+		if (typeof str === 'string') {
+			return JSON &&JSON.parse(str);
+		}
+	}
+	
+	/**
+	 * 设置localStorage
+	 * @param {String} key
+	 * @param {miscMixin} value
+	 */
+	t.setStorage = function(key, value) {
+		if (arguments.length === 2) {
+			var v = value;
+			if (typeof v == 'object') {
+				v = JSON.stringify(v);
+				v = 'obj-' + v;
+			} else {
+				v = 'str-' + v;
+			}
+			var ls = uzStorage();
+			if (ls) {
+				ls.setItem(key, v);
+			}
+		}
+	}
+	
+	/**
+	 * 获取 localStorage
+	 * @param {String} key
+	 */
+	t.getStorage = function(key) {
+		var ls = uzStorage();
+		if (ls) {
+			var v = ls.getItem(key);
+			if (!v) {return;}
+			if (v.indexOf('obj-') === 0) {
+				v = v.slice(4);
+				return JSON.parse(v);
+			} else if (v.indexOf('str-') === 0) {
+				v = v.slice(4);
+				return JSON.parse(v);
+			}
+		}
+	}
+	
+	/**
+	 * 移除 localStorage
+	 * @param {String} key
+	 */
+	t.rmStorage = function(key) {
+		var ls = uzStorage();
+		if (ls && key) {
+			ls.removeItem(key);
+		}
+	}
+	
+	/**
+	 * 清除 localStorage
+	 */
+	t.clearStorage = function() {
+		var ls = uzStorage();
+		if (ls) {
+			ls.clear();
+		}
+	}
+	
+	
+	
+	
+	/*by king*/
+	/**
+	 * 弹框
+	 * @param {Object} title
+	 * @param {Object} text
+	 * @param {Object} time
+	 */
+	t.toast = function(title, text, time) {
+		var opts = {};
+		var show = function(opts, time) {
+			api.showProgress(opts);
+			setTimeout(function() {
+				api.hideProgress();
+			}, time);
+		}
+		
+		if (arguments.length === 1) {
+			var time = time || 500;
+			if (typeof title === 'number') {
+				time = title;
+			} else {
+				opts.time = title + '';
+			}
+			show(opts, time);
+		} else if (arguments.length === 2) {
+			var time = time || 500;
+			var text = text;
+			if (typeof text === 'number' ) {
+				var tmp = text;
+				time = tmp;
+				text = null;
+			}
+			if (title) {
+				opts.title = title;
+			}
+			if (text) {
+				opts.text = text;
+			}
+			show(opts, time);
+		}
+		if (title) {
+			opts.title = title;
+		}
+		if (text) {
+			opts.text = text;
+		}
+		time = time || 500;
+		show(opts, time);
+	}
+	
+	/**
+	 * post
+	 */
+	t.post = function(/*url, data, fnSuc, dataType*/) {
+		var argsToJson = parseArguments.apply(null, arguments);
+		var json = {};
+		var fnSuc = argsToJson.fnSuc;
+		argsToJson.url && (json.url = argsToJson.url);
+		argsToJson.data && (json.data = argsToJson.data);
+		if (argsToJson.dataType) {
+			var type = argsToJson.dataType.toLowerCase();
+			if (type == 'text' || type == 'json') {
+				json.dataType = type;
+			}
+		} else {
+			json.dataType = 'json';
+		}
+		json.method = 'post';
+		api.ajax(json, function(ret, err) {
+			if (ret) {
+				fnSuc && fnSuc(ret);
+			}
+		});
+	}
+	
+	/**
+	 * get
+	 */
+	t.get = function(/*url, fnSuc, dataType*/) {
+		var argsToJson = parseArguments.apply(null, arguments);
+		var json = {};
+		var fnSuc = arguments.fnSuc;
+		argsToJson.url && (json.url = argsToJson.url);
+		if (argsToJson.dataType) {
+			var type = argsToJson.dataType.toLowerCase();
+			if (type == 'text' || type == 'json') {
+				argsToJson.dataType = type;
+			} 
+		} else {
+			json.dataType = 'json';
+		}
+		json.method = 'get';
+		api.ajax(json, function(ret, res) {
+			if (ret) {
+				fnSuc && fnSuc(ret);
+			}
+		});
 	}
 	
 	window.$api = t;
