@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			
+//			(function(w, fn){
+//					
+//			}(window, function() {
+//				
+//			}));
+			
+			
+			(function (w) {
+				/**
+				 * 构造函数
+				 */
+				function jQuery() {
+					return new jQuery.fn.init();	
+				}
+				
+				// 原型
+				jQuery.fn = jQuery.prototype = {
+					
+				}
+				
+				/**
+				 * 初始化函数
+				 */
+				var init = jQuery.fn.init = function init() {
+						
+				}
+				
+				// 替换初始化函数的原型为构造函数的原型   
+				init.prototype = jQuery.fn;  
+				// 1. 便于扩展插件  
+				// 2. 访问jQuery原型对象方法
+				
+				// 暴露构造函数
+				w.jQuery = w.$ = jQuery;
+			})(window);
+			
+			
+			
+		</script>
+		
+		
+	</body>
+</html>
