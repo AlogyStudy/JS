@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			// 字符串  ==> String.prototype.toString();
+			var a = 't';
+			console.log(a.toString()); // t
+			var a = new String(); 
+			console.log(a.toString()); // 空字符串
+			var a = new String('string');
+			console.log(a.toString());   // string
+			
+			console.log('----------');
+			
+			// 数组 ==> Array.prototype.toString();
+			var b = [1, 2, 3, 4];
+			console.log(b.toString()); // 1,2,3,4
+			var b = [];
+			console.log(b.toString()); // 空字符串
+			var b = new Array();
+			console.log(b.toString()); // 空字符串
+			var b = new Array(3, 5);
+			console.log(b.toString()); // 3,5
+			
+			console.log('----------');
+			
+			// 对象 ==> Object.prototype.toString();
+			var c = {};
+			console.log(c.toString()); // [object Object]
+			
+			console.log('----------');
+			
+			// 函数
+			console.log(Function.toString()); // function Function() { [native code] }
+			console.log(Array.toString()); // function Array() { [native code] }
+			console.log(RegExp.toString()); // function RegExp() { [navtive code] }
+			
+		</script>
+		
+	</body>
+</html>

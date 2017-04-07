@@ -3,7 +3,6 @@
 	/**
 	 * 工厂函数
 	 */
-	
 	function jQuery() {
 		return new jQuery.fn.init(); 
 	}

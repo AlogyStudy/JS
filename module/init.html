@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 测试用例：
+			 * 1. null, undefined, 0, '', false
+			 * 2. 选择器
+			 * 3. html片段
+			 * 4. 数组, 类数组
+			 * 5. 对象
+			 * 6. 其它基本数组类型
+			 */
+			
+//			console.log($(), '$()');
+//			console.log($(null), 'null');
+//			console.log($(undefined), 'undefined');
+//			console.log($(0), '0');
+//			console.log($(''), '""');
+//			console.log($(false), 'false');
+//			console.log($(['122', '122']), '[]');
+//			console.log($({}), '{}');
+//			console.log($(new Date()), 'date');
+//			console.log($(new RegExp()), 'regexp');
+//			console.log($(Math.PI), 'Math.PI');
+//			console.log($(123), '123');
+
+
+			// 入口函数参数处理：
+			// 1. 传入 null，undefined，0，NaN，''返回空对象空实例
+			// 2. 传入字符串，判断是HTML片段，还是其它.
+			//    HTML片段，创建对象的DOM，然后添加到实例身上
+			//    否则按照选择器获取页面中的DOM，然后把获取到的DOM添加实例身上
+			// 3. 如果是数组或许类数组，那么把每一项分别添加到实例身上
+			// 4. 除了上面的数据类型，剩余的，统一添加到实例身上
+			
+			
+			function init(selector) {
+				
+				if (!selector) { // null, undefined, 0, NaN, ''
+					return this;
+				}
+				
+				if (typeof selector === 'string') {
+					if () { // HTML片段  // <div></div>  /^<\/d*>$/gi 
+						// 创建 
+						// 1. 创建临时div容器
+						// 2. 设置这个div的innerHTML为html片段，这些片段就自动转变为div子元素
+						// 3. 然后遍历div的子元素分别添加到this身上 ，给实例对象添加length属性
+					} else { // 选择器
+						
+					}
+				}
+			}
+			
+			console.log(new init(null));
+			
+		</script>
+		
+	</body>
+</html>
