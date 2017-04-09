@@ -8,6 +8,12 @@
 		
 		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 		
+		
+		<a href="#">a</a>
+		<a href="#">a</a>
+		<a href="#">a</a>
+		<a href="#">a</a>
+		
 		<script type="text/javascript">
 			
 			/**
@@ -42,26 +48,169 @@
 			// 3. 如果是数组或许类数组，那么把每一项分别添加到实例身上
 			// 4. 除了上面的数据类型，剩余的，统一添加到实例身上
 			
-			
 			function init(selector) {
 				
+				// false
 				if (!selector) { // null, undefined, 0, NaN, ''
-					return this;
+					// 返回当前对象
+					return this;  
 				}
 				
+				// string
 				if (typeof selector === 'string') {
-					if () { // HTML片段  // <div></div>  /^<\/d*>$/gi 
+					selector = init.trim(selector);
+					if (init.isHTML(selector)) { // HTML片段  // <div></div>  /^<\/d*>$/gi 
 						// 创建 
 						// 1. 创建临时div容器
 						// 2. 设置这个div的innerHTML为html片段，这些片段就自动转变为div子元素
 						// 3. 然后遍历div的子元素分别添加到this身上 ，给实例对象添加length属性
+						//    可以使用数组的push来给实例添加，同时可以使用apply简化遍历过程。
+						var tempDiv = document.createElement('div');
+						tempDiv.innerHTML = selector;
+						[].push.apply(this, tempDiv.childNodes); // 借用数组的push方法给obj按照下标的方式添加属性值，并且自动维护length属性
+						return this;
 					} else { // 选择器
-						
+						// 思路
+						// 1. 使用 querySelectorAll获取页面中的元素
+						// 2. 遍历获取到所有元素分别添加this，给实例对象添加length属性
+						//   可以使用数据的push来给实例添加，同时可以使用apply简化遍历过程.
+						try {
+							var nodes = document.querySelectorAll(selector);
+							[].push.apply(this, nodes);
+							return this;
+						} catch (e) {
+							this.length = 0;
+							return this;
+						}
 					}
+				}
+				
+				// array, 类数组
+				// 1. 先把函数和window排除掉
+				//    window的length属性代表页面中iframe的个数  
+				//    window对有一个特点，就是window有一个window属性指向自己  // window.window == window;  
+				//    如果一个数据的window属性是本身，那么这个对象就是window
+				// 2. 数组 （toString()） 
+				    // 把每一项添加到实例身上
+				// 3. 类数组
+						// 类数组特点：
+						// ①. 必须要有length属性
+						// ②. 如果length属性为0，则当前对象有没有任何元素无所谓
+						// ③. 如果length属性不为0，则当前对象一定有length-1为下标key值 (有稀数组，有些单元是空值，没法看到，但是一定有lenght-1下标的对应单元的值)
+						//  var arr = [2, , , 3]; // 稀疏数组，中间有一些缺失。
+						// 类数组： var obj = {length: 0};  var obj = {length: 3, 2: function() {}};  var obj = {length: 2, 0: 'xixi', 1: false};
+						// 非类数组：var obj = {length: 10, 0: true, 1: false, 2: 'a', 4: 't'}; // length属性值为10，但是对象的所有key中没有对应的9。
+				else if (init.isLikeArray(selector)) {
+					// 数组或类数组添加到实例对象中，补充length属性
+					//   可以使用数据的push来给实例添加，同时可以使用apply简化遍历过程.
+					[].push.apply(this, selector);
+					return this;
+				}
+				
+				// other 
+				// 把参数直接添加到实例身上，length为1即可
+				else {
+					[].push.call(this, selector);
+//					this.length = 1;
+					return this;
+				}
+				
+			}
+			
+			
+			/**
+			 * 判断是否是html片段
+			 * @param {Object} html str
+			 * @return {Boolean} 
+			 */
+			init.isHTML = function (html) {
+				if (!html) return;
+				if (html.charAt(0) == '<' && html.charAt(html.length-1) == '>' && html.length >= 3) {
+					return true;
+				}
+				return;
+			}
+			
+			/**
+			 * 判断是否是函数
+			 * @param {Object} fn 
+			 * @return {Boolean}
+			 */
+			init.isFunction = function (fn) {
+				if (typeof fn == 'function') return true;
+				return false;
+			}
+			
+			/**
+			 * 判断是否是window对象
+			 * @param {Object} win
+			 * @return {Boolean}
+			 */
+			init.isWindow = function (win) {
+				if (win.window == win) return true;
+				return false;
+			}
+			
+			/**
+			 * 去除前后端空格
+			 * @param {Object} str
+			 */
+			init.trim = function (str) {
+				var reg = /^\s+|\s+$/g;
+				if (typeof str !== 'string') return str;
+				
+				if (str.trim) { // typeof String.prototype.trim === 'function'
+					return str.trim();
+				} else {
+					return str.replace(reg, '');
 				}
 			}
 			
-			console.log(new init(null));
+			
+			/**
+			 * 判断 数组 或者 类数组
+			 * @param {Object} arr
+			 * @return {Mixin}
+			 */
+			init.isLikeArray = function(arr) {
+				// 过滤函数和window , 非对象的数组
+				if (init.isFunction(arr) || init.isWindow(arr) || typeof arr !== 'object') {
+					return false;
+				}
+				
+				// 数组
+				if (({}).toString.call(arr).slice(8, 13) == 'Array') {
+					return true;
+				}
+				
+				// 类数组
+				if (('length' in arr) && (arr['length'] === 0 || (arr['length'] > 0 && arr['length']-1 in arr))) { // arr[length] === 0 使用全等， 如果 arr[length] = false, 则false==0是true
+					return true;
+				}
+				return false;
+			}
+			
+//			console.log(new init('<span>123</span><p>12311</p>'));
+//			var t = new init('<ul><li>123123</li></ul>');
+//			console.log(t);
+//			document.body.appendChild(t[0]);
+
+//			var $a = new init('   <span></span>');
+//			console.log($a);
+
+//			console.log(init.isLikeArray([1, 2]));
+//			console.log(init.isLikeArray([1, '', 2]));
+//			console.log(init.isLikeArray(function() {}));
+//			console.log(init.isLikeArray(window));
+//			console.log(init.isLikeArray('aa'));
+//			
+//			console.log(init.isLikeArray({length: 0}));
+//			console.log(init.isLikeArray({length: 3, 1: 'xixi', 2: 'pink'}));
+//			
+//			console.log(init.isLikeArray({length: 3, 1: 'xixi'}));
+//			console.log(init.isLikeArray({1: 'xixi'}));
+//			console.log(init.isLikeArray({length: 2}));
+			
 			
 		</script>
 		
