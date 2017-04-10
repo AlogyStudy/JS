@@ -3,24 +3,136 @@
 	/**
 	 * 工厂函数
 	 */
-	function jQuery() {
-		return new jQuery.fn.init(); 
+	function jQuery(selector) {
+		return new jQuery.fn.init(selector); 
 	}
 	
-	// 挂载原型
+	// 挂载原型   // 替换原型 + 原型简称
 	jQuery.fn = jQuery.prototype = {
-		
+		constructor: jQuery
 	}
 	
 	/**
 	 * 构造函数
 	 */
-	var init = jQuery.fn.init = function() {
+	var init = jQuery.fn.init = function(selector) {
+		// false
+		if (!selector) {
+			return this;
+		}
 		
+		// string
+		if (typeof selector === 'string') {
+			selector = init.trim(selector);
+			if (init.isHTML(selector)) {
+			// html fragment
+				var oDiv = document.createElement('div'); // 临时div创建dom，把创建好的dom依次push给实例.
+				oDiv.innerHTML = selector;
+				[].push.apply(this, oDiv.childNodes);
+				return this;
+			} else {
+			// selector
+				try {
+					var nodes = document.querySelectorAll(selector);
+					[].push.apply(this, nodes);
+					return this;
+				} catch(e) {
+					this.length = 0;
+					return this;
+				}
+			}
+		} else if (init.isLikeArray(arr)) {
+		// array 类数组
+			[].push.apply(this, arr);
+			return this;
+		} else {
+		// other
+			// this[0] = selector;	
+			// this.length = 1;
+			[].push.call(this, selector);
+			return this;
+		}
 	}
 	
-	// 扩展对象
+	// 扩展对象  // 替换构造函数的原型为工厂的原型，作用：外界可以通过工厂给实例添加扩展方法.
 	init.prototype = jQuery.fn;
+	
+	/**
+	 * 判断是否是html片段
+	 * @param {Object} html
+	 * @return {Boolean}
+	 */
+	init.isHTML = function (html) {
+		if (!html) return;
+		if (html.length >= 3 && html.charAt(0) === '<' && html.charAt(html.length-1) === '>') {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断是否是函数
+	 * @param {Object} fn
+	 * @return {Boolean}
+	 */
+	init.isFunction = function(fn) {
+		return !!fn && typeof fn === 'function' ? true : false;
+	}
+	
+	/**
+	 * 判断是否是window对象
+	 * @param {Object} win
+	 * @return {Boolean}
+	 */
+	init.isWindow = function(win) {
+		return !!win && win.window == win ? true : false;
+	}
+	
+	/**
+	 * 判断是否是对象
+	 * @param {Object} obj
+	 */
+	init.isObject = function(obj) {
+		if (obj === null) return false; // typeof null 为 Object
+		if (typeof obj === 'object' || typeof obj === 'function') {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 去除前后端空格  
+	 * @param {Object} str
+	 */
+	init.trim = function (str) {
+		var reg = /&\s+|\s+$/g;
+		if (!str) return str;
+		if (str.trim) {
+			return str.trim();	
+		}
+		return str.replace(reg, '');
+	}
+	
+	/**
+	 * 判断是否是 数组 或类数组
+	 * @param {Object} arr
+	 * @return {Boolean}
+	 */
+	init.isLikeArray = function(arr) {
+		// 函数，window，非数组
+		if (init.isFunction(arr) || init.isWindow(arr) || !init.isObject(arr)) {
+			return false;
+		}
+		// 数组
+		if (({}).toString.call().slice(8, 13) == 'Array') {
+			return true;
+		}
+		// 类数组
+		if ('length' in arr && (arr['length'] == 0 || arr['length'] > 0 && arr['length']-1 in arr)) {
+			return true;
+		}
+		return false;
+	}
 	
 	// 暴露函数
 	w.jQuery = w.$ = jQuery;
