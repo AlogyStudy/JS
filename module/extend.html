@@ -11,7 +11,6 @@
 			function jQuery() {
 				
 			}
-			
 			// 传入obj，  谁调用，传给谁.
 			jQuery.extend = jQuery.prototype.extend = function(obj) {
 				if (!obj || ({}).toString.call(obj) !== '[object Object]') return this;
@@ -19,8 +18,6 @@
 					this[key] = obj[key];
 				}
 			}
-			
-			
 			jQuery.extend({
 				/**
 				 * 判断是否是函数
@@ -31,16 +28,13 @@
 					return !!fn && typeof fn === 'function' ? true : false; 
 				}
 			});
-			
 			jQuery.prototype.extend({
 				aa: function(a) {
 					alert(a);
 				}
 			});
-			
 			console.log(jQuery.isFunction([]));
 			console.log((new jQuery).aa('xixi'));
-			
 		</script>
 		
 		
