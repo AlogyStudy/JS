@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * apply方法可以改变this指向，同时可以给类数组平铺传给函数，
+			 * 但是IE8中apply只能平铺真数组或者内置类数组，自定义类数组会报错。
+			 * // IE8中把类数组转换成真数组，才能借用apply.
+			 * // 借用数组的slice方法，通过一个类数组得到一个真数组.
+			 */
+			
+			var obj = {0: 'acbd', 1: 'aa', length: 2};
+			var o = {};
+			console.log([].slice.call(obj));
+			[].push.apply(o, [].slice.call(obj));
+			console.log(o);
+			
+		</script>
+		
+	</body>
+</html>

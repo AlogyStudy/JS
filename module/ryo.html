@@ -11,8 +11,24 @@
 		<script type="text/javascript">
 			
 			console.log($().init('<div></div>'));
+			$(function() {
+				var oDiv = document.querySelector('div');
+				console.log(oDiv);
+				
+				var t = $('div').each(function(idx, val) {
+					console.log(idx, val);
+				}).last();
+				console.log(t);
+			});
 			
 		</script>
+		
+		
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		
 		
 	</body>
 </html>
