@@ -11,8 +11,8 @@
 			// each
 			function each(obj, callback) {
 				// 1. obj是不是数组，或者类数组
-				// 2. 数组：for遍历
-				// 3. 类数组：for-遍历
+				// 2. 数组，类数组：for遍历
+				// 3. 对象：for-遍历
 				// 4. 在遍历的过程中，把每一次遍历到key和val分别传给回调函数的参数。
 				if (obj.length > 0 && 'length' in obj) {
 					for (var i=0; i<obj; i++) {

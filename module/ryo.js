@@ -38,8 +38,12 @@
 			return jQuery.each(this, fn);
 		},
 		
-		map: function (){
-				
+		/**
+		 * 遍历实例，把遍历到的数据分别传给回调使用，然后把回调的返回值收集起来组成一个数组返回。
+		 * @param {Object} fn
+		 */
+		map: function (fn){
+			return jQuery.map(this, fn);
 		},
 		
 		/**
@@ -248,6 +252,29 @@
 			}
 			return obj;
 		},
+		
+		/**
+		 * 遍历实例，把遍历到的数据分别传给回调使用，然后把回调的返回值收集起来组成一个数组返回。
+		 * @param {Object} obj
+		 * @param {Object} callback
+		 * @return {Array}
+		 */
+		map: function(obj, callback) {
+			var i, length, tmpArr = [];
+			
+			if (jQuery.isLikeArray(obj)) {
+				length = obj.length;
+				for (i=0, i<length; i++) {
+					tmpArr.push(callback.call(obj[i], i, obj[i]));
+				}
+			} else {
+				for (i in obj) {
+					tmpArr.push(callback.call(obj[i], i, obj[i]));
+				}
+			}
+			
+			return tmpArr;
+		}
 		
 	});
 	

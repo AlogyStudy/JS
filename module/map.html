@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * JQ的map方法，用来遍历对象或者数组，把遍历到的val和key传给回调参数，
+			 * 最后收集回调的返回值，构成新数组返回。
+			 */
+			
+			function map(obj, callback) {
+				/**
+				 * 1. 判断是否是数组或类数组
+				 * 2. 数组，类数组：通过for循环遍历
+				 * 3. 对象：通过 for-in遍历
+				 * 4. 回调返回值，push到临时数组，返回。
+				 */
+				var tmp = [];
+				if (obj.length > 0 && 'length' in obj) {
+					for (var i=0; i<obj.length; i++) {
+						tmp.push(callback.call(obj[i], i, obj[i]))
+					}
+				} else {
+					for (var i in obj) {
+						tmp.push(callback.call(obj[i], i, obj,[i]));
+					}
+				}
+				return tmp;
+			}
+							
+		</script>
+		
+	</body>
+</html>
