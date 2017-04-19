@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			function Person() {
+				
+			}
+			
+			/**
+			 * extend
+			 * 
+			 * 预期，谁调用exnted，就给谁混入内容.
+			 * 那么就和this相关 
+			 */
+			
+			
+			/**
+			 * 静态方法
+			 */
+			Person.extend = function(obj) {
+				console.log(this);
+			}
+			
+			/**
+			 * 原型方法
+			 */
+			Person.prototype.extend = function(obj) {
+				console.log(this,'---');
+			}
+			
+			Person.extend();
+			
+			var p = new Person();
+			
+			p.extend();
+			
+			
+		</script>
+		
+	</body>
+</html>
