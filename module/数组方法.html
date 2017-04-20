@@ -6,6 +6,9 @@
 	</head>
 	<body>
 		
+		<div></div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		
 		<script type="text/javascript">
 			
 			/**
@@ -16,13 +19,13 @@
 			 * 1. 因为JQ处理了.
 			 * 2. 处理的好处是可以链式编程
 			 */
-
+				
 
 
 			/**
 			 * push 没有做处理：
 			 * 
-			 * push 没有返回数组，返回的新数组的长度。JQ可能为了不增加负担，所以沿用了原生push，没有进过JQ处理。
+			 * push 没有返回数组，返回的新数组的长度。JQ可能为了不增加负担，所以沿用了原生push，没有经过JQ处理。
 			 */
 			
 			/**
@@ -31,7 +34,7 @@
 			 * sort 谁调用返回谁，如果是实例调用，那么返回的还是这个实例。
 			 * 本身就不用做额外的处理，所以沿用了sort的返回值。
 			 */
-			
+
 			/**
 			 * splice() 没有做处理：
 			 * 
