@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/**
+			 * 清空所有元素
+			 * @param {Object} likeArray
+			 */
+			function empty(likeArray) {
+				/**
+				 * 思路：
+				 * 1. 遍历likeArray（可以考虑使用for变量，也可以考虑使用each）
+				 * 2. 遍历到的每一项元素清除其内容（元素.innerHTML = ''）
+				 */
+				var len = likeArray.length;
+				[].forEach.call(likeArray, function(val, idx) {
+					val.innerHTML = '';
+				});
+			}
+			
+			
+			/**
+			 * 删除所有元素
+			 * @param {Object} likeArray
+			 */
+			function remove(likeArray) {
+				/**
+				 * 思路：
+				 * 1. 遍历likeArray
+				 * 2. 遍历到的每一项元素要删除掉（通过parentNode获取该元素的父元素，然后父元素.removeChild(删除的元素)） 
+				 */
+				
+			}
+			
+			
+			/**
+			 *  设置和获取
+			 */
+			function html() {
+				/**
+				 * 思想：
+				 * 1. 通过arguments.length 判断是否传入参数
+				 * 2. 没有参数，获取第一个参数，返回当前元素的innerHTML
+				 * 3. 传入参数，遍历listArray（for 和 each）
+				 * 4. 再设置每一个元素的innerHTML为传入的参数。
+				 */
+			}
+			
+			
+			/**
+			 * 设置和获取
+			 */
+			function text() {
+				/**
+				 * 思想：
+				 * 1. 通过arguments.length 判断是否传入参数
+				 * 2. 没有参数，获取第一个参数，返回当前元素的innerText
+				 * 3. 传入参数，遍历listArray（for 和 each）
+				 * 4. 再设置每一个元素的innerText为传入的参数。
+				 */
+				 				
+			}
+			
+		</script>
+		
+		
+		
+		
+	</body>
+</html>
