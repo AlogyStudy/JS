@@ -35,14 +35,23 @@
 				 * 1. 遍历likeArray
 				 * 2. 遍历到的每一项元素要删除掉（通过parentNode获取该元素的父元素，然后父元素.removeChild(删除的元素)） 
 				 */
-				
+				var len = likeArray.length;
+				for (var i=0; i<len; ++i) {
+					likeArray[i].parentNode.removeChild(likeArray[i]);		
+				}
+			}
+			
+			function _remove(likeArray) {
+				[].forEach.call(likeArray, function(val, idx) {
+					val.parentNode.removeChild(val);		
+				});
 			}
 			
 			
 			/**
 			 *  设置和获取
 			 */
-			function html() {
+			function html(likeArray, html) {
 				/**
 				 * 思想：
 				 * 1. 通过arguments.length 判断是否传入参数
@@ -50,21 +59,42 @@
 				 * 3. 传入参数，遍历listArray（for 和 each）
 				 * 4. 再设置每一个元素的innerHTML为传入的参数。
 				 */
+				var argLen = arguments.length;
+				if (argLen === 1) {
+					return likeArray[0].innerHTML; 
+				} else if (argLen >= 2) {
+					for (var i=0; i<likeArray.length; ++i) {
+						likeArray[i].innerHTML = html;
+					}
+				}
 			}
 			
 			
 			/**
 			 * 设置和获取
 			 */
-			function text() {
+			function text(likeArray, txt) {
 				/**
 				 * 思想：
 				 * 1. 通过arguments.length 判断是否传入参数
-				 * 2. 没有参数，获取第一个参数，返回当前元素的innerText
+				 * 2. 没有参数，获取所有元素，返回当前元素的innerText
 				 * 3. 传入参数，遍历listArray（for 和 each）
 				 * 4. 再设置每一个元素的innerText为传入的参数。
 				 */
-				 				
+				var argLen = arguments.length, arrLen = likeArray.length, result;
+				// 获取所有的文本
+				if (argLen === 0) {
+					for (var i=0; i<arrLen; ++i) {
+						result += likeArray[i];
+					}
+					return result;
+				}
+				// 设置文本
+				if (argLen >= 2) {
+					for (var i=0; i<arrLen;  ++i) {
+						linkArray[i].innerText = txt;
+					}
+				}
 			}
 			
 		</script>

@@ -264,7 +264,7 @@
 			
 			if (jQuery.isLikeArray(obj)) {
 				length = obj.length;
-				for (i=0, i<length; i++) {
+				for (i=0; i<length; i++) {
 					tmpArr.push(callback.call(obj[i], i, obj[i]));
 				}
 			} else {
@@ -327,6 +327,138 @@
 	
 	// 扩展对象  // 替换构造函数的原型为工厂的原型，作用：外界可以通过工厂给实例添加扩展方法.
 	init.prototype = jQuery.fn;
+	
+
+/***** 扩展DOM操作方法 *****/
+	
+	jQuery.fn.extend({
+		
+		/**
+		 * 清空所有内容
+//		 * @param { Object } likeArr
+		 * @return { * }
+		 */
+		empty: function(/*likeArr*/) {
+			var $this = this;
+//			var arrLen = likeArr.length;
+//			for (var i=0; i<arrLen; ++i) {
+//				likeArr[i].innerHTML = ''; // 清空内容
+//			}
+			
+//			[].forEach.call(likeArr, function(val, idx) {
+//				val[i].innerHTML = '';
+//			});
+
+			$this.each(function() {
+				this.innerHTML = '';
+			});
+			return $this;
+		},
+		
+		/***
+		 * 删除所有元素
+		 * @param { Object } likeArr
+		 * @return { * }
+		 */
+		remove: function(/*likeArr*/) {
+			var $this = this;
+			
+//			var arrlen = likeArr.length;
+//			for (var i=0; i<arrlen; ++i) {
+//				likeArr[i].parentNode.removeChild(likeArr[i]);
+//			}
+			
+//			[].forEach(likeArr, function (val, idx) {
+//				val.parentNode.removeChild(val);
+//			});
+
+			$this.each(function() {
+				this.parentNode.removeChild(this);
+			});
+			
+			return $this;
+		},
+		
+		/**
+		 * 设置和获取 html
+//		 * @param { Object } likeArr
+		 * @param { String } html
+		 * @return { * }
+		 */
+		html: function(/*likeArr,*/html) {
+			var $this = this, arrLen = $this.length, argLen = arguments.length;
+			if (argLen === 0) {
+				return $this[0].innerHTML;
+			} else if (argLen >= 1) {
+				for (var i=0; i<arrLen; ++i) {
+					$this[i].innerHTML = html;
+				}
+			}
+			return $this;
+		},
+		
+		
+		/**
+		 * 获取和设置 html
+		 * @param {Object} html
+		 */
+		_html: function(html) {
+			var $this = this;
+			if (arguments.length === 0) {
+				return $this.get(0).innerHTML;
+			} else if (arguments.length >= 1) {
+				$this.each(function() {
+					this.innerHTML = html;
+				});
+			}
+			return $this;
+		},
+		
+		/**
+		 * 设置和获取 文本
+		 * @param { Object } likeArr
+		 * @param { String } txt
+		 * @return { * }
+		 */
+		text: function(/*likeArr,*/ txt) {
+			var $this = this, arrLen = $this.length, argLen = arguments.length, result = '';
+			if (argLen === 0) {
+				// 返回全部的文本
+				for (var i=0; i<arrLen; ++i) {
+					result += $this[i].innerText;
+				}
+				return result;
+			} else if (argLen >= 1) {
+				// 设置文本
+				for (var i=0; i<arrLen; i++) {
+					$this[i].innerText = txt;
+				}
+			}
+			return $this;
+		},
+		
+		/**
+		 * 设置和获取文本
+		 * @param { String } txt
+		 */
+		_text: function(txt) {
+			var $this = this, arrLen = $this.length, argLen = arguments.length, result;
+			if (argLen === 0) {
+				$this.each(function() {
+					result += $this.innerText;
+				});
+			} else if (argLen >= 1) {
+				$this.each(function() {
+					$this.innerText = txt;
+				});
+			}
+			return $this;
+		}
+		
+	});
+	
+/***** end 扩展DOM操作方法 *****/
+
 	
 	// 暴露函数
 	w.jQuery = w.$ = jQuery;
