@@ -453,6 +453,52 @@
 				});
 			}
 			return $this;
+		},
+		
+		
+		/**
+		 * 把所有的元素添加到指定的元素中 
+		 * @param { Object } ele
+		 */
+		appendTo: function(selector) {
+			/**
+			 * 参数1. 选择器
+			 * 参数2. DOM
+			 * 参数3. JQ对象
+			 * 
+			 * 返回值：
+			 * 统一为所有被添加的元素组成的新实例.
+			 */
+
+			/**
+			 * 
+			 * 实现思路：
+			 * 1. 定义一个数组，用来存储将来所有被添加的元素。
+			 * 2. 使用jQuery包装一下selector，把不同参数统一为JQ实例。
+			 * 3. 在外层遍历所有的元素(this)
+			 * 4. 在内层遍历所有的目标(包装过后的JQ实例)
+			 * 5. 在内层判断，如果是第一次，则把外面遍历元素整体添加到内层遍历到的元素。
+			 *    如果不是第一次，则把外面遍历的元素clone版本添加到内层遍历的元素。
+			 * 6. 最后把存储被添加元素的数组使用JQ包装一下，然后返回。
+			 */
+			
+			var reslut = []; // 存储被添加的元素
+			var $selector = $(selector); // 包装不同参数
+			
+			
+			// 遍历每一项元素(this)
+			for (var i=0, len=this.length; i<len; i++) {
+				// 遍历每一个目的地($selector)
+				for (var j=0, jLen=$selecot.length; j<jLen; j++) {
+					// 如果是第一次
+					if (j === 0) {
+						$selector[j].appendChild(this[i]);
+					} else {
+						
+					}
+				}
+			}
+			
 		}
 		
 	});
