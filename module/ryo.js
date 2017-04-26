@@ -460,15 +460,15 @@
 		 * 把所有的元素添加到指定的元素中 
 		 * @param { Object } ele
 		 */
+		 /**
+		  * 参数1. 选择器
+		  * 参数2. DOM
+		  * 参数3. JQ对象
+		  * 
+		  * 返回值：
+		  * 统一为所有被添加的元素组成的新实例.
+		  */
 		appendTo: function(selector) {
-			/**
-			 * 参数1. 选择器
-			 * 参数2. DOM
-			 * 参数3. JQ对象
-			 * 
-			 * 返回值：
-			 * 统一为所有被添加的元素组成的新实例.
-			 */
 
 			/**
 			 * 
@@ -482,23 +482,30 @@
 			 * 6. 最后把存储被添加元素的数组使用JQ包装一下，然后返回。
 			 */
 			
-			var reslut = []; // 存储被添加的元素
+			var result = [], tempNode = null; // 存储被添加的元素
 			var $selector = $(selector); // 包装不同参数
-			
 			
 			// 遍历每一项元素(this)
 			for (var i=0, len=this.length; i<len; i++) {
 				// 遍历每一个目的地($selector)
-				for (var j=0, jLen=$selecot.length; j<jLen; j++) {
+				for (var j=0, jLen=$selector.length; j<jLen; j++) {
 					// 如果是第一次
 					if (j === 0) {
-						$selector[j].appendChild(this[i]);
+						tempNode = this[i];
+						$selector[j].appendChild(tempNode);
+						// append 对象，就是存储到result数组中，最后包装成JQ对象返回。
+						result.push(tempNode);
 					} else {
-						
+						tempNode = this[i].cloneNode(true);
+						$selector[j].appendChild(tempNode);
+						// append 对象，就是存储到result数组中，最后包装成JQ对象返回。
+						result.push(tempNode);
 					}
 				}
 			}
 			
+			// 把所有被添加的元素保证成新的实例返回，这样可以对所有被添加的元素，进行链式编程。
+			return jQuery(result);
 		}
 		
 	});
