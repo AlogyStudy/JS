@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			
+			var o1 = {
+				// 对返回值不敏感，没有需求返回其它东西，可以return一个对象，实现链式编程。
+				fn: function() {
+					console.log('o1');
+					return o2;
+				}
+			}
+			
+			var o2 = {
+				fn: function() {
+					console.log('o2');
+					return o2;
+				},
+				o2Fn: function(a, b) {
+					return a + b;
+				},
+				// 返回一些DOM，可以考虑使用JQ对象包装返回，对用户体验更加友好。
+				getDom: function getDom(selector) {
+					return $(document.querySelector(selector));
+				}
+			}
+			
+			o1.fn().fn().fn().o2Fn(10, 20);
+			
+			// 功能性的需要优先返回。
+			
+			
+		</script>
+		
+	</body>
+</html>

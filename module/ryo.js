@@ -484,9 +484,24 @@
 			
 			var result = [], tempNode = null; // 存储被添加的元素
 			var $selector = $(selector); // 包装不同参数
+
+			this.each(function() {
+				// this 指向每一个被添加的元素
+				var _this = this;
+				$selector.each(function(i) {
+					// this指向每一个目的地
+					// 作用 当前作用域下，添加外层的this。
+					
+					// 第一次
+					tempNode = i === 0 ? self : self.cloneNode(true);
+					this.appendChild(tempNode);
+					result.push(tempNode);
+				});
+				
+			});
 			
 			// 遍历每一项元素(this)
-			for (var i=0, len=this.length; i<len; i++) {
+/*			for (var i=0, len=this.length; i<len; i++) {
 				// 遍历每一个目的地($selector)
 				for (var j=0, jLen=$selector.length; j<jLen; j++) {
 					// 如果是第一次
@@ -496,6 +511,7 @@
 						// append 对象，就是存储到result数组中，最后包装成JQ对象返回。
 						result.push(tempNode);
 					} else {
+					// 剩余添加的都是clone版本	
 						tempNode = this[i].cloneNode(true);
 						$selector[j].appendChild(tempNode);
 						// append 对象，就是存储到result数组中，最后包装成JQ对象返回。
@@ -503,7 +519,7 @@
 					}
 				}
 			}
-			
+*/			
 			// 把所有被添加的元素保证成新的实例返回，这样可以对所有被添加的元素，进行链式编程。
 			return jQuery(result);
 		}
