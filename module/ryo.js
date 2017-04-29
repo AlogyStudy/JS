@@ -524,8 +524,11 @@
 			return jQuery(result);
 		},
 		
-		// 把所有元素添加到指定到元素的最前面
-		preendTo: function() {
+		/**
+		 *  把所有元素添加到指定到元素的最前面
+		 * @param {Object} selector
+		 */
+		preendTo: function(selector) {
 
 			/**
 			 * 
@@ -534,12 +537,40 @@
 			 * 2. 使用jQuery包装一下selector，把不同参数统一为JQ实例。
 			 * 3. 在外层遍历所有的元素(this)
 			 * 4. 在内层遍历所有的目标(包装过后的JQ实例)
-			 * 5. 在内层判断，如果是第一次，则把外面遍历元素整体添加到内层遍历到的元素。
-			 *    如果不是第一次，则把外面遍历的元素clone版本添加到内层遍历的元素。
+			 * 5. 在内层判断，如果是第一次，则把外面遍历元素整体添加到内层遍历到的元素的最前面。
+			 *    如果不是第一次，则把外面遍历的元素clone版本添加到内层遍历的元素的最前面。
 			 * 6. 最后把存储被添加元素的数组使用JQ包装一下，然后返回。
 			 */
+			var reslut = [], tempNode = null;
+			$selector = jQuery(selector);
 			
-
+/*			// this
+			for (var i=0; i<this.length; i++) {
+				// selector
+				for (var j=0; j<$selector.length; j++) {
+					// 先得到被添加的元素
+					tempNode = j === 0 ? this[i] : this[i].cloneNode(true);
+					
+					// 添加到指定元素的最前面
+					$selector[j].insertBefore(tempNode, $selector[j].firstChild);
+					
+					// 把被添加的元素存储起来
+					reslut.push(tempNode);
+				}
+			}
+			
+*/
+			this.each(function() {
+				var self = this;
+				
+				$selector.each(function(i) {
+					tempNode = i === 0 ?  self : self.cloneNode(true);
+					this.insertBefore(tempNode, this.firstChild);
+					reslut.push(tempNode);					
+				});
+				
+			});
+			return jQuery(reslut);	
 		}
 		
 	});

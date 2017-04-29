@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<a href="">123123</a>
+		
+		<div>
+			<span>span1</span>
+		</div>
+		<div>
+			<span>span2</span>
+		</div>
+		
+		
+		<script type="text/javascript">
+			
+			// insertBefore
+			
+			// 把A元素分别添加到两个DIV元素的最前面
+			
+			/**
+			 * 1. 获取a元素和所有的div元素
+			 * 2. 遍历所有的div元素，然后通过 insertBefore(被添加， 那个元素的前方) 
+			 * 	insertBefore(a元素，第一个span元素前方);
+			 *  insertBefore(a, div.firstChild);
+			 * 
+			 * 3.  第一次添加本体，以后添加clone版本.
+			 */
+			
+			var a = document.querySelector('a');
+			var oDiv = document.querySelectorAll('div');
+			var tempNode = null;
+			
+			for (var i=0; i<oDiv.length; i++) {
+				
+				tempNode = i === 0 ? a : a.cloneNode(true);
+				
+				oDiv[i].insertBefore(tempNode, oDiv[i].firstChild);
+				
+//				if (i === 0) {
+//					oDiv[i].insertBefore(a, oDiv[i].firstChild);
+//				} else {
+//					oDiv[i].insertBefore(a.cloneNode(true), oDiv[i].firstChild)
+//				}
+			}
+			
+		</script>
+		
+	</body>
+</html>
