@@ -528,7 +528,7 @@
 		 *  把所有元素添加到指定到元素的最前面
 		 * @param {Object} selector
 		 */
-		preendTo: function(selector) {
+		prependTo: function(selector) {
 
 			/**
 			 * 
@@ -566,7 +566,7 @@
 				$selector.each(function(i) {
 					tempNode = i === 0 ?  self : self.cloneNode(true);
 					this.insertBefore(tempNode, this.firstChild);
-					reslut.push(tempNode);					
+					reslut.push(tempNode);
 				});
 				
 			});

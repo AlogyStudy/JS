@@ -29,11 +29,14 @@
 		<div>3</div>
 		<div>4</div>
 		
+		<a href="">asdf</a>
+		
 		<script type="text/javascript">
 			
 //			$('div').empty().html('asdf');
+			var a = document.querySelector('a');
 			
-			$('div').appendTo('span').html('asdf');
+			$('div').prependTo(a).html('asdf');
 			
 		</script>
 		
