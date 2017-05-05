@@ -559,7 +559,8 @@
 				}
 			}
 			
-*/
+*/			
+			// this 指向实例，（实例存储了所有被添加元素的实体）
 			this.each(function() {
 				var self = this;
 				
@@ -570,7 +571,17 @@
 				});
 				
 			});
+			// 链式编程
 			return jQuery(reslut);	
+		},
+		
+		
+		/**
+		 * 
+		 * @param {Object} selector
+		 */
+		append: function(selector) {
+			
 		}
 		
 	});
