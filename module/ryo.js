@@ -529,7 +529,7 @@
 		 * @param {Object} selector
 		 */
 		prependTo: function(selector) {
-
+debugger;
 			/**
 			 * 
 			 * 实现思路：
@@ -544,7 +544,7 @@
 			var reslut = [], tempNode = null;
 			$selector = jQuery(selector);
 			
-/*			// this
+			// this
 			for (var i=0; i<this.length; i++) {
 				// selector
 				for (var j=0; j<$selector.length; j++) {
@@ -552,36 +552,90 @@
 					tempNode = j === 0 ? this[i] : this[i].cloneNode(true);
 					
 					// 添加到指定元素的最前面
-					$selector[j].insertBefore(tempNode, $selector[j].firstChild);
+					$selector[j] || $selector[j].insertBefore(tempNode, $selector[j].firstChild);
 					
 					// 把被添加的元素存储起来
 					reslut.push(tempNode);
 				}
 			}
 			
-*/			
+			
 			// this 指向实例，（实例存储了所有被添加元素的实体）
-			this.each(function() {
+			/*this.each(function() {
 				var self = this;
 				
 				$selector.each(function(i) {
 					tempNode = i === 0 ?  self : self.cloneNode(true);
-					this.insertBefore(tempNode, this.firstChild);
+					this || this.insertBefore(tempNode, this.firstChild);
 					reslut.push(tempNode);
 				});
 				
-			});
+			});*/
 			// 链式编程
 			return jQuery(reslut);	
 		},
 		
 		
 		/**
-		 * 
-		 * @param {Object} selector
+		 * 给所有元素添加html内容，或者其它元素
+		 * @param {Object} context
 		 */
-		append: function(selector) {
+		append: function(context) {
+			/**
+			 * 实现思路
+			 * 1. 判断context是不是字符串
+			 * 2. 如果是，则把这个字符串累加给所有的元素
+			 * 3. 如果不是，先把context包装成JQ对象统一处理
+			 * 4. 双重for循环，判断
+			 * 5. 添加元素
+			 * 6. 返回this对象
+			 */
 			
+			var $context = $(context);
+
+			if(jQuery.isString(context)) {
+				for(var i=0; i<this.length; i++) {
+					this[i].innerHTML += context;
+				}
+			} else {
+				// 把context包装成JQ对象统一处理， 把$context加入到this中.
+				$context.appendTo(this);
+			}
+			return this;
+		},
+
+		/**
+		 * 给所有元素的最前面添加html内容，或者其它元素。
+		 * @param  {[type]} context [description]
+		 * @return {[type]}         [description]
+		 */
+		prepend: function(context) {
+			/**
+			 * 实现思路
+			 * 1. 判断context是不是字符串
+			 * 2. 如果是，则把这个字符串累加给所有的元素
+			 * 3. 如果不是，先把context包装成JQ对象统一处理
+			 * 4. 双重for循环，判断
+			 * 5. 添加元素
+			 * 6. 返回this对象
+			 */
+			var $context = jQuery(context);
+			if (jQuery.isString(context)) {
+				// this指代调用者（即存储N多元素的实例）
+				this.each(function() {
+					// this 指代 遍历到每一个元素
+					this.innerHTML = context + this.innerHTML;
+				});
+
+				// for (var i=0; i<this.length; i++) {
+				// 	this[i].innerHTML = context + this[i].innerHTML;
+				// }
+			} else {
+				// 把$context的每一项添加到this每一项的最前面
+				$context.prependTo(context);
+			}
+
+			return this;
 		}
 		
 	});
