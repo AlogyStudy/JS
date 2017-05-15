@@ -529,7 +529,7 @@
 		 * @param {Object} selector
 		 */
 		prependTo: function(selector) {
-debugger;
+
 			/**
 			 * 
 			 * 实现思路：
@@ -587,7 +587,7 @@ debugger;
 			 * 2. 如果是，则把这个字符串累加给所有的元素
 			 * 3. 如果不是，先把context包装成JQ对象统一处理
 			 * 4. 双重for循环，判断
-			 * 5. 添加元素
+			 * 5. 添加元素  // 4，5 完全可以复用。
 			 * 6. 返回this对象
 			 */
 			
@@ -636,6 +636,50 @@ debugger;
 			}
 
 			return this;
+		},
+
+		/**
+		 * 获取和设置属性节点
+		 * @param  {[type]} attr [description]
+		 * @param  {[type]} val  [description]
+		 * @return {[type]}      [description]
+		 */
+		attr: function(attr, val) {
+				/**
+				 * 实现思路
+				 * 1. 判断attr是不是字符串或者对象，不是直接return this
+				 * 2. 如果是字符串，那么继续判断arguments的length
+				 * 3. length为1，则获取第一个元素指定属性节点值返回
+				 * 4. length>2，则遍历所有元素，分别给他们设置新的属性节点值(setAttribute)
+				 * 5. 如果不是字符串（是对象），那么遍历这个对象，得到所有的属性节点值，然后遍历所有元素，把所有属性节点分别添加到这些元素中。
+				 * 6. return  this;
+				 */
+				// 不是字符串和对象
+				if (!jQuery.isString(attr) && !jQuery.isObject(attr)) {
+					return this;	
+				};
+
+				// 字符串
+				if (jQuery.isString(attr)) {
+					// length 1
+					if (arguments.length === 1) {
+						return this.get(0).getAttribute(attr);
+					} else {
+					// length>2			
+						for (var i=0; i<this.length; i++) {
+							this[i].setAttribute(attr, val);
+						}
+					}
+				} else {
+				// 对象
+					// 遍历对象
+					for (var key in attr) {
+						// 所有元素
+						for (var i=0; i<this.length; i++) {
+							this[i].setAttribute(attr, attr[key]);
+						}
+					}
+				}
 		}
 		
 	});
