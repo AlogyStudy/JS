@@ -680,6 +680,44 @@
 						}
 					}
 				}
+		},
+
+		/**
+		 * 获取和设置属性节点
+		 * @param  {[type]} attr [description]
+		 * @param  {[type]} val  [description]
+		 * @return {[type]}      [description]
+		 */
+		_attr: function(attr, val) {
+			/**
+			 * 实现思路：
+			 * 1. 判断arguments.length
+			 * 2. 如果为1，
+			 * 3. 继续判断attr是不是字符串，如果是获取第一个元素指定的属性节点值返回。
+			 * 4. 如果不是继续判断是不是对象，如果是遍历这个对象，得到所有的属性点值，然后遍历所有的元素，把所有的属性节点分别添加到这些元素中。
+			 * 5. 如果为多个（2及以上），遍历所有元素分别设置属性节点值
+			 * 6. return this
+			 */
+
+			 // argument 为1
+			 if (arguments.length === 1) {
+				 if (!jQuery.isString(attr) && !jQuery.isObject(attr)) return ;
+				 if (jQuery.isString(attr)) {
+					 return this.getAttribute(attr);
+				 } else if (jQuery.isObject(attr)) {
+					for (var key in attr) {
+						for (var i=0; i<this.length; i++) {
+							this[i].setAttribute(attr, attr[key]);
+						}
+					}
+				 }
+			 } else if (arguments.length >= 2) {
+			 // 参数为多个	 
+					for (var i=0; i<this.length; i++) {
+							this[i].setAttribute(attr, val);
+					}
+			 }
+			 return this;
 		}
 		
 	});
